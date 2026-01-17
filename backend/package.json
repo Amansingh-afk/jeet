@@ -1,0 +1,30 @@
+{
+  "name": "jeet-backend",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "migrate": "tsx scripts/migrate.ts",
+    "seed": "tsx scripts/seed-content.ts",
+    "generate-embeddings": "tsx scripts/generate-embeddings.ts"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.19.8",
+    "dotenv": "^17.2.3",
+    "hono": "^4.11.3",
+    "openai": "^6.16.0",
+    "pg": "^8.16.3",
+    "zod": "^4.3.5"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.6",
+    "@types/pg": "^8.16.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
+}
