@@ -1,0 +1,210 @@
+{
+  "id": "flow-chain-3",
+  "name": "Flow Chain (3 entities)",
+  "category": "flow",
+  "description": "A → B → C flow with labels on arrows. Use for successive transactions, chain processes.",
+
+  "params": [
+    {
+      "name": "entity_1",
+      "type": "text",
+      "element_id": "text_entity_1",
+      "default": "A"
+    },
+    {
+      "name": "entity_2",
+      "type": "text",
+      "element_id": "text_entity_2",
+      "default": "B"
+    },
+    {
+      "name": "entity_3",
+      "type": "text",
+      "element_id": "text_entity_3",
+      "default": "C"
+    },
+    {
+      "name": "arrow_1_label",
+      "type": "text",
+      "element_id": "text_arrow_1",
+      "default": ""
+    },
+    {
+      "name": "arrow_2_label",
+      "type": "text",
+      "element_id": "text_arrow_2",
+      "default": ""
+    },
+    {
+      "name": "value_1",
+      "type": "text",
+      "element_id": "text_value_1",
+      "default": ""
+    },
+    {
+      "name": "value_3",
+      "type": "text",
+      "element_id": "text_value_3",
+      "default": ""
+    }
+  ],
+
+  "base_elements": [
+    {
+      "type": "rectangle",
+      "id": "box_1",
+      "x": 50,
+      "y": 100,
+      "width": 70,
+      "height": 45,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "#a5d8ff",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "roughness": 1,
+      "roundness": { "type": 3 }
+    },
+    {
+      "type": "rectangle",
+      "id": "box_2",
+      "x": 200,
+      "y": 100,
+      "width": 70,
+      "height": 45,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "#b2f2bb",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "roughness": 1,
+      "roundness": { "type": 3 }
+    },
+    {
+      "type": "rectangle",
+      "id": "box_3",
+      "x": 350,
+      "y": 100,
+      "width": 70,
+      "height": 45,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "#ffec99",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "roughness": 1,
+      "roundness": { "type": 3 }
+    },
+    {
+      "type": "arrow",
+      "id": "arrow_1",
+      "x": 120,
+      "y": 122,
+      "width": 80,
+      "height": 0,
+      "strokeColor": "#1e1e1e",
+      "strokeWidth": 1,
+      "roughness": 1,
+      "points": [[0, 0], [80, 0]],
+      "startArrowhead": null,
+      "endArrowhead": "arrow"
+    },
+    {
+      "type": "arrow",
+      "id": "arrow_2",
+      "x": 270,
+      "y": 122,
+      "width": 80,
+      "height": 0,
+      "strokeColor": "#1e1e1e",
+      "strokeWidth": 1,
+      "roughness": 1,
+      "points": [[0, 0], [80, 0]],
+      "startArrowhead": null,
+      "endArrowhead": "arrow"
+    },
+    {
+      "type": "text",
+      "id": "text_entity_1",
+      "x": 75,
+      "y": 112,
+      "text": "A",
+      "fontSize": 20,
+      "fontFamily": 1,
+      "textAlign": "center",
+      "strokeColor": "#1e1e1e"
+    },
+    {
+      "type": "text",
+      "id": "text_entity_2",
+      "x": 225,
+      "y": 112,
+      "text": "B",
+      "fontSize": 20,
+      "fontFamily": 1,
+      "textAlign": "center",
+      "strokeColor": "#1e1e1e"
+    },
+    {
+      "type": "text",
+      "id": "text_entity_3",
+      "x": 375,
+      "y": 112,
+      "text": "C",
+      "fontSize": 20,
+      "fontFamily": 1,
+      "textAlign": "center",
+      "strokeColor": "#1e1e1e"
+    },
+    {
+      "type": "text",
+      "id": "text_arrow_1",
+      "x": 130,
+      "y": 85,
+      "text": "",
+      "fontSize": 14,
+      "fontFamily": 1,
+      "textAlign": "center",
+      "strokeColor": "#1971c2"
+    },
+    {
+      "type": "text",
+      "id": "text_arrow_2",
+      "x": 280,
+      "y": 85,
+      "text": "",
+      "fontSize": 14,
+      "fontFamily": 1,
+      "textAlign": "center",
+      "strokeColor": "#1971c2"
+    },
+    {
+      "type": "text",
+      "id": "text_value_1",
+      "x": 55,
+      "y": 155,
+      "text": "",
+      "fontSize": 14,
+      "fontFamily": 1,
+      "textAlign": "center",
+      "strokeColor": "#e03131"
+    },
+    {
+      "type": "text",
+      "id": "text_value_3",
+      "x": 355,
+      "y": 155,
+      "text": "",
+      "fontSize": 14,
+      "fontFamily": 1,
+      "textAlign": "center",
+      "strokeColor": "#2f9e44"
+    }
+  ],
+
+  "use_cases": [
+    "Successive profit/loss (pl-007)",
+    "Commission chains",
+    "Multi-step transactions",
+    "A sells to B, B sells to C problems"
+  ],
+
+  "preview_url": "/templates/previews/flow-chain-3.png"
+}

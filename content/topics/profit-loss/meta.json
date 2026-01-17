@@ -1,0 +1,28 @@
+{
+  "id": "profit-loss",
+  "name": "Profit & Loss",
+  "name_hi": "लाभ और हानि",
+  "slug": "profit-loss",
+  "order": 3,
+  "icon": "percent",
+  "color": "#4CAF50",
+  "description": "Cost price, selling price, profit, loss, discounts, marked price, successive transactions",
+  "prerequisites": ["percentage"],
+  "exam_weightage": {
+    "CGL": "5-7 questions",
+    "CHSL": "4-5 questions",
+    "MTS": "3-4 questions"
+  },
+  "key_concepts": [
+    "CP (Cost Price) - Khareedne ka daam",
+    "SP (Selling Price) - Bechne ka daam",
+    "MP (Marked Price) - Likha hua daam",
+    "Profit = SP - CP (jab SP > CP)",
+    "Loss = CP - SP (jab CP > SP)",
+    "Profit% = (Profit/CP) × 100",
+    "Discount = MP - SP"
+  ],
+  "estimated_hours": 12,
+  "pattern_count": 45,
+  "status": "in_progress"
+}

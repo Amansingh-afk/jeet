@@ -1,0 +1,59 @@
+{
+    "id": "pc-005-q-001",
+    "pattern_id": "pc-005",
+    "topic_id": "percentage",
+  
+    "text": {
+      "en": "If price of salt decreases by 20%, then by how much percentage should the consumption be increased to keep the expenditure same?",
+      "hi": "यदि नमक की कीमत 20% घट जाती है, तो उपभोग को कितने प्रतिशत बढ़ाना होगा ताकि खर्च समान रहे?"
+    },
+  
+    "options": {
+      "a": "20%",
+      "b": "25%",
+      "c": "30%",
+      "d": "35%"
+    },
+    "correct": "b",
+  
+    "extracted_values": {
+      "percentage_decrease": 20,
+      "unit": "percentage",
+      "chain_length": 0
+    },
+  
+    "solution": {
+      "trick_application": [
+        "20% decrease -> -1/5, -ve for decrease",
+        "Consumption = +1/(5-1) = +1/4, +ve for increase",
+        "In percentage, 1/4 = 25%"
+      ],
+      "answer": 25,
+      "answer_display": "25%"
+    },
+  
+    "source": {
+      "book": "CGL Practice king by Gagan Pratap",
+      "edition": "2023",
+      "chapter": 1,
+      "chapter_name": "Percentage",
+      "question_number": 1,
+      "page": 1
+    },
+  
+    "exam_history": [
+      {
+        "exam": "SSC CGL",
+        "tier": 1,
+        "year": 2022,
+        "date": "2022-08-12",
+        "shift": 2
+      }
+    ],
+  
+    "difficulty": 1,
+    "is_pyq": false,
+  
+    "embedding": null
+  }
+  

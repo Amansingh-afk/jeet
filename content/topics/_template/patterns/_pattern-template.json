@@ -1,0 +1,125 @@
+{
+  "id": "xx-001",
+  "topic_id": "topic-id",
+  "name": "Pattern Name",
+  "name_hi": "पैटर्न नाम",
+  "slug": "pattern-name",
+
+  "signature": {
+    "keywords": ["keyword1", "keyword2"],
+    "structure": "Abstract structure of the problem type",
+    "variables": ["var1", "var2"]
+  },
+
+  "trick": {
+    "name": "Trick Name",
+    "name_hi": "ट्रिक नाम",
+    "one_liner": "Trick ka one-liner Hinglish mein",
+    "steps": [
+      {
+        "step": 1,
+        "action": "First action",
+        "example": "Example of first step"
+      },
+      {
+        "step": 2,
+        "action": "Second action",
+        "example": "Example of second step"
+      }
+    ],
+    "formula": null,
+    "memory_hook": "Easy way to remember",
+    "alternatives": [
+      {
+        "name": "Direct Formula Method",
+        "name_hi": "सीधा फॉर्मूला विधि",
+        "one_liner": "CP = Final ÷ (1 + P₁%)(1 + P₂%)",
+        "when_to_use": "Jab percentage clean fraction na bane (17%, 23%, 13%)",
+        "steps": [
+          {
+            "step": 1,
+            "action": "Percentages ko decimal mein convert karo aur 1 add karo",
+            "example": "20% → 1.20, 25% → 1.25"
+          },
+          {
+            "step": 2,
+            "action": "Saare multipliers ko multiply karo",
+            "example": "1.20 × 1.25 = 1.50"
+          },
+          {
+            "step": 3,
+            "action": "Final price ko result se divide karo",
+            "example": "600 ÷ 1.50 = ₹400"
+          }
+        ]
+      },
+      {
+        "name": "Net Effect Formula",
+        "name_hi": "कुल प्रभाव फॉर्मूला",
+        "one_liner": "Net% = P₁ + P₂ + (P₁×P₂)/100, phir seedha use karo",
+        "when_to_use": "Jab sirf net profit% nikalna ho ya 2 hi transactions ho",
+        "steps": [
+          {
+            "step": 1,
+            "action": "Net effect formula lagao",
+            "example": "20 + 25 + (20×25)/100 = 45 + 5 = 50%"
+          },
+          {
+            "step": 2,
+            "action": "Final = CP × (1 + Net%/100) use karo",
+            "example": "600 = CP × 1.50 → CP = ₹400"
+          }
+        ]
+      }
+    ]
+  },
+
+  "common_mistakes": [
+    {
+      "mistake": "What students do wrong",
+      "wrong": "Wrong approach",
+      "right": "Correct approach"
+    }
+  ],
+
+  "teaching": {
+    "deep": {
+      "explanation": "Full detailed explanation in Hinglish...",
+      "duration": "3-4 minutes",
+      "includes": ["concept", "why_it_works", "derivation", "mistakes"]
+    },
+    "shortcut": {
+      "explanation": "Quick trick explanation...",
+      "duration": "1 minute",
+      "includes": ["trick_steps", "quick_example"]
+    },
+    "instant": {
+      "explanation": "One-liner reminder...",
+      "duration": "10 seconds",
+      "includes": ["one_liner"]
+    }
+  },
+
+  "visual": {
+    "has_diagram": false,
+    "template_id": null,
+    "description": "",
+    "when_to_show": "on_request"
+  },
+
+  "prerequisites": {
+    "patterns": [],
+    "concepts": []
+  },
+
+  "metadata": {
+    "difficulty": 2,
+    "frequency": "medium",
+    "years_appeared": [],
+    "avg_time_target_seconds": 45,
+    "related_patterns": [],
+    "tags": []
+  },
+
+  "embedding": null
+}

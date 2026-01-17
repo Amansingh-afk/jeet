@@ -1,0 +1,28 @@
+{
+    "id": "percentage",
+    "name": "Percentage",
+    "name_hi": "प्रतिशत",
+    "slug": "percentage",
+    "order": 3,
+    "icon": "percent",
+    "color": "#4CAF50",
+    "description": "Percentage, Percentage increase, Percentage decrease, Percentage change, Percentage formula, Percentage calculation, Percentage problems, Percentage to fraction, Fraction to percentage, Percentage increase, Percentage decrease, Percentage change, Percentage formula, Percentage calculation, Percentage problems",
+    "prerequisites": [],
+    "exam_weightage": {
+      "CGL": "5-7 questions",
+      "CHSL": "4-5 questions",
+      "MTS": "3-4 questions"
+    },
+    "key_concepts": [
+      "Percentage = (Part/Whole) × 100",
+      "Percentage increase = (Increase/Original) × 100",
+      "Percentage decrease = (Decrease/Original) × 100",
+      "Percentage change = (Change/Original) × 100",
+      "Percentage formula = (Part/Whole) × 100",
+      "Percentage calculation = (Part/Whole) × 100"
+    ],
+    "estimated_hours": 12,
+    "pattern_count": 0,
+    "status": "in_progress"
+  }
+  

@@ -1,0 +1,18 @@
+{
+  "id": "topic-id",
+  "name": "Topic Name",
+  "name_hi": "टॉपिक नाम",
+  "slug": "topic-slug",
+  "order": 1,
+  "icon": "icon-name",
+  "color": "#4CAF50",
+  "description": "Brief description of what this topic covers",
+  "prerequisites": [],
+  "exam_weightage": {
+    "CGL": "X-Y questions",
+    "CHSL": "X-Y questions",
+    "MTS": "X-Y questions"
+  },
+  "estimated_hours": 10,
+  "status": "not_started"
+}

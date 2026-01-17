@@ -1,0 +1,49 @@
+{
+  "id": "xx-001-q-001",
+  "pattern_id": "xx-001",
+  "topic_id": "topic-id",
+
+  "text": {
+    "en": "Question text in English",
+    "hi": "प्रश्न हिंदी में"
+  },
+
+  "options": {
+    "a": "Option A",
+    "b": "Option B",
+    "c": "Option C",
+    "d": "Option D"
+  },
+  "correct": "b",
+
+  "extracted_values": {
+    "value1": 0,
+    "value2": 0
+  },
+
+  "solution": {
+    "trick_application": [
+      "Step 1 of applying the trick",
+      "Step 2 of applying the trick",
+      "Final calculation"
+    ],
+    "answer": 0,
+    "answer_display": "Answer with unit"
+  },
+
+  "source": {
+    "book": "Source Book Name",
+    "edition": "Year",
+    "chapter": 1,
+    "chapter_name": "Chapter Name",
+    "question_number": 1,
+    "page": 1
+  },
+
+  "exam_history": [],
+
+  "difficulty": 2,
+  "is_pyq": false,
+
+  "embedding": null
+}
