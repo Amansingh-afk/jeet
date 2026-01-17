@@ -1,0 +1,18 @@
+# Generated embeddings (if stored locally)
+embeddings/
+*.parquet
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
