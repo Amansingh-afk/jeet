@@ -2,14 +2,23 @@
 
 > Technical documentation for building and maintaining Jeet - the SSC exam mentor.
 
+## Quick Start
+
+**Add new content via Studio:**
+```
+http://YOUR_IP:3000/studio
+```
+
+Upload a photo → Review extracted content → Save. That's it.
+
 ## Quick Links
 
 | Document | Purpose |
 |----------|---------|
-| [Architecture](./architecture.md) | System design, components, data flow |
+| [Content Pipeline](./content-pipeline.md) | **Start here** - How to add content via Studio |
+| [Pattern Authoring](./pattern-authoring.md) | Tips for writing quality patterns |
 | [Schema](./schema.md) | Data structures for topics, patterns, questions |
-| [Pattern Authoring](./pattern-authoring.md) | How to write trick patterns |
-| [Content Pipeline](./content-pipeline.md) | PDF → structured data workflow |
+| [Architecture](./architecture.md) | System design, components, data flow |
 
 ## Core Concepts
 

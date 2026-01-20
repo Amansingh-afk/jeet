@@ -209,6 +209,41 @@ Frontend receives:
 
 ---
 
+## Content Ingestion: Jeet Studio
+
+Studio is the primary way to add content. Access at `/studio`.
+
+```
+┌──────────────┐     ┌──────────────┐     ┌──────────────┐     ┌──────────┐
+│   Studio     │────▶│   Vision     │────▶│   Content    │────▶│   JSON   │
+│   (Photo)    │     │   Service    │     │   Generator  │     │   Files  │
+└──────────────┘     └──────────────┘     └──────────────┘     └──────────┘
+        │                  │                     │                   │
+        ▼                  ▼                     ▼                   ▼
+   Web UI with       GPT-4o Vision         Pattern + Question    Saved to
+   drag & drop       (extraction)          JSON generation       content/
+```
+
+**Backend Services:**
+
+| Service | Purpose |
+|---------|---------|
+| `vision.service.ts` | Extract text, values, solution from images via GPT-4o |
+| `content-generator.service.ts` | Generate structured pattern/question JSON |
+| `content-ingestion.ts` | API routes for photo processing |
+| `public/studio.html` | Web UI for upload, preview, edit, save |
+
+**Workflow:**
+1. Open Studio in browser (`http://IP:3000/studio`)
+2. Upload photo (drag & drop or camera)
+3. GPT-4o Vision extracts question, solution, values
+4. Content generator creates pattern + question JSON
+5. User reviews/edits in Studio UI
+6. Save writes files to `content/topics/` directory
+7. Run `npm run seed` + `npm run generate-embeddings` to sync DB
+
+---
+
 ## Data Flow
 
 ### Answering a Question

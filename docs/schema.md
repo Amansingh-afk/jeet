@@ -81,15 +81,7 @@ The core entity. Represents a problem type with its trick.
 
   "signature": {
     "embedding_text": "A sells to B at X percent profit, B sells to C at Y percent profit, find original cost if final price is given",
-    "question_template": "A sells an article to B at [X]% profit. B sells to C at [Y]% profit. If C pays [Z], what did A pay?",
-    "structure": "A sells to B at X%, B sells to C at Y%, find original",
-    "keywords": ["sells to", "profit", "then sells", "finally", "successive", "chain"],
-    "variables": ["profit_1", "profit_2", "final_price"],
-    "variations": [
-      "Multiple profit chain calculation",
-      "Find original cost after successive profits",
-      "Chain of sales with profit percentages"
-    ]
+    "variables": ["profit_1", "profit_2", "final_price"]
   },
 
   "trick": {
@@ -210,12 +202,8 @@ The core entity. Represents a problem type with its trick.
 | **Core** | id | Unique ID (topic prefix + number) |
 | | topic_id | Parent topic |
 | | name/name_hi | Pattern name in both languages |
-| **Signature** | embedding_text | **REQUIRED** - Generic normalized text for embedding matching |
-| | question_template | Fill-in-blank template with [X], [Y], [ITEM] placeholders |
-| | structure | Short abstract problem structure description |
-| | keywords | Structural words that identify this pattern |
+| **Signature** | embedding_text | **REQUIRED** - Text used for embedding generation |
 | | variables | What values to extract from question |
-| | variations | Different phrasings of the same pattern |
 | **Trick** | one_liner | The trick in one Hinglish sentence |
 | | steps | Step-by-step trick application |
 | | formula | Mathematical formula (optional) |
@@ -301,20 +289,39 @@ Individual question linked to a pattern.
 }
 ```
 
+### Question Variation (Lightweight)
+
+Variations are lightweight questions used to expand embedding coverage without full question data. They help match different phrasings/domains to the same pattern.
+
+```json
+{
+  "id": "pc-005-q-003",
+  "pattern_id": "pc-005",
+  "topic_id": "percentage",
+  "text": {
+    "en": "Due to fall in manpower, production decreases by 35%. What % working hours should be increased to restore original production?"
+  },
+  "is_variation": true
+}
+```
+
 ### Question Fields Reference
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
-| id | string | Yes | Pattern ID + question number |
+| id | string | Yes | Pattern ID + question/variation number |
 | pattern_id | string | Yes | Linked pattern |
 | text.en | string | Yes | Question in English |
-| text.hi | string | Yes | Question in Hindi |
-| options | object | Yes | MCQ options (a, b, c, d) |
-| correct | string | Yes | Correct option key |
-| extracted_values | object | Yes | Parsed values from question |
-| solution | object | Yes | Trick-based solution |
-| source | object | Yes | Book/exam source |
+| text.hi | string | No | Question in Hindi |
+| options | object | No* | MCQ options (a, b, c, d) |
+| correct | string | No* | Correct option key |
+| extracted_values | object | No* | Parsed values from question |
+| solution | object | No* | Trick-based solution |
+| source | object | No | Book/exam source |
 | is_pyq | boolean | No | Is Previous Year Question |
+| is_variation | boolean | No | True for lightweight variations |
+
+*Required for full questions, optional for variations (`is_variation: true`)
 
 ---
 
@@ -498,14 +505,15 @@ CREATE TABLE questions (
   pattern_id VARCHAR(50) REFERENCES patterns(id),
   topic_id VARCHAR(50) REFERENCES topics(id),
   text_en TEXT NOT NULL,
-  text_hi TEXT NOT NULL,
-  options JSONB NOT NULL,
-  correct_option CHAR(1) NOT NULL,
-  extracted_values JSONB NOT NULL,
-  solution JSONB NOT NULL,
-  source JSONB NOT NULL,
+  text_hi TEXT,
+  options JSONB,
+  correct_option CHAR(1),
+  extracted_values JSONB,
+  solution JSONB,
+  source JSONB,
   difficulty SMALLINT DEFAULT 2,
   is_pyq BOOLEAN DEFAULT FALSE,
+  is_variation BOOLEAN DEFAULT FALSE,
   embedding vector(1536),
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
@@ -536,6 +544,7 @@ CREATE INDEX idx_patterns_topic ON patterns(topic_id);
 CREATE INDEX idx_patterns_embedding ON patterns USING ivfflat (embedding vector_cosine_ops);
 CREATE INDEX idx_questions_pattern ON questions(pattern_id);
 CREATE INDEX idx_questions_embedding ON questions USING ivfflat (embedding vector_cosine_ops);
+CREATE INDEX idx_questions_is_variation ON questions(is_variation);
 CREATE INDEX idx_progress_user ON student_progress(user_id);
 ```
 

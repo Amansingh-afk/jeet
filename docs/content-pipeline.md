@@ -1,369 +1,211 @@
 # Content Pipeline
 
-How to transform raw PDFs into structured Jeet content.
+How to add new patterns and questions to Jeet using **Studio**.
 
 ---
 
-## Pipeline Overview
+## Jeet Studio
+
+Studio is a web-based UI for adding content via photo upload. Access it at:
 
 ```
-┌─────────────┐     ┌─────────────┐     ┌─────────────┐     ┌─────────────┐
-│   Source    │────▶│   Extract   │────▶│   Cluster   │────▶│   Author    │
-│   PDFs      │     │  Questions  │     │  Patterns   │     │   Tricks    │
-└─────────────┘     └─────────────┘     └─────────────┘     └─────────────┘
-                          │                   │                    │
-                          ▼                   ▼                    ▼
-                    questions.json      patterns.json        final content
-                    (raw, unlinked)     (auto-clustered)     (human-verified)
+http://YOUR_IP:3000/studio
 ```
+
+### Features
+
+- **Photo upload** - Drag & drop or camera capture
+- **Vision AI extraction** - Automatically extracts question, solution, values
+- **Auto-generates JSON** - Creates pattern and question files
+- **Preview & edit** - Review and modify before saving
+- **Direct save** - Writes to `content/topics/` directory
 
 ---
 
-## Phase 1: Source Collection
-
-### Gather Materials
-
-| Source | Type | Priority |
-|--------|------|----------|
-| Rakesh Yadav 7300+ | PDF | High |
-| Kiran's SSC Mathematics | PDF | High |
-| Previous Year Papers (2018-2024) | PDF | High |
-| Paramount Advance | PDF | Medium |
-| Individual topic PDFs | PDF | Medium |
-
-### Organize Sources
+## Workflow
 
 ```
-/sources
-  /books
-    rakesh-yadav-7300-2023.pdf
-    kiran-ssc-math-2022.pdf
-  /pyq
-    cgl-2024-all-shifts.pdf
-    chsl-2023-all-shifts.pdf
-  /topic-wise
-    profit-loss-500-questions.pdf
-    time-work-300-questions.pdf
+┌──────────────┐     ┌──────────────┐     ┌──────────────┐     ┌──────────────┐
+│   Photo of   │────▶│    Studio    │────▶│   Review &   │────▶│    Save to   │
+│   Question   │     │   (Vision)   │     │     Edit     │     │    Files     │
+└──────────────┘     └──────────────┘     └──────────────┘     └──────────────┘
 ```
 
 ---
 
-## Phase 2: Question Extraction
+## Step-by-Step
 
-### Option A: LLM Extraction (Recommended)
+### 1. Open Studio
 
-Use Claude/GPT to extract structured questions from PDF.
-
-**Prompt template:**
+On your phone or computer browser:
 ```
-Extract all questions from this page as JSON. For each question:
-1. Question text (exactly as written)
-2. Options (a, b, c, d)
-3. Correct answer
-4. Topic (your best guess)
-5. Source info (book name, page, question number)
-
-Output format:
-[
-  {
-    "text": "...",
-    "options": {"a": "...", "b": "...", "c": "...", "d": "..."},
-    "correct": "b",
-    "topic_guess": "profit-loss",
-    "source": {"book": "...", "page": 45, "qno": 123}
-  }
-]
+http://192.168.x.x:3000/studio
 ```
 
-**Process:**
-1. Convert PDF to images (one per page)
-2. Send each image to Claude with extraction prompt
-3. Collect JSON responses
-4. Merge and deduplicate
+Find your IP: `hostname -I` on your dev machine.
 
-### Option B: OCR + Parsing
+### 2. Upload Photo
 
-For structured PDFs with consistent formatting:
+- Click the upload zone or drag & drop
+- On mobile: tap to open camera or gallery
+- Supports: JPG, PNG, WebP (max 10MB)
 
-1. Use `pdfplumber` or `PyMuPDF` for text extraction
-2. Regex patterns to identify question boundaries
-3. Parse options (look for a), b), c), d) patterns)
-4. Manual verification for accuracy
+### 3. Wait for Processing
 
-### Output: Raw Questions
+Studio sends the image to GPT-4o Vision which extracts:
+- Question text (English + Hindi if visible)
+- MCQ options and correct answer
+- Solution steps from handwritten work
+- Numerical values
+- Topic and pattern classification
 
-```json
-// questions-raw.json
-[
-  {
-    "id": "raw-0001",
-    "text": "A sells an article to B at 20% profit...",
-    "text_hi": null,
-    "options": {"a": "350", "b": "400", "c": "450", "d": "500"},
-    "correct": "b",
-    "topic_guess": "profit-loss",
-    "source": {
-      "book": "Rakesh Yadav 7300+",
-      "page": 87,
-      "question_number": 234
-    },
-    "extracted_at": "2025-01-10",
-    "verified": false
-  }
-]
+### 4. Review Extracted Content
+
+Check the auto-filled fields:
+
+| Field | Description |
+|-------|-------------|
+| **Question Text** | The extracted question (editable) |
+| **Topic** | Auto-detected topic (e.g., percentage) |
+| **Pattern ID** | Auto-generated or existing pattern |
+| **Question ID** | Auto-generated (e.g., `pc-009-q-001`) |
+| **Difficulty** | 1-5 scale |
+| **Confidence** | How confident the AI is (0-100%) |
+
+### 5. Review JSON
+
+Expand "Pattern JSON" and "Question JSON" to see the full generated content.
+
+### 6. Edit if Needed
+
+Common edits:
+- Fix OCR errors in question text
+- Adjust difficulty rating
+- Change topic if misclassified
+- Modify pattern/question IDs
+
+### 7. Save or Cancel
+
+- **Save** → Writes files to `content/topics/{topic}/`
+- **Cancel** → Discards (no files created)
+
+---
+
+## After Saving
+
+Run these commands to sync content to database:
+
+```bash
+# Load content into PostgreSQL
+npm run seed
+
+# Generate embeddings for pattern matching
+npm run generate-embeddings
 ```
 
 ---
 
-## Phase 3: Pattern Clustering
+## Adding to Existing Pattern
 
-### Goal
+If the question fits an existing pattern:
 
-Group 8000 questions into ~500 patterns automatically, then refine manually.
-
-### Step 1: Generate Embeddings
-
-```python
-import openai
-
-def embed_question(text):
-    response = openai.embeddings.create(
-        model="text-embedding-3-small",
-        input=text
-    )
-    return response.data[0].embedding
-
-# Embed all questions
-for q in questions:
-    q['embedding'] = embed_question(q['text'])
-```
-
-### Step 2: Cluster Similar Questions
-
-```python
-from sklearn.cluster import KMeans
-import numpy as np
-
-embeddings = np.array([q['embedding'] for q in questions])
-
-# Start with ~500 clusters (adjust based on results)
-kmeans = KMeans(n_clusters=500, random_state=42)
-clusters = kmeans.fit_predict(embeddings)
-
-# Assign cluster to each question
-for i, q in enumerate(questions):
-    q['auto_cluster'] = int(clusters[i])
-```
-
-### Step 3: Review Clusters
-
-For each cluster:
-1. Sample 5-10 questions
-2. Verify they're the same pattern
-3. Name the pattern
-4. Split if multiple patterns mixed
-5. Merge if same pattern split
-
-**Cluster review interface (build or use spreadsheet):**
-```
-Cluster 47 (23 questions)
-─────────────────────────
-Sample questions:
-1. A sells to B at 20%, B sells to C at 25%...
-2. X sells to Y at 15%, Y sells to Z at 10%...
-3. P sells to Q at 30%, Q sells to R at 20%...
-
-[ ] Same pattern → Name: _______________
-[ ] Split into ___ patterns
-[ ] Merge with cluster ___
-```
-
-### Output: Pattern Assignments
-
-```json
-// patterns-draft.json
-[
-  {
-    "cluster_id": 47,
-    "pattern_id": "pl-007",
-    "pattern_name": "Successive Profit/Loss",
-    "question_ids": ["raw-0234", "raw-0891", "raw-1456", ...],
-    "sample_questions": [...],
-    "status": "named"
-  }
-]
-```
+1. Upload the photo
+2. Change **Pattern ID** to the existing pattern (e.g., `pc-006`)
+3. Studio auto-increments the question ID (e.g., `pc-006-q-008`)
+4. The pattern JSON section will show "N/A" (no new pattern created)
+5. Save
 
 ---
 
-## Phase 4: Trick Authoring
+## Creating a Variation
 
-### The Human Work
+Variations are lightweight questions (text only, no full solution) used to expand embedding coverage:
 
-For each pattern:
-1. Open pattern file
-2. Watch relevant coaching video OR solve 10+ questions yourself
-3. Document the trick (see pattern-authoring.md)
-4. Write teaching content (deep/shortcut/instant)
-5. Create/assign Excalidraw template
+1. Upload photo
+2. Set Pattern ID to existing pattern
+3. Check if it should be a variation (simple text, no need for full solution)
+4. The generated question will have minimal fields
+
+---
+
+## API Reference
+
+Studio uses these backend endpoints:
+
+| Endpoint | Purpose |
+|----------|---------|
+| `POST /content/process-photo` | Send photo, get extracted content |
+| `POST /content/save` | Save reviewed content to files |
+| `GET /content/pending/:id` | Get pending content by session |
+| `DELETE /content/pending/:id` | Cancel pending content |
+| `GET /content/next-ids/:topic` | Get next available IDs |
+
+---
+
+## Tips
+
+### Photo Quality
+
+- **Clear photos** work best - avoid blur, shadows
+- **Crop** to just the question if possible
+- **Include solution** if handwritten work is visible
 
 ### Batch Processing
 
-Organize by topic. Complete one topic fully before moving to next.
+For many questions:
+1. Take all photos first
+2. Open Studio on laptop (bigger screen)
+3. Process one by one
+4. Save after reviewing each
 
-```
-Week 1: Profit & Loss (45 patterns)
-Week 2: Time & Work (35 patterns)
-Week 3: Time & Distance (40 patterns)
-...
-```
+### Mobile Shortcut
 
-### Verification
+Add Studio to your home screen:
+- **Safari**: Share → Add to Home Screen
+- **Chrome**: Menu → Add to Home Screen
 
-After authoring each pattern:
-- [ ] Solve 5 questions using the trick
-- [ ] Time yourself (must beat target)
-- [ ] Read teaching content aloud (must sound like Jeetu)
+This gives you an app-like icon for quick access.
 
 ---
 
-## Phase 5: Hindi Translation
+## Troubleshooting
 
-### What Needs Translation
+### "Processing failed"
 
-1. Question text → text_hi
-2. Pattern name → name_hi
-3. Trick one-liner → already Hinglish
-4. Teaching content → already Hinglish
+- Check if backend is running (`npm run dev`)
+- Verify OPENAI_API_KEY is set in `.env`
+- Check image is under 10MB
 
-### Translation Approach
+### Low confidence score
 
-**For questions:**
-```
-LLM Prompt: "Translate this SSC math question to Hindi.
-Keep numbers and mathematical terms as-is.
-Output only the Hindi translation."
-```
+- Photo may be blurry or unclear
+- Handwriting may be hard to read
+- Review extracted text carefully
 
-**For pattern names:**
-Manual translation (only 500 items).
+### Wrong pattern detected
+
+- Manually change Pattern ID
+- Or let it create new pattern and merge later
 
 ---
 
-## Phase 6: Embedding Generation
+## Content Structure
 
-### Final Embeddings
-
-Once content is finalized, generate embeddings for:
-1. All patterns (for pattern matching)
-2. All questions (for similar question search)
-
-```python
-# Pattern embedding: combine signature + trick one-liner
-pattern_text = f"{pattern['signature']['structure']} {pattern['trick']['one_liner']}"
-pattern['embedding'] = embed(pattern_text)
-
-# Question embedding: use question text
-question['embedding'] = embed(question['text'])
-```
-
-### Store in Database
-
-```sql
--- Update pattern embeddings
-UPDATE patterns
-SET embedding = $1
-WHERE id = $2;
-
--- Create index for fast search
-CREATE INDEX ON patterns
-USING ivfflat (embedding vector_cosine_ops)
-WITH (lists = 100);
-```
-
----
-
-## Phase 7: Quality Assurance
-
-### Automated Checks
-
-```python
-def validate_pattern(pattern):
-    errors = []
-
-    # Must have one-liner
-    if not pattern['trick'].get('one_liner'):
-        errors.append("Missing trick one-liner")
-
-    # Must have all teaching levels
-    for level in ['deep', 'shortcut', 'instant']:
-        if not pattern['teaching'].get(level, {}).get('explanation'):
-            errors.append(f"Missing {level} teaching")
-
-    # Must have at least 3 linked questions
-    if len(pattern.get('question_ids', [])) < 3:
-        errors.append("Less than 3 questions linked")
-
-    # Time target must be set
-    if not pattern['metadata'].get('avg_time_target_seconds'):
-        errors.append("Missing time target")
-
-    return errors
-```
-
-### Manual Spot Checks
-
-Random sample 10% of patterns:
-- Solve a question using documented trick
-- Verify time target is achievable
-- Read teaching aloud (sounds natural?)
-
----
-
-## Tools & Scripts
-
-### Recommended Stack
-
-| Task | Tool |
-|------|------|
-| PDF to images | `pdf2image` (Python) |
-| OCR extraction | Claude API with vision |
-| Embeddings | OpenAI `text-embedding-3-small` |
-| Clustering | scikit-learn |
-| Data storage | JSON files → PostgreSQL |
-| Review UI | Simple web app or Google Sheets |
-
-### Directory Structure
+Files are saved to:
 
 ```
-/pipeline
-  /scripts
-    extract_questions.py
-    cluster_patterns.py
-    generate_embeddings.py
-    validate_content.py
-    import_to_db.py
-  /data
-    /raw
-      questions-raw.json
-    /clustered
-      patterns-draft.json
-    /final
-      patterns.json
-      questions.json
+content/topics/{topic}/
+├── patterns/
+│   └── {pattern-id}.json
+└── questions/
+    └── {question-id}.json
 ```
 
----
-
-## Timeline Estimate
-
-| Phase | Work |
-|-------|------|
-| Source collection | Gather all PDFs |
-| Extraction | Process 8000 questions |
-| Clustering | Generate clusters + review |
-| Trick authoring | 500 patterns (main work) |
-| Translation | Hindi for questions |
-| QA | Validation + fixes |
-
-The **trick authoring** is the bottleneck. Consider hiring SSC coaching experts for this phase.
+Example:
+```
+content/topics/percentage/
+├── patterns/
+│   └── pc-009.json
+└── questions/
+    └── pc-009-q-001.json
+```
