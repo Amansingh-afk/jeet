@@ -28,7 +28,7 @@ export function Landing({ backgroundImage = '/images/sunflowers.png' }: LandingP
         <nav className="mx-auto max-w-5xl h-14 rounded-2xl glass">
           <div className="h-full px-4 flex items-center justify-between">
             <Link to="/" className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-yellow-500 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[var(--primary)] to-[var(--secondary)] flex items-center justify-center">
                 <span className="text-white font-bold text-lg">J</span>
               </div>
               <span className="text-xl font-bold text-white">Jeet</span>
@@ -51,7 +51,7 @@ export function Landing({ backgroundImage = '/images/sunflowers.png' }: LandingP
             transition={{ duration: 0.6 }}
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 mb-8 glass rounded-full">
-              <Sparkles className="h-4 w-4 text-yellow-400" />
+              <Sparkles className="h-4 w-4 text-[var(--accent)]" />
               <span className="text-white/90 text-sm font-medium">
                 SSC Exam Prep - The Smart Way
               </span>
@@ -66,7 +66,7 @@ export function Landing({ backgroundImage = '/images/sunflowers.png' }: LandingP
             className="text-4xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6 drop-shadow-[0_2px_4px_rgba(255,255,255,0.5)] dark:drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]"
           >
             Learn Smarter.{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 to-yellow-500">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--accent)] to-[var(--secondary)]">
               Score Higher
             </span>
             , Crack SSC
@@ -89,7 +89,7 @@ export function Landing({ backgroundImage = '/images/sunflowers.png' }: LandingP
             transition={{ duration: 0.6, delay: 0.3 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
-            <Button asChild size="lg" className="group bg-yellow-500 hover:bg-yellow-600 text-black">
+            <Button asChild size="lg" className="group bg-[var(--accent)] hover:bg-[var(--accent)]/90 text-[var(--accent-foreground)] border-2 border-[var(--border)]">
               <Link to="/dashboard">
                 Start Free Practice
                 <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
@@ -129,16 +129,19 @@ export function Landing({ backgroundImage = '/images/sunflowers.png' }: LandingP
                 icon: Brain,
                 title: 'Pattern Recognition',
                 description: 'AI matches your question to 500+ proven patterns with tested shortcuts.',
+                color: 'var(--primary)',
               },
               {
                 icon: Zap,
                 title: 'Speed Tricks',
                 description: 'Learn tricks that help you solve in 30 seconds what others solve in 2 minutes.',
+                color: 'var(--secondary)',
               },
               {
                 icon: Target,
                 title: 'Hinglish Explanations',
                 description: 'Natural explanations in Hinglish - the way toppers actually think and solve.',
+                color: 'var(--accent)',
               },
             ].map((feature, index) => (
               <motion.div
@@ -149,8 +152,11 @@ export function Landing({ backgroundImage = '/images/sunflowers.png' }: LandingP
                 viewport={{ once: true }}
                 className="glass rounded-2xl p-6"
               >
-                <div className="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center mb-4">
-                  <feature.icon className="h-6 w-6 text-blue-400" />
+                <div 
+                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
+                  style={{ backgroundColor: `color-mix(in oklch, ${feature.color} 20%, transparent)` }}
+                >
+                  <feature.icon className="h-6 w-6" style={{ color: feature.color }} />
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-2">
                   {feature.title}
@@ -180,7 +186,7 @@ export function Landing({ backgroundImage = '/images/sunflowers.png' }: LandingP
             <p className="text-white/70 mb-8">
               Join thousands of aspirants learning the smart way.
             </p>
-            <Button asChild size="lg" className="bg-yellow-500 hover:bg-yellow-600 text-black">
+            <Button asChild size="lg" className="bg-[var(--accent)] hover:bg-[var(--accent)]/90 text-[var(--accent-foreground)] border-2 border-[var(--border)]">
               <Link to="/app">
                 Ask Your First Question
                 <ArrowRight className="ml-2 h-5 w-5" />
@@ -194,13 +200,13 @@ export function Landing({ backgroundImage = '/images/sunflowers.png' }: LandingP
       <footer className="py-8 px-4 border-t border-white/10">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-yellow-500 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[var(--primary)] to-[var(--secondary)] flex items-center justify-center">
               <span className="text-white font-bold">J</span>
             </div>
             <span className="text-white font-semibold">Jeet</span>
           </div>
           <p className="text-white/50 text-sm">
-            Made with tricks in mind. SSC 2025.
+            Made with tricks in mind. SSC 2026.
           </p>
         </div>
       </footer>

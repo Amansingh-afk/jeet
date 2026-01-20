@@ -19,6 +19,7 @@ Upload a photo → Review extracted content → Save. That's it.
 | [Pattern Authoring](./pattern-authoring.md) | Tips for writing quality patterns |
 | [Schema](./schema.md) | Data structures for topics, patterns, questions |
 | [Architecture](./architecture.md) | System design, components, data flow |
+| [API Reference](./api.md) | REST API endpoints with examples |
 
 ## Core Concepts
 

@@ -7,6 +7,11 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['DM Sans', 'sans-serif'],
+        serif: ['DM Sans', 'sans-serif'],
+        mono: ['Space Mono', 'monospace'],
+      },
       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
@@ -74,6 +79,14 @@ export default {
         lg: 'var(--shadow-lg)',
         xl: 'var(--shadow-xl)',
         '2xl': 'var(--shadow-2xl)',
+      },
+      letterSpacing: {
+        tighter: 'calc(var(--tracking-normal, 0) - 0.05em)',
+        tight: 'calc(var(--tracking-normal, 0) - 0.025em)',
+        normal: 'var(--tracking-normal, normal)',
+        wide: 'calc(var(--tracking-normal, 0) + 0.025em)',
+        wider: 'calc(var(--tracking-normal, 0) + 0.05em)',
+        widest: 'calc(var(--tracking-normal, 0) + 0.1em)',
       },
       keyframes: {
         'accordion-down': {
