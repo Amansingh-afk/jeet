@@ -7,16 +7,7 @@
 
   "signature": {
     "embedding_text": "What is X percent of Y, find percentage of a number or value",
-    "question_template": "What is [X]% of [Y]?",
-    "structure": "Find X% of a given number Y",
-    "keywords": ["percent", "of", "find", "what", "calculate", "value"],
-    "variables": ["percentage", "whole"],
-    "variations": [
-      "Find X% of Y",
-      "Calculate X percent of a number",
-      "What percentage of Y equals Z",
-      "X% of Y is how much"
-    ]
+    "variables": ["percentage", "whole"]
   },
 
   "trick": {

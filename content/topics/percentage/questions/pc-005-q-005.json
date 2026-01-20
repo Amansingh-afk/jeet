@@ -1,0 +1,9 @@
+{
+  "id": "pc-005-q-005",
+  "pattern_id": "pc-005",
+  "topic_id": "percentage",
+  "text": {
+    "en": "A worker's efficiency decreases by 25%. By how much percent should his working hours be increased so that work done remains the same?"
+  },
+  "is_variation": true
+}

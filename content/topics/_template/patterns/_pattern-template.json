@@ -6,8 +6,7 @@
   "slug": "pattern-name",
 
   "signature": {
-    "keywords": ["keyword1", "keyword2"],
-    "structure": "Abstract structure of the problem type",
+    "embedding_text": "Description of the pattern for embedding - what kind of question is this",
     "variables": ["var1", "var2"]
   },
 

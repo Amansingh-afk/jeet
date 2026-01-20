@@ -1,0 +1,27 @@
+{
+  "id": "pc-005-q-006",
+  "pattern_id": "pc-010",
+  "topic_id": "percentage",
+  "is_variation": false,
+  "question_text": {
+    "en": "If in an exam, Rohan marks are 36% less than that of Pawan is how much percentage more than that of Rohan?"
+  },
+  "options": null,
+  "correct_option": null,
+  "answer": 56.25,
+  "solution": {
+    "trick_application": [
+      "Let Pawan's marks be 100.",
+      "Rohan's marks = 100 - 36 = 64.",
+      "Percentage more = ((100 - 64) / 64) * 100 = (36 / 64) * 100 = 56.25%."
+    ]
+  },
+  "extracted_values": {
+    "rohan_less_percent": 36
+  },
+  "difficulty": 1,
+  "embedding": null,
+  "text": {
+    "en": "If in an exam, Rohan marks are 36% less than that of Pawan is how much percentage more than that of Rohan?"
+  }
+}

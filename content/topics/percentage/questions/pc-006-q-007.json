@@ -1,0 +1,9 @@
+{
+  "id": "pc-006-q-007",
+  "pattern_id": "pc-006",
+  "topic_id": "percentage",
+  "text": {
+    "en": "In a triangle base is increased by 66.66% then by how much height should be reduced such that area of triangle remains same?"
+  },
+  "is_variation": true
+}

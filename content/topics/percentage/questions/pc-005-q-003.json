@@ -1,0 +1,9 @@
+{
+  "id": "pc-005-q-003",
+  "pattern_id": "pc-005",
+  "topic_id": "percentage",
+  "text": {
+    "en": "Due to fall in manpower, the production in a company decreases by 35%. What percent working hours should be increased to restore the original production?"
+  },
+  "is_variation": true
+}

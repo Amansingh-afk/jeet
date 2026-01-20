@@ -1,0 +1,9 @@
+{
+  "id": "pc-005-q-004",
+  "pattern_id": "pc-005",
+  "topic_id": "percentage",
+  "text": {
+    "en": "If the speed of a train decreases by 20%, by what percentage should time be increased to cover the same distance?"
+  },
+  "is_variation": true
+}

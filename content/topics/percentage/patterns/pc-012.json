@@ -1,0 +1,50 @@
+{
+  "id": "pc-012",
+  "topic_id": "percentage",
+  "name": {
+    "en": "Calculate Maximum Marks from Percentage and Marks Obtained",
+    "hi": "प्रतिशत और प्राप्त अंकों से अधिकतम अंक की गणना करें"
+  },
+  "embedding_text": "Calculate maximum marks using percentage and marks obtained in SSC exams.",
+  "trick": {
+    "name": "Marks Calculation Shortcut",
+    "description": "Jaldi se maximum marks nikalne ka tareeka",
+    "steps": [
+      "Step 1: Assume maximum marks ko x maan lo.",
+      "Step 2: Passing ke liye required marks = 45% of x.",
+      "Step 3: Given marks + failed marks = required marks, yaani 157 + 23 = 180.",
+      "Step 4: Equation banao: 0.45 * x = 180.",
+      "Step 5: Solve karo: x = 180 / 0.45.",
+      "Step 6: Answer aaya: x = 400."
+    ],
+    "example": {
+      "question": "An engineering student had to secure 45% marks to pass. He gets 157 marks and fails by 23 marks. The maximum mark is:",
+      "solution": [
+        "Let maximum marks be x.",
+        "To pass, student needs 45% of x marks.",
+        "He gets 157 marks and fails by 23 marks, so he needed 157 + 23 = 180 marks to pass.",
+        "45% of x = 180",
+        "0.45 * x = 180",
+        "x = 180 / 0.45",
+        "x = 400"
+      ]
+    }
+  },
+  "common_mistakes": [
+    "Marks obtained ko directly passing marks samajh lena.",
+    "Percentage ko galat calculate karna.",
+    "Equation solve karte waqt calculation mistakes karna."
+  ],
+  "teaching_content": {
+    "deep": "Is pattern mein, hum maximum marks ko x maan kar equation banate hain. Pehle passing marks ko percentage se calculate karte hain. Fir given marks aur failed marks ko add karke required marks nikalte hain. Isse equation solve karke maximum marks milte hain.",
+    "shortcut": "Maximum marks ko x maan lo. 45% of x = required marks. Equation banao aur solve karo.",
+    "instant": "Marks + failed marks = required marks. 45% of x = required marks. Solve karo."
+  },
+  "tags": [
+    "percentage",
+    "marks calculation",
+    "SSC shortcut",
+    "quick method",
+    "exam pattern"
+  ]
+}

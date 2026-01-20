@@ -1,0 +1,37 @@
+{
+  "id": "pc-011-q-001",
+  "pattern_id": "pc-011",
+  "topic_id": "percentage",
+  "is_variation": false,
+  "question_text": {
+    "en": "When income tax is 8 paise in a rupee, a person's net income is ₹309580. What will be his net income if the income tax is raised to 12 paise?",
+    "hi": null
+  },
+  "options": null,
+  "correct_option": null,
+  "answer": 286611,
+  "solution": {
+    "trick_application": [
+      "Income tax at 8 paise per rupee = 8%",
+      "Net income = 92% of total income",
+      "Net income = 309580",
+      "Now, income tax at 12 paise per rupee = 12%",
+      "Net income = 88% of total income",
+      "Calculate total income: 309580 / 0.92",
+      "Calculate new net income: (total income) * 0.88",
+      "New net income = 286611"
+    ]
+  },
+  "extracted_values": {
+    "initial_income_tax_paise": 8,
+    "initial_net_income": 309580,
+    "new_income_tax_paise": 12,
+    "initial_net_income_percent": 92,
+    "new_net_income_percent": 88
+  },
+  "difficulty": 1,
+  "embedding": null,
+  "text": {
+    "en": "When income tax is 8 paise in a rupee, a person's net income is ₹309580. What will be his net income if the income tax is raised to 12 paise?"
+  }
+}

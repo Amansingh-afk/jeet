@@ -1,0 +1,28 @@
+{
+  "id": "pc-010-q-001",
+  "pattern_id": "pc-010",
+  "topic_id": "percentage",
+  "is_variation": false,
+  "question_text": {
+    "en": "If income tax is increased by 22%, the net income is reduced by 3%. The rate of income tax is:"
+  },
+  "options": null,
+  "correct_option": null,
+  "answer": 20,
+  "solution": {
+    "trick_application": [
+      "Income × 3% = tax × 22%",
+      "Income / tax = 22 / 3",
+      "So, rate of income tax = 3/25 = 12%"
+    ]
+  },
+  "extracted_values": {
+    "income_tax_increase_percent": 22,
+    "net_income_reduction_percent": 3
+  },
+  "difficulty": 1,
+  "embedding": null,
+  "text": {
+    "en": "If income tax is increased by 22%, the net income is reduced by 3%. The rate of income tax is:"
+  }
+}

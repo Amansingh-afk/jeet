@@ -1,0 +1,39 @@
+{
+  "id": "pc-008-q-001",
+  "pattern_id": "pc-008",
+  "topic_id": "percentage",
+  "text": {
+    "en": "Price of movie ticket in 2 square mall is decreased by 1% but total revenue collection is increased by 83 1/3% because sitting capacity was increased. If sitting capacity is now increased by 350, then how many seats were incremented?",
+    "hi": "2 स्क्वायर मॉल में मूवी टिकट की कीमत 1% कम हो गई है लेकिन बैठने की क्षमता बढ़ने के कारण कुल राजस्व संग्रह 83 1/3% बढ़ गया है। यदि बैठने की क्षमता अब 350 बढ़ गई है, तो कितनी सीटें बढ़ाई गईं?"
+  },
+  "options": {
+    "a": "150",
+    "b": "161",
+    "c": "175",
+    "d": "189"
+  },
+  "correct": "b",
+  "extracted_values": {
+    "price_decrease_percent": 1,
+    "revenue_increase_percent": 83.33,
+    "new_sitting_capacity": 350,
+    "unit": "seats"
+  },
+  "solution": {
+    "trick_application": [
+      "Revenue = Price × No. of seats",
+      "Price decreased by 1% → Price ratio = 100 : 99",
+      "Revenue increased by 83 1/3% = 5/6 increase → Revenue ratio = 6 : 11",
+      "Seats ratio = Revenue/Price = (6/100) : (11/99) = 27 : 50",
+      "Increment in ratio = 50 - 27 = 23 units",
+      "Given new seats = 350, so 50 units = 350 → 1 unit = 7",
+      "Increment = 23 × 7 = 161 seats"
+    ],
+    "answer": 161,
+    "answer_display": "161 seats"
+  },
+  "difficulty": 3,
+  "is_pyq": false,
+  "is_variation": false,
+  "embedding": null
+}

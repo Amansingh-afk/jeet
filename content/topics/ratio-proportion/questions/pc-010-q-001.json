@@ -1,0 +1,37 @@
+{
+  "id": "pc-010-q-001",
+  "pattern_id": "pc-010",
+  "topic_id": "ratio-proportion",
+  "is_variation": false,
+  "difficulty": 3,
+  "question_text": {
+    "en": "The population of a village is 12960. 7/12 of them are males and the rest are females. 45% of males are married. All marriages are monogamous and people have spouse living with them. What percentage of women are married?"
+  },
+  "options": null,
+  "correct_answer": 63,
+  "solution": {
+    "trick_application": [
+      "Married population = Total x % of married people.",
+      "Males (M) = 7, Females (F) = 5",
+      "Number of males married = Number of females married",
+      "7/12 of 12960 = 7560 males",
+      "45% of 7560 = 3402 males married",
+      "Ratio of males to females = 7:5",
+      "Reverse ratio for married females = 5:7",
+      "Calculate percentage: (3402 / (5/12 * 12960)) * 100 = 63%"
+    ]
+  },
+  "extracted_values": {
+    "total_population": 12960,
+    "male_fraction": "7/12",
+    "female_fraction": "5/12",
+    "male_married_percent": 45,
+    "male_count": 7560,
+    "male_married_count": 3402,
+    "female_married_percent": 63
+  },
+  "embedding": null,
+  "text": {
+    "en": "The population of a village is 12960. 7/12 of them are males and the rest are females. 45% of males are married. All marriages are monogamous and people have spouse living with them. What percentage of women are married?"
+  }
+}

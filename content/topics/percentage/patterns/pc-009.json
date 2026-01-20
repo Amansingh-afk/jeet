@@ -1,0 +1,39 @@
+{
+  "id": "pc-009",
+  "topic_id": "percentage",
+  "name": {
+    "en": "Price Decrease - Revenue Increase - Quantity Increment",
+    "hi": "मूल्य घटाना - राजस्व बढ़ाना - मात्रा वृद्धि"
+  },
+  "embedding_text": "Understand how a decrease in price can lead to an increase in revenue through increased sales quantity.",
+  "trick": {
+    "hinglish": "Jab price 20% ghat jaaye aur revenue 25% badh jaaye, toh sales kitna badha? Simple hai, price aur revenue ke ratios ko samjho aur sales ka increment nikaalo."
+  },
+  "steps": [
+    "Revenue = Price x Sales",
+    "25% = 1/4",
+    "Price decrease by 20% = 4/5",
+    "Revenue ratio R = 4:5",
+    "Price ratio P = 5:4",
+    "Sales ratio S = 4/5 x 5/4 = 16/25",
+    "Increase in sales = (9/16) x 100 = 56.25%"
+  ],
+  "common_mistakes": [
+    "Price aur revenue ke ratios ko galat samajhna.",
+    "Percentage ko fraction mein convert karne mein mistake karna.",
+    "Sales increment calculate karte waqt wrong formula use karna."
+  ],
+  "teaching_content": {
+    "deep": "Agar aapko samajhna hai ki price decrease hone par revenue kaise badhta hai, toh pehle price aur sales ke beech ka relation samjho. Price ghatne se sales badhti hai, aur agar revenue bhi badh raha hai toh iska matlab sales ki increment zyada hai. Isko step-by-step samjho aur ratios ka use karke sales increment calculate karo.",
+    "shortcut": "Price 20% ghatne par revenue 25% badh raha hai, toh sales increment kaise nikaalein? Simple, price aur revenue ke ratios ko multiply karo aur sales increment nikaalo.",
+    "instant": "Price 20% down, revenue 25% up? Sales 56.25% up! Bas ratios multiply karo."
+  },
+  "tags": [
+    "percentage",
+    "price decrease",
+    "revenue increase",
+    "sales increment",
+    "ratios",
+    "SSC shortcut"
+  ]
+}

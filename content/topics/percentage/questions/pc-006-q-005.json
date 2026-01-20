@@ -1,0 +1,61 @@
+{
+    "id": "pc-006-q-005",
+    "pattern_id": "pc-006",
+    "topic_id": "percentage",
+  
+    "text": {
+      "en": "Rice is now being sold at Rs 29 per kg. During last month, its cost was Rs 25 per kg. By how much percent should a family reduce its consumption, so that expenditure remains same?",
+      "hi": "चावल 29 रुपये प्रति किलो की दर से बेचा जा रहा है। पिछले महीने में इसकी लागत 25 रुपये प्रति किलो थी। उपभोग को कितने प्रतिशत कम करना होगा ताकि खर्च समान रहे?"
+    },
+  
+    "options": {
+      "a": "15%",
+      "b": "17.19%",
+      "c": "16.67%",
+      "d": "13.79%"
+    },
+    "correct": "d",
+
+    "extracted_values": {
+      "percentage_decrease": 15,
+      "unit": "percentage",
+      "chain_length": 0
+    },
+  
+    "solution": {
+      "trick_application": [
+        "Rs 29 - Rs 25 = Rs 4",
+        "In faction, +4/25 increase",
+        "Consumption = -4/(25+4) = -4/29, -ve for decrease",
+        "In percentage, 4/29 = 13.79%"
+      ],
+      "answer": 13.79,
+      "answer_display": "13.79%"
+    },
+  
+    "source": {
+      "book": "CGL Practice king by Gagan Pratap",
+      "edition": "2023",
+      "chapter": 1,
+      "chapter_name": "Percentage",
+      "question_number": 1,
+      "page": 1
+    },
+  
+    "exam_history": [
+      {
+        "exam": "SSC CGL",
+        "tier": 1,
+        "year": 2022,
+        "date": "2022-08-12",
+        "shift": 2
+      }
+    ],
+  
+    "difficulty": 1,
+    "is_pyq": false,
+  
+    "embedding": null
+  }
+  
+

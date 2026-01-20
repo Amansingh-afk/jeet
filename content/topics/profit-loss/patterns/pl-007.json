@@ -7,16 +7,7 @@
 
   "signature": {
     "embedding_text": "A sells an article to B at X percent profit, B sells it to C at Y percent profit, if C pays Z rupees what did A pay for the article, find original cost price from final selling price in successive profit chain",
-    "question_template": "[A] sells an article to [B] at [X]% profit. [B] sells it to [C] at [Y]% profit. If [C] pays [Z], what did [A] pay?",
-    "structure": "A sells to B at X% profit, B sells to C at Y% profit, find original cost from final price",
-    "keywords": ["sells to", "profit", "then sells", "finally", "chain", "successive", "paid", "cost price"],
-    "variables": ["profit_1", "profit_2", "final_price"],
-    "variations": [
-      "A sells to B at X% profit, B sells to C at Y% profit, find A's cost",
-      "Find original price after chain of successive profits",
-      "Calculate cost price from final selling price in multi-seller chain",
-      "Two middlemen profit chain, find original cost"
-    ]
+    "variables": ["profit_1", "profit_2", "final_price"]
   },
 
   "trick": {

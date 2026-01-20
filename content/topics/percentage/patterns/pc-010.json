@@ -1,0 +1,43 @@
+{
+  "id": "pc-010",
+  "topic_id": "percentage",
+  "name": {
+    "en": "Income Tax Increase - Net Income Reduction",
+    "hi": "आयकर वृद्धि - शुद्ध आय में कमी"
+  },
+  "embedding_text": "Understand how an increase in income tax leads to a reduction in net income and calculate the rate of income tax using percentage tricks.",
+  "trick": {
+    "hinglish": "Jab income tax 22% se badhta hai aur net income 3% se ghat jaati hai, toh income aur tax ka ratio nikalne ke liye 22/3 ka use karo. Fir tax rate ko 3/25 se calculate karo."
+  },
+  "steps": [
+    {
+      "step": "Income × 3% = tax × 22%",
+      "explanation": "Yeh step batata hai ki income ka 3% tax ke 22% ke barabar hai."
+    },
+    {
+      "step": "Income / tax = 22 / 3",
+      "explanation": "Is ratio ko use karke income aur tax ka sambandh samjho."
+    },
+    {
+      "step": "Rate of income tax = 3/25 = 12%",
+      "explanation": "Is calculation se aapko tax rate mil jaata hai."
+    }
+  ],
+  "common_mistakes": [
+    "Income aur tax ke percentage ko ulta samajhna.",
+    "Directly 22% aur 3% ko subtract karke answer nikalna.",
+    "Ratio calculation mein galti karna."
+  ],
+  "teaching_content": {
+    "deep": "Aapko samajhna hoga ki jab income tax 22% se badhta hai, toh net income 3% se ghat jaati hai. Iska matlab hai ki income ka 3% tax ke 22% ke barabar hai. Isse aapko income aur tax ka ratio 22/3 milta hai. Is ratio ko simplify karke aap tax rate 3/25 yaani 12% nikal sakte hain.",
+    "shortcut": "22/3 ka ratio use karo aur tax rate ko 3/25 se calculate karo. Answer hai 12%.",
+    "instant": "22/3 ratio, tax rate 3/25, answer 12%."
+  },
+  "tags": [
+    "percentage",
+    "income tax",
+    "net income",
+    "SSC shortcut",
+    "calculation trick"
+  ]
+}

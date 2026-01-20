@@ -7,16 +7,7 @@
 
   "signature": {
     "embedding_text": "If price of an item decreases by X percent, by what percentage should consumption be increased to keep the expenditure same",
-    "question_template": "If price of [ITEM] decreases by [X]%, by what percentage should consumption be increased to keep expenditure same?",
-    "structure": "Price decrease → consumption increase for same expenditure",
-    "keywords": ["price", "decrease", "consumption", "increase", "expenditure", "same", "reduced", "spend"],
-    "variables": ["decrease_percent"],
-    "variations": [
-      "If cost of an item reduces by X%, how much more should be consumed for same spending",
-      "Rate falls by X%, what percent increase in consumption to maintain expenditure",
-      "Price drops X%, find consumption increase percentage to keep spending constant",
-      "When price decreases X%, by how much percent should consumption rise for same expense"
-    ]
+    "variables": ["decrease_percent"]
   },
 
   "trick": {

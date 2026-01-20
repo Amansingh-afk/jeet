@@ -1,0 +1,61 @@
+
+{
+    "id": "pc-006-q-006",
+    "pattern_id": "pc-006",
+    "topic_id": "percentage",
+  
+    "text": {
+      "en": "X is inversly proportional to y. If x is incresed by 37.5% then find % change in value of y%?",
+      "hi": "चावल 29 रुपये प्रति किलो की दर से बेचा जा रहा है। पिछले महीने में इसकी लागत 25 रुपये प्रति किलो थी। उपभोग को कितने प्रतिशत कम करना होगा ताकि खर्च समान रहे?"
+    },
+  
+    "options": {
+      "a": "15%",
+      "b": "17.19%",
+      "c": "22.27%",
+      "d": "13.79%"
+    },
+    "correct": "c",
+
+    "extracted_values": {
+      "percentage_decrease": 37.5,
+      "unit": "percentage",
+      "chain_length": 0
+    },
+  
+    "solution": {
+      "trick_application": [
+        "37.5% increase -> +3/8, +ve for increase",
+        "Y = -3/(8+3) = -3/11, -ve for decrease",
+        "In percentage, 3/11 = 27.27%"
+      ],
+      "answer": 27.27,
+      "answer_display": "27.27%"
+    },
+  
+    "source": {
+      "book": "CGL Practice king by Gagan Pratap",
+      "edition": "2023",
+      "chapter": 1,
+      "chapter_name": "Percentage",
+      "question_number": 1,
+      "page": 1
+    },
+  
+    "exam_history": [
+      {
+        "exam": "SSC CGL",
+        "tier": 1,
+        "year": 2022,
+        "date": "2022-08-12",
+        "shift": 2
+      }
+    ],
+  
+    "difficulty": 1,
+    "is_pyq": false,
+  
+    "embedding": null
+  }
+  
+
