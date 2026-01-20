@@ -50,14 +50,15 @@ interface QuestionFile {
   pattern_id: string;
   topic_id: string;
   text: { en: string; hi?: string };
-  options: { a: string; b: string; c: string; d: string };
-  correct: string;
-  extracted_values: unknown;
-  solution: unknown;
+  options?: { a: string; b: string; c: string; d: string };
+  correct?: string;
+  extracted_values?: unknown;
+  solution?: unknown;
   source?: unknown;
   exam_history?: unknown[];
   difficulty?: number;
   is_pyq?: boolean;
+  is_variation?: boolean;
 }
 
 interface TemplateFile {
@@ -205,12 +206,14 @@ async function seedQuestions(): Promise<number> {
         extracted_values: question.extracted_values as any,
         solution: question.solution as any,
         source: question.source as any,
-        exam_history: (question.exam_history || []) as any,
-        difficulty: question.difficulty || 2,
-        is_pyq: question.is_pyq || false,
+        exam_history: question.exam_history as any,
+        difficulty: question.difficulty,
+        is_pyq: question.is_pyq,
+        is_variation: question.is_variation,
       });
 
-      console.log(`  ✓ ${question.id}`);
+      const marker = question.is_variation ? '◇' : '✓';
+      console.log(`  ${marker} ${question.id}`);
       count++;
     }
   }

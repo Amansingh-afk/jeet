@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Jeet Studio</title>
+  <!-- Cropper.js for image cropping -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #0f0f12;
+      --surface: #18181b;
+      --surface-2: #1f1f24;
+      --border: #27272a;
+      --text: #fafafa;
+      --text-muted: #a1a1aa;
+      --blue-500: #3b82f6;
+      --blue-600: #2563eb;
+      --yellow-500: #eab308;
+      --success: #22c55e;
+      --error: #ef4444;
+      --warning: #f59e0b;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    header {
+      text-align: center;
+      padding: 30px 0;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 30px;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    /* Jeet J Logo */
+    .jeet-logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #3b82f6, #eab308);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+      font-family: Arial, sans-serif;
+      font-size: 28px;
+      font-weight: bold;
+      color: white;
+    }
+
+    .logo-text {
+      font-size: 28px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #3b82f6, #eab308);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    /* Upload Section */
+    .upload-zone {
+      border: 2px dashed var(--border);
+      border-radius: 16px;
+      padding: 40px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: var(--surface);
+    }
+
+    .upload-zone:hover {
+      border-color: #3b82f6;
+      background: var(--surface-2);
+    }
+
+    .upload-zone.dragover {
+      border-color: #3b82f6;
+      background: rgba(59, 130, 246, 0.1);
+    }
+
+    .upload-icon {
+      font-size: 48px;
+      margin-bottom: 15px;
+    }
+
+    .upload-text {
+      font-size: 16px;
+      margin-bottom: 8px;
+    }
+
+    .upload-hint {
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    .upload-buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .upload-btn {
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .upload-btn-primary {
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      color: white;
+      border: none;
+    }
+
+    .upload-btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+    }
+
+    .upload-btn-secondary {
+      background: var(--surface-2);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .upload-btn-secondary:hover {
+      background: var(--border);
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    /* Crop Modal */
+    .crop-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.9);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+
+    .crop-modal.visible {
+      display: flex;
+    }
+
+    .crop-container {
+      background: var(--surface);
+      border-radius: 16px;
+      padding: 20px;
+      max-width: 90vw;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .crop-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .crop-title {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .crop-image-container {
+      max-height: 60vh;
+      overflow: hidden;
+    }
+
+    .crop-image-container img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .crop-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+    }
+
+    /* Preview Image */
+    .preview-image {
+      max-width: 100%;
+      max-height: 200px;
+      border-radius: 12px;
+      margin: 20px auto;
+      display: none;
+      object-fit: contain;
+    }
+
+    /* Status */
+    .status {
+      padding: 12px 16px;
+      border-radius: 10px;
+      margin: 20px 0;
+      font-size: 14px;
+      display: none;
+    }
+
+    .status.processing {
+      background: rgba(59, 130, 246, 0.15);
+      border: 1px solid #3b82f6;
+      color: #60a5fa;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .status.success {
+      background: rgba(34, 197, 94, 0.15);
+      border: 1px solid var(--success);
+      color: var(--success);
+      display: block;
+    }
+
+    .status.error {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid var(--error);
+      color: var(--error);
+      display: block;
+    }
+
+    .spinner {
+      width: 18px;
+      height: 18px;
+      border: 2px solid #3b82f6;
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Result Card */
+    .result-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      margin: 20px 0;
+      display: none;
+    }
+
+    .result-card.visible {
+      display: block;
+    }
+
+    .result-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .result-title {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .badge {
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .badge.new {
+      background: rgba(59, 130, 246, 0.2);
+      color: #60a5fa;
+    }
+
+    .badge.existing {
+      background: rgba(34, 197, 94, 0.2);
+      color: var(--success);
+    }
+
+    /* Form Fields */
+    .field {
+      margin-bottom: 20px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      padding: 12px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: 14px;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      outline: none;
+      border-color: #3b82f6;
+    }
+
+    .field textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    /* Collapsible JSON */
+    .json-section {
+      margin-top: 20px;
+    }
+
+    .json-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .json-toggle:hover {
+      color: var(--text);
+    }
+
+    .json-content {
+      display: none;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 15px;
+      overflow-x: auto;
+    }
+
+    .json-content.visible {
+      display: block;
+    }
+
+    .json-content pre {
+      margin: 0;
+      font-size: 12px;
+      color: var(--text-muted);
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+    }
+
+    /* Confidence */
+    .confidence {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 15px 0;
+      padding: 12px;
+      background: var(--surface-2);
+      border-radius: 8px;
+    }
+
+    .confidence-bar {
+      flex: 1;
+      height: 6px;
+      background: var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .confidence-fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 0.3s;
+    }
+
+    .confidence-text {
+      font-size: 13px;
+      font-weight: 500;
+      min-width: 45px;
+    }
+
+    /* Warnings */
+    .warnings {
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid var(--warning);
+      border-radius: 8px;
+      padding: 12px;
+      margin: 15px 0;
+    }
+
+    .warnings-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--warning);
+      margin-bottom: 8px;
+    }
+
+    .warnings ul {
+      margin: 0;
+      padding-left: 20px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* Buttons */
+    .actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 25px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 14px 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      color: white;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+    }
+
+    .btn-secondary {
+      background: var(--surface-2);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      background: var(--border);
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .container {
+        padding: 15px;
+      }
+      
+      .field-row {
+        grid-template-columns: 1fr;
+      }
+
+      .upload-zone {
+        padding: 30px 20px;
+      }
+
+      .upload-buttons {
+        flex-direction: column;
+      }
+
+      .crop-container {
+        padding: 15px;
+      }
+    }
+
+    /* History section */
+    .history {
+      margin-top: 40px;
+      padding-top: 30px;
+      border-top: 1px solid var(--border);
+    }
+
+    .history-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: var(--text-muted);
+    }
+
+    .history-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px;
+      background: var(--surface);
+      border-radius: 8px;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    .history-item .question {
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-right: 10px;
+    }
+
+    .history-item .time {
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo-container">
+        <div class="jeet-logo">J</div>
+        <span class="logo-text">Jeet Studio</span>
+      </div>
+      <div class="subtitle">Content Creation Pipeline</div>
+    </header>
+
+    <!-- Upload Zone -->
+    <div class="upload-zone" id="uploadZone">
+      <div class="upload-icon">📷</div>
+      <div class="upload-text">Drop image here or choose below</div>
+      <div class="upload-hint">Supports JPG, PNG, WebP • Max 10MB</div>
+      <div class="upload-buttons">
+        <button class="upload-btn upload-btn-primary" onclick="openGallery()">
+          🖼️ Choose from Gallery
+        </button>
+        <button class="upload-btn upload-btn-secondary" onclick="openCamera()">
+          📸 Take Photo
+        </button>
+      </div>
+      <input type="file" id="galleryInput" accept="image/jpeg,image/png,image/webp,image/jpg">
+      <input type="file" id="cameraInput" accept="image/jpeg,image/png,image/webp,image/jpg" capture="environment">
+    </div>
+
+    <!-- Crop Modal -->
+    <div class="crop-modal" id="cropModal">
+      <div class="crop-container">
+        <div class="crop-header">
+          <span class="crop-title">Crop Image</span>
+          <button class="btn btn-secondary" onclick="cancelCrop()" style="flex: 0; padding: 8px 16px; font-size: 13px;">Cancel</button>
+        </div>
+        <div class="crop-image-container">
+          <img id="cropImage" src="">
+        </div>
+        <div class="crop-actions">
+          <button class="btn btn-secondary" onclick="resetCrop()" style="flex: 0;">Reset</button>
+          <button class="btn btn-primary" onclick="applyCrop()" style="flex: 0;">Use This Crop</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Preview Image -->
+    <img id="previewImage" class="preview-image" alt="Preview">
+
+    <!-- Status -->
+    <div id="status" class="status">
+      <div class="spinner"></div>
+      <span id="statusText">Processing...</span>
+    </div>
+
+    <!-- Result Card -->
+    <div id="resultCard" class="result-card">
+      <div class="result-header">
+        <div class="result-title">Extracted Content</div>
+        <span id="patternBadge" class="badge new">New Pattern</span>
+      </div>
+
+      <!-- Confidence -->
+      <div class="confidence">
+        <span style="font-size: 13px; color: var(--text-muted);">Confidence:</span>
+        <div class="confidence-bar">
+          <div id="confidenceFill" class="confidence-fill" style="width: 0%; background: var(--success);"></div>
+        </div>
+        <span id="confidenceText" class="confidence-text">0%</span>
+      </div>
+
+      <!-- Warnings -->
+      <div id="warnings" class="warnings" style="display: none;">
+        <div class="warnings-title">⚠️ Warnings</div>
+        <ul id="warningsList"></ul>
+      </div>
+
+      <!-- Editable Fields -->
+      <div class="field">
+        <label>Question Text</label>
+        <textarea id="questionText" placeholder="Question will appear here..."></textarea>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Topic</label>
+          <select id="topicSelect">
+            <option value="percentage">Percentage</option>
+            <option value="profit-loss">Profit & Loss</option>
+            <option value="time-work">Time & Work</option>
+            <option value="time-distance">Time & Distance</option>
+            <option value="ratio-proportion">Ratio & Proportion</option>
+            <option value="simple-interest">Simple Interest</option>
+            <option value="compound-interest">Compound Interest</option>
+            <option value="average">Average</option>
+            <option value="mixture">Mixture & Alligation</option>
+            <option value="number-system">Number System</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Pattern ID</label>
+          <input type="text" id="patternId" placeholder="e.g., pc-009">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label>Question ID</label>
+          <input type="text" id="questionId" placeholder="e.g., pc-009-q-001">
+        </div>
+        <div class="field">
+          <label>Difficulty</label>
+          <select id="difficulty">
+            <option value="1">1 - Easy</option>
+            <option value="2">2 - Medium Easy</option>
+            <option value="3" selected>3 - Medium</option>
+            <option value="4">4 - Medium Hard</option>
+            <option value="5">5 - Hard</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Pattern Description</label>
+        <input type="text" id="patternDesc" placeholder="e.g., Price Increase - Quantity Decrease">
+      </div>
+
+      <!-- JSON Preview -->
+      <div class="json-section">
+        <div class="json-toggle" onclick="toggleJson('pattern')">
+          <span id="patternArrow">▶</span> Pattern JSON
+        </div>
+        <div id="patternJson" class="json-content">
+          <pre id="patternJsonContent"></pre>
+        </div>
+      </div>
+
+      <div class="json-section">
+        <div class="json-toggle" onclick="toggleJson('question')">
+          <span id="questionArrow">▶</span> Question JSON
+        </div>
+        <div id="questionJson" class="json-content">
+          <pre id="questionJsonContent"></pre>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="actions">
+        <button class="btn btn-secondary" onclick="cancel()">Cancel</button>
+        <button class="btn btn-primary" id="saveBtn" onclick="save()">Save Content</button>
+      </div>
+    </div>
+
+    <!-- History -->
+    <div id="history" class="history" style="display: none;">
+      <div class="history-title">Recent Saves</div>
+      <div id="historyList"></div>
+    </div>
+  </div>
+
+  <script>
+    // State
+    let currentSessionId = null;
+    let currentResult = null;
+    let cropper = null;
+    let pendingFile = null;
+
+    // Elements
+    const uploadZone = document.getElementById('uploadZone');
+    const galleryInput = document.getElementById('galleryInput');
+    const cameraInput = document.getElementById('cameraInput');
+    const previewImage = document.getElementById('previewImage');
+    const status = document.getElementById('status');
+    const statusText = document.getElementById('statusText');
+    const resultCard = document.getElementById('resultCard');
+    const cropModal = document.getElementById('cropModal');
+    const cropImage = document.getElementById('cropImage');
+
+    // Upload handlers
+    function openGallery() {
+      galleryInput.click();
+    }
+
+    function openCamera() {
+      cameraInput.click();
+    }
+
+    uploadZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadZone.classList.add('dragover');
+    });
+
+    uploadZone.addEventListener('dragleave', () => {
+      uploadZone.classList.remove('dragover');
+    });
+
+    uploadZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadZone.classList.remove('dragover');
+      const file = e.dataTransfer.files[0];
+      if (file && file.type.startsWith('image/')) {
+        showCropper(file);
+      }
+    });
+
+    galleryInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) showCropper(file);
+    });
+
+    cameraInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) showCropper(file);
+    });
+
+    // Cropper functions
+    function showCropper(file) {
+      pendingFile = file;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        cropImage.src = e.target.result;
+        cropModal.classList.add('visible');
+        
+        // Destroy existing cropper
+        if (cropper) {
+          cropper.destroy();
+        }
+        
+        // Initialize cropper
+        setTimeout(() => {
+          cropper = new Cropper(cropImage, {
+            viewMode: 1,
+            dragMode: 'move',
+            aspectRatio: NaN, // Free aspect ratio
+            autoCropArea: 1,
+            restore: false,
+            guides: true,
+            center: true,
+            highlight: true,
+            cropBoxMovable: true,
+            cropBoxResizable: true,
+            toggleDragModeOnDblclick: false,
+            responsive: true,
+          });
+        }, 100);
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function cancelCrop() {
+      cropModal.classList.remove('visible');
+      if (cropper) {
+        cropper.destroy();
+        cropper = null;
+      }
+      pendingFile = null;
+      galleryInput.value = '';
+      cameraInput.value = '';
+    }
+
+    function resetCrop() {
+      if (cropper) {
+        cropper.reset();
+      }
+    }
+
+    function applyCrop() {
+      if (!cropper) return;
+
+      // Get cropped canvas
+      const canvas = cropper.getCroppedCanvas({
+        maxWidth: 2048,
+        maxHeight: 2048,
+        imageSmoothingEnabled: true,
+        imageSmoothingQuality: 'high',
+      });
+
+      // Convert to blob and process
+      canvas.toBlob((blob) => {
+        const croppedFile = new File([blob], pendingFile.name, { type: 'image/jpeg' });
+        
+        // Hide modal
+        cropModal.classList.remove('visible');
+        if (cropper) {
+          cropper.destroy();
+          cropper = null;
+        }
+
+        // Process the cropped file
+        handleFile(croppedFile);
+      }, 'image/jpeg', 0.9);
+    }
+
+    async function handleFile(file) {
+      // Show preview
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        previewImage.src = e.target.result;
+        previewImage.style.display = 'block';
+      };
+      reader.readAsDataURL(file);
+
+      // Show processing status
+      showStatus('processing', 'Processing image with Vision API...');
+      resultCard.classList.remove('visible');
+
+      try {
+        const formData = new FormData();
+        formData.append('photo', file);
+        formData.append('topic_id', document.getElementById('topicSelect').value);
+
+        const response = await fetch('/content/process-photo', {
+          method: 'POST',
+          body: formData
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.message || 'Failed to process image');
+        }
+
+        currentSessionId = data.session_id;
+        currentResult = data;
+        
+        showResult(data);
+        showStatus('success', 'Content extracted successfully!');
+        
+        setTimeout(() => hideStatus(), 3000);
+
+      } catch (error) {
+        showStatus('error', error.message);
+        console.error('Error:', error);
+      }
+    }
+
+    function showStatus(type, message) {
+      status.className = `status ${type}`;
+      statusText.textContent = message;
+    }
+
+    function hideStatus() {
+      status.className = 'status';
+    }
+
+    function showResult(data) {
+      resultCard.classList.add('visible');
+
+      // Update badge
+      const badge = document.getElementById('patternBadge');
+      if (data.generated.is_new_pattern) {
+        badge.textContent = 'New Pattern';
+        badge.className = 'badge new';
+      } else {
+        badge.textContent = 'Existing Pattern';
+        badge.className = 'badge existing';
+      }
+
+      // Confidence
+      const confidence = Math.round((data.extracted.confidence || 0) * 100);
+      document.getElementById('confidenceFill').style.width = `${confidence}%`;
+      document.getElementById('confidenceFill').style.background = 
+        confidence >= 80 ? 'var(--success)' : 
+        confidence >= 60 ? 'var(--warning)' : 'var(--error)';
+      document.getElementById('confidenceText').textContent = `${confidence}%`;
+
+      // Warnings
+      const warnings = [...(data.warnings || []), ...(data.extracted.warnings || [])];
+      const warningsEl = document.getElementById('warnings');
+      if (warnings.length > 0) {
+        warningsEl.style.display = 'block';
+        document.getElementById('warningsList').innerHTML = 
+          warnings.map(w => `<li>${w}</li>`).join('');
+      } else {
+        warningsEl.style.display = 'none';
+      }
+
+      // Fields
+      document.getElementById('questionText').value = data.extracted.question_text || '';
+      document.getElementById('topicSelect').value = data.extracted.topic_guess || 'percentage';
+      document.getElementById('patternId').value = data.generated.pattern_id || '';
+      document.getElementById('questionId').value = data.generated.question_id || '';
+      document.getElementById('patternDesc').value = data.extracted.pattern_description || '';
+
+      // JSON
+      document.getElementById('patternJsonContent').textContent = 
+        data.generated.pattern ? JSON.stringify(data.generated.pattern, null, 2) : 'N/A (adding to existing pattern)';
+      document.getElementById('questionJsonContent').textContent = 
+        JSON.stringify(data.generated.question, null, 2);
+    }
+
+    function toggleJson(type) {
+      const content = document.getElementById(`${type}Json`);
+      const arrow = document.getElementById(`${type}Arrow`);
+      
+      if (content.classList.contains('visible')) {
+        content.classList.remove('visible');
+        arrow.textContent = '▶';
+      } else {
+        content.classList.add('visible');
+        arrow.textContent = '▼';
+      }
+    }
+
+    async function save() {
+      if (!currentSessionId) return;
+
+      const saveBtn = document.getElementById('saveBtn');
+      saveBtn.disabled = true;
+      saveBtn.textContent = 'Saving...';
+
+      try {
+        // Update the generated content with edited values
+        if (currentResult.generated.question) {
+          currentResult.generated.question.text = {
+            en: document.getElementById('questionText').value
+          };
+          currentResult.generated.question.id = document.getElementById('questionId').value;
+          currentResult.generated.question.pattern_id = document.getElementById('patternId').value;
+          currentResult.generated.question.topic_id = document.getElementById('topicSelect').value;
+          currentResult.generated.question.difficulty = parseInt(document.getElementById('difficulty').value);
+        }
+
+        if (currentResult.generated.pattern) {
+          currentResult.generated.pattern.id = document.getElementById('patternId').value;
+          currentResult.generated.pattern.topic_id = document.getElementById('topicSelect').value;
+        }
+
+        const response = await fetch('/content/save', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            session_id: currentSessionId,
+            pattern: currentResult.generated.pattern,
+            question: currentResult.generated.question
+          })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.message || 'Failed to save');
+        }
+
+        showStatus('success', `Saved! Files: ${data.files_created.join(', ')}`);
+        
+        // Add to history
+        addToHistory({
+          question: document.getElementById('questionText').value.substring(0, 50) + '...',
+          patternId: document.getElementById('patternId').value,
+          time: new Date().toLocaleTimeString()
+        });
+
+        // Reset
+        setTimeout(() => {
+          reset();
+        }, 2000);
+
+      } catch (error) {
+        showStatus('error', error.message);
+        console.error('Save error:', error);
+      } finally {
+        saveBtn.disabled = false;
+        saveBtn.textContent = 'Save Content';
+      }
+    }
+
+    function cancel() {
+      if (currentSessionId) {
+        fetch(`/content/pending/${currentSessionId}`, { method: 'DELETE' });
+      }
+      reset();
+    }
+
+    function reset() {
+      currentSessionId = null;
+      currentResult = null;
+      previewImage.style.display = 'none';
+      resultCard.classList.remove('visible');
+      galleryInput.value = '';
+      cameraInput.value = '';
+      hideStatus();
+    }
+
+    function addToHistory(item) {
+      const history = document.getElementById('history');
+      const list = document.getElementById('historyList');
+      
+      history.style.display = 'block';
+      
+      const el = document.createElement('div');
+      el.className = 'history-item';
+      el.innerHTML = `
+        <span class="question">${item.question}</span>
+        <span class="badge existing">${item.patternId}</span>
+        <span class="time">${item.time}</span>
+      `;
+      
+      list.insertBefore(el, list.firstChild);
+      
+      // Keep only last 5
+      while (list.children.length > 5) {
+        list.removeChild(list.lastChild);
+      }
+    }
+  </script>
+</body>
+</html>

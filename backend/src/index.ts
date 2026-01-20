@@ -32,6 +32,7 @@ async function main() {
   });
 
   console.log(`\n🚀 Server running at http://localhost:${config.port}`);
+  console.log(`🎨 Studio UI at http://localhost:${config.port}/studio`);
   console.log(`📚 Environment: ${config.nodeEnv}`);
   console.log('\nEndpoints:');
   console.log(`  GET  /           - Health check`);
@@ -41,6 +42,8 @@ async function main() {
   console.log(`  GET  /templates  - List templates`);
   console.log(`  POST /chat       - Chat with Jeetu (streaming)`);
   console.log(`  POST /chat/test  - Test chat (non-streaming)`);
+  console.log(`  POST /content/process-photo  - Process photo and extract content`);
+  console.log(`  POST /content/save           - Save generated content`);
   console.log('\n' + '='.repeat(50) + '\n');
 
   // Graceful shutdown

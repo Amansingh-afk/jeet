@@ -86,35 +86,14 @@ export function formatEmbeddingForPg(embedding: number[]): string {
 }
 
 /**
- * Create text for pattern embedding
- * Prefers embedding_text if available, otherwise uses structure + keywords
+ * Create text for pattern embedding using embedding_text field
  */
 export function createPatternEmbeddingText(pattern: {
-  name: string;
   signature: {
-    structure: string;
-    keywords: string[];
-    variations?: string[];
-    embedding_text?: string;
+    embedding_text: string;
   };
 }): string {
-  // Prefer explicit embedding_text if provided
-  if (pattern.signature.embedding_text) {
-    return pattern.signature.embedding_text;
-  }
-
-  // Fallback to structure + keywords + variations
-  const parts = [
-    pattern.signature.structure,
-    pattern.signature.keywords.join(' '),
-  ];
-
-  if (pattern.signature.variations?.length) {
-    parts.push(pattern.signature.variations.join(' '));
-  }
-
-  // Normalize to handle any numbers in the structure/variations
-  return normalizeForEmbedding(parts.join(' '));
+  return pattern.signature.embedding_text;
 }
 
 /**

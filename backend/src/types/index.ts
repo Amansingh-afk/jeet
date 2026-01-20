@@ -22,10 +22,8 @@ export interface Topic {
 // ============================================
 
 export interface PatternSignature {
-  keywords: string[];
-  structure: string;
+  embedding_text: string;
   variables: string[];
-  variations?: string[];
 }
 
 export interface TrickStep {
@@ -152,16 +150,17 @@ export interface Question {
   pattern_id: string;
   topic_id: string;
   text: QuestionText;
-  options: QuestionOptions;
-  correct_option: 'a' | 'b' | 'c' | 'd';
-  extracted_values: Record<string, unknown>;
-  solution: QuestionSolution;
+  options?: QuestionOptions;
+  correct_option?: 'a' | 'b' | 'c' | 'd';
+  extracted_values?: Record<string, unknown>;
+  solution?: QuestionSolution;
   source?: QuestionSource;
-  exam_history: ExamAppearance[];
-  difficulty: number;
-  is_pyq: boolean;
+  exam_history?: ExamAppearance[];
+  difficulty?: number;
+  is_pyq?: boolean;
+  is_variation?: boolean;
   embedding?: number[];
-  created_at: Date;
+  created_at?: Date;
 }
 
 // ============================================

@@ -44,6 +44,8 @@ npm run dev
 
 Server runs at `http://localhost:3000`
 
+**Studio UI**: `http://localhost:3000/studio` - Upload photos to add content
+
 ## Commands
 
 | Command | Description |
@@ -148,6 +150,18 @@ POST /chat/match   # Pattern matching only (no LLM)
 POST /chat/test    # Non-streaming test endpoint
 ```
 
+### Content Ingestion (Studio)
+
+```
+GET  /studio                    # Studio UI for adding content
+POST /content/process-photo     # Process photo via Vision API
+POST /content/process-photos    # Process multiple photos
+POST /content/save              # Save generated content to files
+GET  /content/pending/:id       # Get pending content
+DELETE /content/pending/:id     # Cancel pending content
+GET  /content/next-ids/:topic   # Get next available IDs
+```
+
 ## Testing the Chat
 
 ### Streaming (SSE)
@@ -209,17 +223,22 @@ backend/
 │   │   └── database.ts       # PostgreSQL connection
 │   ├── routes/               # API routes
 │   │   ├── chat.ts           # /chat (streaming)
+│   │   ├── content-ingestion.ts  # /content (Studio API)
 │   │   ├── topics.ts         # /topics
 │   │   ├── patterns.ts       # /patterns
 │   │   ├── questions.ts      # /questions
 │   │   └── templates.ts      # /templates
 │   ├── services/             # Business logic
 │   │   ├── pattern-matcher.service.ts
-│   │   └── llm.service.ts
+│   │   ├── llm.service.ts
+│   │   ├── vision.service.ts        # GPT-4o Vision extraction
+│   │   └── content-generator.service.ts  # JSON generation
 │   ├── repositories/         # Database access
 │   ├── middleware/           # Error handling
 │   ├── utils/                # Helpers
 │   └── types/                # TypeScript types
+├── public/                   # Static files
+│   └── studio.html           # Content creation UI
 ├── scripts/                  # CLI scripts
 ├── migrations/               # SQL migrations
 ├── docker-compose.yml        # Local services

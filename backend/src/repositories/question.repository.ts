@@ -8,14 +8,15 @@ interface QuestionRow {
   topic_id: string;
   text_en: string;
   text_hi: string | null;
-  options: QuestionOptions;
-  correct_option: string;
-  extracted_values: Record<string, unknown>;
-  solution: QuestionSolution;
+  options: QuestionOptions | null;
+  correct_option: string | null;
+  extracted_values: Record<string, unknown> | null;
+  solution: QuestionSolution | null;
   source: QuestionSource | null;
-  exam_history: ExamAppearance[];
+  exam_history: ExamAppearance[] | null;
   difficulty: number;
   is_pyq: boolean;
+  is_variation: boolean;
   embedding: string | null;
   created_at: Date;
 }
@@ -29,14 +30,15 @@ function rowToQuestion(row: QuestionRow): Question {
       en: row.text_en,
       hi: row.text_hi || undefined,
     },
-    options: row.options,
-    correct_option: row.correct_option as 'a' | 'b' | 'c' | 'd',
-    extracted_values: row.extracted_values,
-    solution: row.solution,
+    options: row.options || undefined,
+    correct_option: row.correct_option as 'a' | 'b' | 'c' | 'd' | undefined,
+    extracted_values: row.extracted_values || undefined,
+    solution: row.solution || undefined,
     source: row.source || undefined,
-    exam_history: row.exam_history || [],
+    exam_history: row.exam_history || undefined,
     difficulty: row.difficulty,
     is_pyq: row.is_pyq,
+    is_variation: row.is_variation,
     embedding: undefined,
     created_at: row.created_at,
   };
@@ -123,8 +125,8 @@ export const questionRepository = {
       `INSERT INTO questions (
          id, pattern_id, topic_id, text_en, text_hi, options,
          correct_option, extracted_values, solution, source,
-         exam_history, difficulty, is_pyq
-       ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+         exam_history, difficulty, is_pyq, is_variation
+       ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
        RETURNING *`,
       [
         question.id,
@@ -132,14 +134,15 @@ export const questionRepository = {
         question.topic_id,
         question.text.en,
         question.text.hi,
-        JSON.stringify(question.options),
-        question.correct_option,
-        JSON.stringify(question.extracted_values),
-        JSON.stringify(question.solution),
+        question.options ? JSON.stringify(question.options) : null,
+        question.correct_option || null,
+        question.extracted_values ? JSON.stringify(question.extracted_values) : null,
+        question.solution ? JSON.stringify(question.solution) : null,
         question.source ? JSON.stringify(question.source) : null,
-        JSON.stringify(question.exam_history),
-        question.difficulty,
-        question.is_pyq,
+        question.exam_history ? JSON.stringify(question.exam_history) : null,
+        question.difficulty ?? 2,
+        question.is_pyq ?? false,
+        question.is_variation ?? false,
       ]
     );
     return rowToQuestion(result.rows[0]);
@@ -150,8 +153,8 @@ export const questionRepository = {
       `INSERT INTO questions (
          id, pattern_id, topic_id, text_en, text_hi, options,
          correct_option, extracted_values, solution, source,
-         exam_history, difficulty, is_pyq
-       ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+         exam_history, difficulty, is_pyq, is_variation
+       ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
        ON CONFLICT (id) DO UPDATE SET
          pattern_id = EXCLUDED.pattern_id,
          topic_id = EXCLUDED.topic_id,
@@ -164,7 +167,8 @@ export const questionRepository = {
          source = EXCLUDED.source,
          exam_history = EXCLUDED.exam_history,
          difficulty = EXCLUDED.difficulty,
-         is_pyq = EXCLUDED.is_pyq
+         is_pyq = EXCLUDED.is_pyq,
+         is_variation = EXCLUDED.is_variation
        RETURNING *`,
       [
         question.id,
@@ -172,14 +176,15 @@ export const questionRepository = {
         question.topic_id,
         question.text.en,
         question.text.hi,
-        JSON.stringify(question.options),
-        question.correct_option,
-        JSON.stringify(question.extracted_values),
-        JSON.stringify(question.solution),
+        question.options ? JSON.stringify(question.options) : null,
+        question.correct_option || null,
+        question.extracted_values ? JSON.stringify(question.extracted_values) : null,
+        question.solution ? JSON.stringify(question.solution) : null,
         question.source ? JSON.stringify(question.source) : null,
-        JSON.stringify(question.exam_history),
-        question.difficulty,
-        question.is_pyq,
+        question.exam_history ? JSON.stringify(question.exam_history) : null,
+        question.difficulty ?? 2,
+        question.is_pyq ?? false,
+        question.is_variation ?? false,
       ]
     );
     return rowToQuestion(result.rows[0]);

@@ -1,6 +1,7 @@
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { logger } from 'hono/logger';
+import { serveStatic } from '@hono/node-server/serve-static';
 import { errorHandler, notFound } from './middleware/error-handler.js';
 
 // Routes
@@ -9,17 +10,28 @@ import { patterns } from './routes/patterns.js';
 import { questions } from './routes/questions.js';
 import { templates } from './routes/templates.js';
 import { chat } from './routes/chat.js';
+import { contentIngestion } from './routes/content-ingestion.js';
 
 const app = new Hono();
 
 // Middleware
 app.use('*', logger());
 app.use('*', cors({
-  origin: ['http://localhost:3000', 'http://localhost:5173'],
+  origin: (origin) => {
+    // Allow localhost and local network IPs
+    if (!origin) return true;
+    if (origin.includes('localhost')) return origin;
+    if (origin.match(/^http:\/\/192\.168\.\d+\.\d+/)) return origin;
+    if (origin.match(/^http:\/\/10\.\d+\.\d+\.\d+/)) return origin;
+    return 'http://localhost:3000';
+  },
   allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowHeaders: ['Content-Type', 'Authorization'],
 }));
 app.use('*', errorHandler);
+
+// Static files (Studio UI)
+app.use('/studio', serveStatic({ path: './public/studio.html' }));
 
 // Health check
 app.get('/', (c) => {
@@ -28,6 +40,7 @@ app.get('/', (c) => {
     version: '1.0.0',
     status: 'healthy',
     message: 'Jeetu Bhaiya is ready to help! 🎯',
+    studio: '/studio - Content creation UI',
   });
 });
 
@@ -41,6 +54,7 @@ app.route('/patterns', patterns);
 app.route('/questions', questions);
 app.route('/templates', templates);
 app.route('/chat', chat);
+app.route('/content', contentIngestion);
 
 // 404 handler
 app.notFound(notFound);
