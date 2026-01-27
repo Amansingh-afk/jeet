@@ -40,3 +40,7 @@ lerna-debug.log*
 *.temp
 .cache/
 .qry/
+
+# IDE
+.claude/
+.cursor/
