@@ -104,18 +104,17 @@ export function FocusModeToggle({
 }
 
 // Compact version for input area
-export function FocusModeToggleCompact({ 
-  enabled, 
+export function FocusModeToggleCompact({
+  enabled,
   onToggle,
-  className 
-}: Omit<FocusModeToggleProps, 'showTimer'>) {
+}: Omit<FocusModeToggleProps, 'showTimer' | 'className'>) {
   return (
     <motion.button
       onClick={() => onToggle(!enabled)}
       className={cn(
         "relative p-2 rounded-lg transition-all",
-        enabled 
-          ? "bg-foreground/10 text-foreground" 
+        enabled
+          ? "bg-foreground/10 text-foreground"
           : "text-muted-foreground hover:text-foreground hover:bg-muted"
       )}
       whileHover={{ scale: 1.05 }}

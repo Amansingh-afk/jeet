@@ -1,11 +1,11 @@
 import {
   BookOpen,
-  TrendingUp,
   History,
   Sparkles,
   Target,
   Settings,
   HelpCircle,
+  LayoutDashboard,
   type LucideIcon,
 } from "lucide-react"
 
@@ -35,72 +35,25 @@ export interface SidebarConfig {
 export const sidebarConfig: SidebarConfig = {
   navMain: [
     {
+      title: "Home",
+      url: "/dashboard",
+      icon: LayoutDashboard,
+    },
+    {
       title: "Ask Jeet",
       url: "/dashboard/ask",
       icon: Sparkles,
-      isActive: true,
       badge: "AI",
     },
     {
       title: "Practice",
       url: "/dashboard/practice",
       icon: Target,
-      items: [
-        {
-          title: "Daily Challenge",
-          url: "/dashboard/practice/daily",
-        },
-        {
-          title: "Quick Practice",
-          url: "/dashboard/practice/quick",
-        },
-        {
-          title: "PYQ Papers",
-          url: "/dashboard/practice/pyq",
-        },
-      ],
     },
     {
       title: "Topics",
       url: "/dashboard/topics",
       icon: BookOpen,
-      items: [
-        {
-          title: "All Topics",
-          url: "/dashboard/topics",
-        },
-        {
-          title: "Arithmetic",
-          url: "/dashboard/topics/arithmetic",
-        },
-        {
-          title: "Algebra",
-          url: "/dashboard/topics/algebra",
-        },
-        {
-          title: "Geometry",
-          url: "/dashboard/topics/geometry",
-        },
-      ],
-    },
-    {
-      title: "My Progress",
-      url: "/dashboard/progress",
-      icon: TrendingUp,
-      items: [
-        {
-          title: "Overview",
-          url: "/dashboard/progress",
-        },
-        {
-          title: "Tricks Learned",
-          url: "/dashboard/progress/tricks",
-        },
-        {
-          title: "Weak Areas",
-          url: "/dashboard/progress/weak",
-        },
-      ],
     },
     {
       title: "History",

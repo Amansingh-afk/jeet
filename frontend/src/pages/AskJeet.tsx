@@ -182,8 +182,10 @@ export function AskJeet() {
   const [isFocused, setIsFocused] = React.useState(false)
   const [focusMode, setFocusMode] = React.useState(false)
   const messagesEndRef = React.useRef<HTMLDivElement>(null)
+  const messagesContainerRef = React.useRef<HTMLDivElement>(null)
   const textareaRef = React.useRef<HTMLTextAreaElement>(null)
   const abortControllerRef = React.useRef<AbortController | null>(null)
+  const shouldAutoScrollRef = React.useRef(true)
 
   const isEmptyState = messages.length === 0
 
@@ -191,8 +193,22 @@ export function AskJeet() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
   }
 
+  const checkIfNearBottom = () => {
+    if (!messagesContainerRef.current) return true
+    const { scrollTop, scrollHeight, clientHeight } = messagesContainerRef.current
+    const threshold = 100 // pixels from bottom
+    return scrollHeight - scrollTop - clientHeight < threshold
+  }
+
+  const handleScroll = () => {
+    shouldAutoScrollRef.current = checkIfNearBottom()
+  }
+
   React.useEffect(() => {
-    scrollToBottom()
+    // Only auto-scroll if user is near bottom
+    if (shouldAutoScrollRef.current) {
+      scrollToBottom()
+    }
   }, [messages])
 
   // Auto-resize textarea
@@ -223,6 +239,8 @@ export function AskJeet() {
     setMessages((prev) => [...prev, userMessage])
     setInput("")
     setIsLoading(true)
+    // When user sends a message, always scroll to bottom
+    shouldAutoScrollRef.current = true
 
     // Reset textarea height
     if (textareaRef.current) {
@@ -545,9 +563,13 @@ export function AskJeet() {
       </motion.div>
 
       {/* Messages Area */}
-      <div className="flex-1 min-h-0 overflow-y-auto chat-scroll">
+      <div 
+        ref={messagesContainerRef}
+        className="flex-1 min-h-0 overflow-y-auto chat-scroll"
+        onScroll={handleScroll}
+      >
         <div className={cn(
-          "mx-auto w-full max-w-4xl px-4 sm:px-6 py-6 flex flex-col",
+          "mx-auto w-full max-w-4xl px-4 sm:px-6 pt-6 pb-4 flex flex-col",
           isEmptyState && "min-h-full justify-center"
         )}>
           {/* Hero Empty State */}
@@ -589,6 +611,7 @@ export function AskJeet() {
                   ))}
                 </AnimatePresence>
               </LayoutGroup>
+
             )}
           </AnimatePresence>
           <div ref={messagesEndRef} />
@@ -600,11 +623,11 @@ export function AskJeet() {
         "flex-shrink-0 transition-all duration-300",
         isEmptyState ? "bg-transparent" : "border-t bg-gradient-to-t from-background via-background to-transparent backdrop-blur-xl"
       )}>
-        <div className="mx-auto w-full max-w-4xl px-4 sm:px-6 py-4">
+        <div className="mx-auto w-full max-w-4xl px-4 sm:px-6 pb-0 pt-2">
           {/* Level Selector - Compact pills */}
           {!focusMode && (
             <motion.div
-              className="flex items-center justify-center gap-1.5 mb-4"
+              className="flex items-center justify-center gap-1.5 mb-2"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
@@ -656,7 +679,7 @@ export function AskJeet() {
             )}
             layout
           >
-            <div className="flex items-end gap-2 p-2 sm:p-3">
+            <div className="flex items-end gap-2 p-2 sm:p-2.5">
               <textarea
                 ref={textareaRef}
                 value={input}
@@ -710,7 +733,7 @@ export function AskJeet() {
           {/* Helper text */}
           {!focusMode && (
             <motion.p
-              className="mt-3 text-center text-xs text-muted-foreground"
+              className="mt-1.5 mb-0 text-center text-xs text-muted-foreground"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}

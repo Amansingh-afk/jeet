@@ -11,6 +11,7 @@ import { questions } from './routes/questions.js';
 import { templates } from './routes/templates.js';
 import { chat } from './routes/chat.js';
 import { contentIngestion } from './routes/content-ingestion.js';
+import { studio } from './routes/studio/index.js';
 
 const app = new Hono();
 
@@ -55,6 +56,7 @@ app.route('/questions', questions);
 app.route('/templates', templates);
 app.route('/chat', chat);
 app.route('/content', contentIngestion);
+app.route('/studio', studio);
 
 // 404 handler
 app.notFound(notFound);

@@ -200,4 +200,8 @@ export const patternRepository = {
     );
     return result.rows.map(rowToPattern);
   },
+
+  async delete(id: string): Promise<void> {
+    await query('DELETE FROM patterns WHERE id = $1', [id]);
+  },
 };

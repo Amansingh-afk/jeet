@@ -78,6 +78,9 @@
     --focus-bg: oklch(0.99 0 0);
     --focus-text: oklch(0.15 0 0);
     --focus-muted: oklch(0.60 0 0);
+
+    /* Success color */
+    --success: oklch(0.6 0.18 145);
   }
 
   .dark {
@@ -143,6 +146,9 @@
     --focus-bg: oklch(0.12 0 0);
     --focus-text: oklch(0.92 0 0);
     --focus-muted: oklch(0.55 0 0);
+
+    /* Success color - dark mode */
+    --success: oklch(0.7 0.18 145);
   }
 
   * {
@@ -496,5 +502,33 @@
 
   .bounce-in {
     animation: bounce-in 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  /* Safe area insets for iOS devices */
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .safe-area-top {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+
+  /* Bottom nav specific styles */
+  .bottom-nav-item {
+    @apply flex flex-col items-center justify-center gap-0.5 py-2 px-3;
+    @apply text-muted-foreground transition-colors;
+    min-width: 64px;
+  }
+
+  .bottom-nav-item.active {
+    @apply text-primary;
+  }
+
+  .bottom-nav-item svg {
+    @apply h-5 w-5;
+  }
+
+  .bottom-nav-item span {
+    @apply text-[10px] font-medium;
   }
 }

@@ -35,20 +35,33 @@ export interface GeneratedPattern {
     steps: Array<{
       step: number;
       action: string;
-      action_hi: string;
+      action_hi?: string;
       example: string;
-      example_hi: string;
+      example_hi?: string;
     }>;
-    formula: string;
-    formula_latex?: string;
+    formula: string | null;
     memory_hook: string;
-    alternatives: unknown[];
+    quick_fractions?: Record<string, string>;
+    alternatives: Array<{
+      name: string;
+      name_hi: string;
+      one_liner: string;
+      when_to_use?: string;
+      formula?: string;
+      steps?: Array<{
+        step: number;
+        action: string;
+        action_hi?: string;
+        example: string;
+        example_hi?: string;
+      }>;
+    }>;
   };
   common_mistakes: Array<{
     mistake: string;
     wrong: string;
     right: string;
-    why: string;
+    why?: string;
   }>;
   teaching: {
     deep: {
@@ -71,7 +84,7 @@ export interface GeneratedPattern {
     has_diagram: boolean;
     template_id: string | null;
     description: string;
-    when_to_show: string;
+    when_to_show: 'always' | 'on_request' | 'first_time';
   };
   prerequisites: {
     patterns: string[];
@@ -79,12 +92,13 @@ export interface GeneratedPattern {
   };
   metadata: {
     difficulty: number;
-    frequency: string;
+    frequency: 'low' | 'medium' | 'high';
     years_appeared: number[];
     avg_time_target_seconds: number;
     related_patterns: string[];
     tags: string[];
   };
+  embedding?: null;
 }
 
 /**
@@ -111,9 +125,24 @@ export interface GeneratedQuestion {
     answer: string | number;
     answer_display: string;
   };
+  source?: {
+    book: string;
+    edition: string;
+    chapter: number;
+    chapter_name: string;
+    question_number: number;
+    page: number;
+  };
+  exam_history?: Array<{
+    exam: string;
+    tier: number;
+    year: number;
+    date: string;
+    shift: number;
+  }>;
   difficulty: number;
   is_pyq: boolean;
-  is_variation: boolean;
+  is_variation?: boolean;
   embedding: null;
 }
 
@@ -129,40 +158,441 @@ export interface GenerationResult {
   warnings: string[];
 }
 
-const PATTERN_GENERATION_PROMPT = `You are an expert at creating SSC exam math pattern JSON files. Generate a complete pattern JSON based on the extracted content.
+/**
+ * Remove null/undefined values and extra fields from generated pattern
+ */
+function cleanPattern(raw: Record<string, unknown>, patternId: string, topicId: string): GeneratedPattern {
+  const pattern: GeneratedPattern = {
+    id: patternId,
+    topic_id: topicId,
+    name: String(raw.name || ''),
+    name_hi: String(raw.name_hi || ''),
+    slug: String(raw.slug || ''),
+    signature: {
+      embedding_text: String((raw.signature as Record<string, unknown>)?.embedding_text || ''),
+      variables: Array.isArray((raw.signature as Record<string, unknown>)?.variables) 
+        ? (raw.signature as Record<string, unknown>).variables as string[]
+        : [],
+    },
+    trick: cleanTrick(raw.trick as Record<string, unknown>),
+    common_mistakes: cleanCommonMistakes(raw.common_mistakes as Array<Record<string, unknown>>),
+    teaching: cleanTeaching(raw.teaching as Record<string, unknown>),
+    visual: {
+      has_diagram: Boolean((raw.visual as Record<string, unknown>)?.has_diagram),
+      template_id: (raw.visual as Record<string, unknown>)?.template_id as string | null ?? null,
+      description: String((raw.visual as Record<string, unknown>)?.description || ''),
+      when_to_show: ((raw.visual as Record<string, unknown>)?.when_to_show as 'always' | 'on_request' | 'first_time') || 'on_request',
+    },
+    prerequisites: {
+      patterns: Array.isArray((raw.prerequisites as Record<string, unknown>)?.patterns) 
+        ? (raw.prerequisites as Record<string, unknown>).patterns as string[]
+        : [],
+      concepts: Array.isArray((raw.prerequisites as Record<string, unknown>)?.concepts)
+        ? (raw.prerequisites as Record<string, unknown>).concepts as string[]
+        : [],
+    },
+    metadata: {
+      difficulty: Number((raw.metadata as Record<string, unknown>)?.difficulty) || 2,
+      frequency: ((raw.metadata as Record<string, unknown>)?.frequency as 'low' | 'medium' | 'high') || 'medium',
+      years_appeared: Array.isArray((raw.metadata as Record<string, unknown>)?.years_appeared)
+        ? (raw.metadata as Record<string, unknown>).years_appeared as number[]
+        : [],
+      avg_time_target_seconds: Number((raw.metadata as Record<string, unknown>)?.avg_time_target_seconds) || 45,
+      related_patterns: Array.isArray((raw.metadata as Record<string, unknown>)?.related_patterns)
+        ? (raw.metadata as Record<string, unknown>).related_patterns as string[]
+        : [],
+      tags: Array.isArray((raw.metadata as Record<string, unknown>)?.tags)
+        ? (raw.metadata as Record<string, unknown>).tags as string[]
+        : [],
+    },
+  };
 
-The pattern should:
-1. Have a clear, descriptive name in English and Hindi
-2. Include an embedding_text that captures the pattern's essence for semantic search
-3. Document the trick in Hinglish (mix of Hindi and English) - this is how SSC coaching works
-4. Include step-by-step trick application with examples
-5. List common mistakes students make
-6. Provide teaching content for 3 levels: deep (3+ mins), shortcut (1 min), instant (15 sec)
+  return pattern;
+}
 
-IMPORTANT:
-- The trick should be SSC-style shortcuts, NOT textbook algebra
-- Use Hinglish naturally (English words mixed with Hindi)
-- Make memory hooks catchy and memorable
-- Tags should include: topic keywords, method type, key concepts
+function cleanTrick(raw: Record<string, unknown> | undefined): GeneratedPattern['trick'] {
+  if (!raw) {
+    return {
+      name: '',
+      name_hi: '',
+      one_liner: '',
+      steps: [],
+      formula: null,
+      memory_hook: '',
+      alternatives: [],
+    };
+  }
 
-Respond with ONLY the JSON object (no markdown, no explanation).`;
+  const trick: GeneratedPattern['trick'] = {
+    name: String(raw.name || ''),
+    name_hi: String(raw.name_hi || ''),
+    one_liner: String(raw.one_liner || ''),
+    steps: Array.isArray(raw.steps) ? raw.steps.map((s: Record<string, unknown>) => ({
+      step: Number(s.step) || 1,
+      action: String(s.action || ''),
+      ...(s.action_hi ? { action_hi: String(s.action_hi) } : {}),
+      example: String(s.example || ''),
+      ...(s.example_hi ? { example_hi: String(s.example_hi) } : {}),
+    })) : [],
+    formula: raw.formula ? String(raw.formula) : null,
+    memory_hook: String(raw.memory_hook || ''),
+    alternatives: Array.isArray(raw.alternatives) ? raw.alternatives.map((a: Record<string, unknown>) => ({
+      name: String(a.name || ''),
+      name_hi: String(a.name_hi || ''),
+      one_liner: String(a.one_liner || ''),
+      ...(a.when_to_use ? { when_to_use: String(a.when_to_use) } : {}),
+      ...(a.formula ? { formula: String(a.formula) } : {}),
+      ...(Array.isArray(a.steps) ? { steps: a.steps.map((s: Record<string, unknown>) => ({
+        step: Number(s.step) || 1,
+        action: String(s.action || ''),
+        ...(s.action_hi ? { action_hi: String(s.action_hi) } : {}),
+        example: String(s.example || ''),
+        ...(s.example_hi ? { example_hi: String(s.example_hi) } : {}),
+      })) } : {}),
+    })) : [],
+  };
 
-const QUESTION_GENERATION_PROMPT = `You are an expert at creating SSC exam question JSON files. Generate a complete question JSON based on the extracted content.
+  // Add quick_fractions if present and valid
+  if (raw.quick_fractions && typeof raw.quick_fractions === 'object' && !Array.isArray(raw.quick_fractions)) {
+    trick.quick_fractions = raw.quick_fractions as Record<string, string>;
+  }
 
-The question should:
-1. Have the exact question text in English (and Hindi if available)
-2. Include options if they were extracted
-3. Include the correct answer
-4. List extracted values (numbers and their meanings)
-5. Show solution using the TRICK method, not textbook algebra
-6. Each solution step should show trick application with actual numbers
+  return trick;
+}
 
-IMPORTANT:
-- solution.trick_application should be an array of strings showing each step
-- extracted_values should map variable names to their values
-- difficulty should be 1-5 based on complexity
+function cleanCommonMistakes(raw: Array<Record<string, unknown>> | undefined): GeneratedPattern['common_mistakes'] {
+  if (!Array.isArray(raw)) return [];
+  
+  return raw.map(m => ({
+    mistake: String(m.mistake || ''),
+    wrong: String(m.wrong || ''),
+    right: String(m.right || ''),
+    ...(m.why ? { why: String(m.why) } : {}),
+  }));
+}
 
-Respond with ONLY the JSON object (no markdown, no explanation).`;
+function cleanTeaching(raw: Record<string, unknown> | undefined): GeneratedPattern['teaching'] {
+  const defaultTeaching = {
+    deep: { explanation: '', duration_seconds: 120, includes: [] as string[] },
+    shortcut: { explanation: '', duration_seconds: 60, includes: [] as string[] },
+    instant: { explanation: '', duration_seconds: 10, includes: [] as string[] },
+  };
+
+  if (!raw) return defaultTeaching;
+
+  return {
+    deep: {
+      explanation: String((raw.deep as Record<string, unknown>)?.explanation || ''),
+      duration_seconds: Number((raw.deep as Record<string, unknown>)?.duration_seconds) || 120,
+      includes: Array.isArray((raw.deep as Record<string, unknown>)?.includes)
+        ? (raw.deep as Record<string, unknown>).includes as string[]
+        : [],
+    },
+    shortcut: {
+      explanation: String((raw.shortcut as Record<string, unknown>)?.explanation || ''),
+      duration_seconds: Number((raw.shortcut as Record<string, unknown>)?.duration_seconds) || 60,
+      includes: Array.isArray((raw.shortcut as Record<string, unknown>)?.includes)
+        ? (raw.shortcut as Record<string, unknown>).includes as string[]
+        : [],
+    },
+    instant: {
+      explanation: String((raw.instant as Record<string, unknown>)?.explanation || ''),
+      duration_seconds: Number((raw.instant as Record<string, unknown>)?.duration_seconds) || 10,
+      includes: Array.isArray((raw.instant as Record<string, unknown>)?.includes)
+        ? (raw.instant as Record<string, unknown>).includes as string[]
+        : [],
+    },
+  };
+}
+
+/**
+ * Remove null/undefined values and extra fields from generated question
+ */
+function cleanQuestion(
+  raw: Record<string, unknown>, 
+  questionId: string, 
+  patternId: string, 
+  topicId: string,
+  isVariation: boolean
+): GeneratedQuestion {
+  // For variations, return minimal structure
+  if (isVariation) {
+    return {
+      id: questionId,
+      pattern_id: patternId,
+      topic_id: topicId,
+      text: {
+        en: String((raw.text as Record<string, unknown>)?.en || ''),
+      },
+      difficulty: Number(raw.difficulty) || 2,
+      is_pyq: false,
+      is_variation: true,
+      embedding: null,
+    };
+  }
+
+  // Full question
+  const question: GeneratedQuestion = {
+    id: questionId,
+    pattern_id: patternId,
+    topic_id: topicId,
+    text: {
+      en: String((raw.text as Record<string, unknown>)?.en || ''),
+    },
+    difficulty: Number(raw.difficulty) || 2,
+    is_pyq: Boolean(raw.is_pyq),
+    embedding: null,
+  };
+
+  // Add Hindi text if present
+  const hiText = (raw.text as Record<string, unknown>)?.hi;
+  if (hiText && typeof hiText === 'string' && hiText.trim()) {
+    question.text.hi = hiText;
+  }
+
+  // Add options if all are present and not null
+  const options = raw.options as Record<string, unknown> | undefined;
+  if (options && options.a && options.b && options.c && options.d) {
+    question.options = {
+      a: String(options.a),
+      b: String(options.b),
+      c: String(options.c),
+      d: String(options.d),
+    };
+  }
+
+  // Add correct answer if present and not null
+  if (raw.correct && typeof raw.correct === 'string') {
+    question.correct = raw.correct;
+  }
+
+  // Add extracted_values if present and has data
+  const extractedValues = raw.extracted_values as Record<string, unknown> | undefined;
+  if (extractedValues && Object.keys(extractedValues).length > 0) {
+    // Filter out null/undefined values
+    const cleanedValues: Record<string, unknown> = {};
+    for (const [key, value] of Object.entries(extractedValues)) {
+      if (value !== null && value !== undefined) {
+        cleanedValues[key] = value;
+      }
+    }
+    if (Object.keys(cleanedValues).length > 0) {
+      question.extracted_values = cleanedValues;
+    }
+  }
+
+  // Add solution if present and has data
+  const solution = raw.solution as Record<string, unknown> | undefined;
+  if (solution && solution.trick_application && solution.answer !== undefined) {
+    question.solution = {
+      trick_application: Array.isArray(solution.trick_application) 
+        ? solution.trick_application.map(s => String(s))
+        : [],
+      answer: solution.answer as string | number,
+      answer_display: String(solution.answer_display || solution.answer),
+    };
+  }
+
+  // Add source only if it has meaningful data (not all nulls)
+  const source = raw.source as Record<string, unknown> | undefined;
+  if (source && source.book && typeof source.book === 'string' && source.book.trim()) {
+    question.source = {
+      book: String(source.book),
+      edition: String(source.edition || ''),
+      chapter: Number(source.chapter) || 1,
+      chapter_name: String(source.chapter_name || ''),
+      question_number: Number(source.question_number) || 1,
+      page: Number(source.page) || 1,
+    };
+  }
+
+  // Add exam_history if present and not empty
+  const examHistory = raw.exam_history as Array<Record<string, unknown>> | undefined;
+  if (Array.isArray(examHistory) && examHistory.length > 0) {
+    question.exam_history = examHistory.map(e => ({
+      exam: String(e.exam || ''),
+      tier: Number(e.tier) || 1,
+      year: Number(e.year) || 2024,
+      date: String(e.date || ''),
+      shift: Number(e.shift) || 1,
+    }));
+  }
+
+  return question;
+}
+
+const PATTERN_GENERATION_PROMPT = `You are an expert at creating SSC exam math pattern JSON files. Generate a VALID pattern JSON that EXACTLY matches this schema structure.
+
+CRITICAL: Follow this EXACT JSON structure. Do NOT add extra fields. Do NOT use null for optional fields - omit them instead.
+
+EXACT SCHEMA:
+{
+  "id": "xx-001",
+  "topic_id": "topic-id",
+  "name": "Pattern Name in English",
+  "name_hi": "पैटर्न नाम हिंदी में",
+  "slug": "pattern-name-kebab-case",
+
+  "signature": {
+    "embedding_text": "Generic normalized question text with X for numbers - used for semantic search",
+    "variables": ["var1", "var2"]
+  },
+
+  "trick": {
+    "name": "Trick Name",
+    "name_hi": "ट्रिक नाम",
+    "one_liner": "Trick ka one-liner Hinglish mein",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Action in English",
+        "action_hi": "Action in Hindi/Hinglish",
+        "example": "Example with numbers",
+        "example_hi": "Example in Hindi"
+      }
+    ],
+    "formula": "Mathematical formula if applicable, or null",
+    "memory_hook": "Easy catchy way to remember the trick",
+    "alternatives": []
+  },
+
+  "common_mistakes": [
+    {
+      "mistake": "What students do wrong",
+      "wrong": "Wrong approach example",
+      "right": "Correct approach",
+      "why": "Why this mistake happens"
+    }
+  ],
+
+  "teaching": {
+    "deep": {
+      "explanation": "Full detailed explanation in Hinglish (3-4 paragraphs)...",
+      "duration_seconds": 120,
+      "includes": ["concept", "why_it_works", "formula", "common_mistakes"]
+    },
+    "shortcut": {
+      "explanation": "Quick trick steps in Hinglish...",
+      "duration_seconds": 60,
+      "includes": ["trick_steps"]
+    },
+    "instant": {
+      "explanation": "One-liner with example numbers",
+      "duration_seconds": 10,
+      "includes": ["one_liner"]
+    }
+  },
+
+  "visual": {
+    "has_diagram": false,
+    "template_id": null,
+    "description": "",
+    "when_to_show": "on_request"
+  },
+
+  "prerequisites": {
+    "patterns": [],
+    "concepts": []
+  },
+
+  "metadata": {
+    "difficulty": 2,
+    "frequency": "medium",
+    "years_appeared": [],
+    "avg_time_target_seconds": 45,
+    "related_patterns": [],
+    "tags": ["tag1", "tag2"]
+  }
+}
+
+RULES:
+1. The trick should be SSC-style shortcuts, NOT textbook algebra
+2. Use Hinglish naturally (English words mixed with Hindi)
+3. embedding_text MUST use X for all numbers (e.g., "X percent" not "20 percent")
+4. Make memory hooks catchy and memorable
+5. difficulty is 1-5, frequency is "low"/"medium"/"high"
+6. when_to_show is "always"/"on_request"/"first_time"
+7. tags should include: topic keywords, method type, key concepts
+
+Respond with ONLY the JSON object (no markdown code blocks, no explanation).`;
+
+const QUESTION_GENERATION_PROMPT = `You are an expert at creating SSC exam question JSON files. Generate a VALID question JSON that EXACTLY matches this schema structure.
+
+CRITICAL: Follow this EXACT JSON structure. Do NOT add extra fields. OMIT optional fields if no data available - do NOT use null.
+
+EXACT SCHEMA FOR FULL QUESTION:
+{
+  "id": "xx-001-q-001",
+  "pattern_id": "xx-001",
+  "topic_id": "topic-id",
+
+  "text": {
+    "en": "Question text in English",
+    "hi": "प्रश्न हिंदी में (omit if not available)"
+  },
+
+  "options": {
+    "a": "Option A",
+    "b": "Option B",
+    "c": "Option C",
+    "d": "Option D"
+  },
+  "correct": "b",
+
+  "extracted_values": {
+    "value_name": 20,
+    "another_value": 100
+  },
+
+  "solution": {
+    "trick_application": [
+      "Step 1: Apply first part of trick with actual numbers",
+      "Step 2: Next calculation step",
+      "Step 3: Final answer"
+    ],
+    "answer": 25,
+    "answer_display": "25%"
+  },
+
+  "source": {
+    "book": "Book Name",
+    "edition": "2023",
+    "chapter": 1,
+    "chapter_name": "Chapter Name",
+    "question_number": 1,
+    "page": 1
+  },
+
+  "exam_history": [],
+
+  "difficulty": 2,
+  "is_pyq": false,
+
+  "embedding": null
+}
+
+EXACT SCHEMA FOR VARIATION (lightweight):
+{
+  "id": "xx-001-q-002",
+  "pattern_id": "xx-001",
+  "topic_id": "topic-id",
+  "text": {
+    "en": "Question text in English"
+  },
+  "is_variation": true
+}
+
+RULES:
+1. For FULL questions: include all fields shown above
+2. For VARIATIONS: only include the 5 fields shown in variation schema
+3. OMIT optional fields if no data - do NOT set them to null
+4. If options not available, OMIT the "options" and "correct" fields entirely
+5. If source not available, OMIT the "source" field entirely
+6. solution.trick_application shows SSC trick steps, NOT textbook algebra
+7. difficulty is 1-5 based on complexity
+8. extracted_values maps variable names to their numeric values from the question
+
+Respond with ONLY the JSON object (no markdown code blocks, no explanation).`;
 
 /**
  * Generate pattern JSON from extracted content
@@ -212,11 +642,10 @@ Generate the complete pattern JSON:`;
       jsonStr = jsonMatch[1].trim();
     }
 
-    const pattern = JSON.parse(jsonStr) as GeneratedPattern;
+    const rawPattern = JSON.parse(jsonStr) as Record<string, unknown>;
 
-    // Ensure required fields are set
-    pattern.id = patternId;
-    pattern.topic_id = topicId;
+    // Clean and validate the pattern structure
+    const pattern = cleanPattern(rawPattern, patternId, topicId);
 
     return pattern;
   } catch (error) {
@@ -282,14 +711,10 @@ Generate the complete question JSON:`;
       jsonStr = jsonMatch[1].trim();
     }
 
-    const question = JSON.parse(jsonStr) as GeneratedQuestion;
+    const rawQuestion = JSON.parse(jsonStr) as Record<string, unknown>;
 
-    // Ensure required fields are set
-    question.id = questionId;
-    question.pattern_id = patternId;
-    question.topic_id = topicId;
-    question.is_variation = isVariation;
-    question.embedding = null;
+    // Clean and validate the question structure
+    const question = cleanQuestion(rawQuestion, questionId, patternId, topicId, isVariation);
 
     return question;
   } catch (error) {

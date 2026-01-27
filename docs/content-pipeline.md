@@ -209,3 +209,103 @@ content/topics/percentage/
 └── questions/
     └── pc-009-q-001.json
 ```
+
+---
+
+## Schema Enforcement
+
+The content generator pipeline enforces strict JSON schema compliance.
+
+### Pattern Schema
+
+Generated patterns will have this exact structure:
+
+```json
+{
+  "id": "pc-001",
+  "topic_id": "percentage",
+  "name": "Pattern Name",
+  "name_hi": "पैटर्न नाम",
+  "slug": "pattern-name",
+  "signature": {
+    "embedding_text": "Generic question with X for numbers",
+    "variables": ["var1", "var2"]
+  },
+  "trick": {
+    "name": "Trick Name",
+    "name_hi": "ट्रिक नाम",
+    "one_liner": "Hinglish one-liner",
+    "steps": [...],
+    "formula": "formula or null",
+    "memory_hook": "...",
+    "alternatives": []
+  },
+  "common_mistakes": [...],
+  "teaching": {
+    "deep": { "explanation": "...", "duration_seconds": 120, "includes": [...] },
+    "shortcut": { "explanation": "...", "duration_seconds": 60, "includes": [...] },
+    "instant": { "explanation": "...", "duration_seconds": 10, "includes": [...] }
+  },
+  "visual": { "has_diagram": false, "template_id": null, "description": "", "when_to_show": "on_request" },
+  "prerequisites": { "patterns": [], "concepts": [] },
+  "metadata": { "difficulty": 2, "frequency": "medium", "years_appeared": [], "avg_time_target_seconds": 45, "related_patterns": [], "tags": [] }
+}
+```
+
+### Question Schema
+
+Full questions:
+
+```json
+{
+  "id": "pc-001-q-001",
+  "pattern_id": "pc-001",
+  "topic_id": "percentage",
+  "text": { "en": "Question text", "hi": "प्रश्न" },
+  "options": { "a": "...", "b": "...", "c": "...", "d": "..." },
+  "correct": "b",
+  "extracted_values": { "percent": 20 },
+  "solution": { "trick_application": ["Step 1", "Step 2"], "answer": 25, "answer_display": "25%" },
+  "difficulty": 2,
+  "is_pyq": false,
+  "embedding": null
+}
+```
+
+Variations (lightweight):
+
+```json
+{
+  "id": "pc-001-q-002",
+  "pattern_id": "pc-001",
+  "topic_id": "percentage",
+  "text": { "en": "Question text" },
+  "is_variation": true
+}
+```
+
+### Validation Rules
+
+The pipeline automatically:
+
+1. **Removes null values** - Optional fields without data are omitted
+2. **Strips extra fields** - Only schema-defined fields are included
+3. **Enforces types** - Numbers, strings, arrays coerced to correct types
+4. **Sets defaults** - Missing required fields get sensible defaults
+
+See `backend/src/services/content-generator.service.ts` for implementation details.
+
+---
+
+## Prompt Versioning
+
+LLM prompts are versioned in `backend/src/config/prompts.ts`:
+
+| Prompt | Version | Purpose |
+|--------|---------|---------|
+| `jeetu_bhaiya` | 1.1.0 | Teaching persona for explanations |
+| `pattern_generation` | 1.1.0 | Generates pattern JSON from extracted content |
+| `question_generation` | 1.1.0 | Generates question JSON from extracted content |
+| `vision_extraction` | 1.0.0 | Extracts content from images |
+
+To view/rollback prompts, check `_history` in the prompts config.

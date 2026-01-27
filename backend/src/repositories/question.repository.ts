@@ -205,4 +205,23 @@ export const questionRepository = {
     );
     return parseInt(result.rows[0].count, 10);
   },
+
+  async findAll(): Promise<Question[]> {
+    const result = await query<QuestionRow>(
+      'SELECT * FROM questions ORDER BY topic_id, pattern_id, id'
+    );
+    return result.rows.map(rowToQuestion);
+  },
+
+  async findWithoutEmbedding(limit: number = 100): Promise<Question[]> {
+    const result = await query<QuestionRow>(
+      'SELECT * FROM questions WHERE embedding IS NULL LIMIT $1',
+      [limit]
+    );
+    return result.rows.map(rowToQuestion);
+  },
+
+  async delete(id: string): Promise<void> {
+    await query('DELETE FROM questions WHERE id = $1', [id]);
+  },
 };

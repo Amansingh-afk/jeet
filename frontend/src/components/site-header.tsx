@@ -1,9 +1,12 @@
 "use client"
 
-import { Bell, LogOut, Settings, SidebarIcon, User } from "lucide-react"
+import * as React from "react"
+import { Link } from "react-router-dom"
+import { Bell, LogOut, Settings, SidebarIcon, User, GraduationCap, History, Check } from "lucide-react"
 
 import { SearchForm } from "@/components/search-form"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { useIsMobile } from "@/hooks/use-mobile"
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -26,23 +29,43 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
+  DropdownMenuSub,
+  DropdownMenuSubTrigger,
+  DropdownMenuSubContent,
 } from "@/components/ui/dropdown-menu"
+
+const exams = [
+  { value: "ssc-cgl", label: "SSC CGL" },
+  { value: "ssc-chsl", label: "SSC CHSL" },
+  { value: "ssc-mts", label: "SSC MTS" },
+  { value: "ssc-gd", label: "SSC GD" },
+]
 
 export function SiteHeader() {
   const { toggleSidebar } = useSidebar()
+  const isMobile = useIsMobile()
+  const [selectedExam, setSelectedExam] = React.useState(exams[0])
 
   return (
     <header className="bg-background sticky top-0 z-50 flex w-full items-center border-b">
       <div className="flex h-14 w-full items-center gap-2 px-4">
-        <Button
-          className="h-8 w-8"
-          variant="ghost"
-          size="icon"
-          onClick={toggleSidebar}
-        >
-          <SidebarIcon />
-        </Button>
-        <Separator orientation="vertical" className="mr-2 h-4" />
+        {isMobile ? (
+          <Link to="/dashboard" className="flex items-center">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-yellow-500 flex items-center justify-center">
+              <span className="text-white font-bold text-lg">J</span>
+            </div>
+          </Link>
+        ) : (
+          <Button
+            className="h-8 w-8"
+            variant="ghost"
+            size="icon"
+            onClick={toggleSidebar}
+          >
+            <SidebarIcon />
+          </Button>
+        )}
+        <Separator orientation="vertical" className="mr-2 h-4 hidden md:block" />
         <Breadcrumb className="hidden sm:block">
           <BreadcrumbList>
             <BreadcrumbItem>
@@ -78,6 +101,37 @@ export function SiteHeader() {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-48" align="end" forceMount>
+            {isMobile && (
+              <>
+                <DropdownMenuSub>
+                  <DropdownMenuSubTrigger>
+                    <GraduationCap className="mr-2 h-4 w-4" />
+                    <span>{selectedExam.label}</span>
+                  </DropdownMenuSubTrigger>
+                  <DropdownMenuSubContent>
+                    {exams.map((exam) => (
+                      <DropdownMenuItem
+                        key={exam.value}
+                        onClick={() => setSelectedExam(exam)}
+                        className="flex items-center justify-between cursor-pointer"
+                      >
+                        <span>{exam.label}</span>
+                        {selectedExam.value === exam.value && (
+                          <Check className="ml-2 h-4 w-4" />
+                        )}
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuSubContent>
+                </DropdownMenuSub>
+                <DropdownMenuItem asChild>
+                  <Link to="/dashboard/history" className="flex items-center">
+                    <History className="mr-2 h-4 w-4" />
+                    History
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+              </>
+            )}
             <DropdownMenuItem>
               <User className="mr-2 h-4 w-4" />
               Profile

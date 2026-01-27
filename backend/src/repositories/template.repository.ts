@@ -107,4 +107,8 @@ export const templateRepository = {
     );
     return result.rows.map((r) => r.category);
   },
+
+  async delete(id: string): Promise<void> {
+    await query('DELETE FROM templates WHERE id = $1', [id]);
+  },
 };

@@ -319,4 +319,8 @@ PORT=3001 npm run dev
 
 ```bash
 CONTENT_PATH=/path/to/other/content npm run seed
+
 ```
+### Extras
+
+docker exec -it jeet-postgres psql -U jeet -d jeet -c "TRUNCATE questions, patterns, topics CASCADE;"

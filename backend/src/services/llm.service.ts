@@ -1,5 +1,6 @@
 import OpenAI from 'openai';
 import { config } from '../config/index.js';
+import { JEETU_BHAIYA_PROMPT } from '../config/prompts.js';
 import { LLMError } from '../utils/errors.js';
 import type { Pattern, TeachingLevelType, ChatChunk } from '../types/index.js';
 
@@ -15,29 +16,8 @@ function getClient(): OpenAI {
   return openaiClient;
 }
 
-const SYSTEM_PROMPT = `You are Jeetu Bhaiya, a friendly and encouraging SSC exam mentor who teaches in Hinglish (mix of Hindi and English).
-
-Your teaching style:
-- Talk like a real elder brother (bhaiya), not a robot
-- Use SSC exam tricks and shortcuts, NEVER textbook methods
-- Be encouraging: "Dekh bhai, ye bahut easy hai"
-- Be concise and exam-focused - students have limited time
-- Use phrases like "Samjha?", "Easy hai na?", "Ab dekh ye trick"
-
-Important rules:
-1. ALWAYS use the trick provided - never solve using standard algebra/formulas
-2. Apply the trick to the specific numbers in the question
-3. Show step-by-step how the trick works with THESE numbers
-4. Keep explanations short and punchy
-5. End with encouragement or a tip
-
-You will receive:
-- The student's question
-- The matched pattern with its trick
-- The student's level (deep/shortcut/instant)
-- Teaching content to use as a guide
-
-Respond at the appropriate depth for their level.`;
+// Jeetu Bhaiya persona prompt - versioned in config/prompts.ts
+const SYSTEM_PROMPT = JEETU_BHAIYA_PROMPT.system;
 
 export interface GenerateResponseParams {
   question: string;
@@ -131,41 +111,43 @@ function buildUserPrompt(params: GenerateResponseParams): string {
 
   const teachingContent = pattern.teaching[level];
 
-  let prompt = `Student's question: "${question}"
+  // Level-specific instructions
+  const levelInstructions = {
+    instant: '1-2 lines mein answer de. Sirf trick apply kar, explanation mat de.',
+    shortcut: '4-5 lines mein solve kar. Trick steps dikhaa with numbers. No theory.',
+    deep: 'Full explanation de - concept, trick logic, steps with numbers, tip. 8-10 lines okay.',
+  };
 
-Pattern: ${pattern.name} (${pattern.name_hi})
+  let prompt = `Question: "${question}"
 
-TRICK TO USE (MUST follow this):
-Name: ${pattern.trick.name}
-One-liner: ${pattern.trick.one_liner}
+Pattern: ${pattern.name}
+Trick: ${pattern.trick.one_liner}
 
 Steps:
-${pattern.trick.steps.map((s) => `${s.step}. ${s.action}\n   Example: ${s.example}`).join('\n')}
+${pattern.trick.steps.map((s) => `${s.step}. ${s.action} (e.g., ${s.example})`).join('\n')}
 `;
 
   if (pattern.trick.quick_fractions) {
-    prompt += `\nQuick fractions reference:\n${Object.entries(pattern.trick.quick_fractions)
-      .map(([k, v]) => `  ${k} = ${v}`)
-      .join('\n')}`;
+    prompt += `\nFractions: ${Object.entries(pattern.trick.quick_fractions)
+      .map(([k, v]) => `${k}=${v}`)
+      .join(', ')}`;
   }
 
   if (extractedValues && Object.keys(extractedValues).length > 0) {
-    prompt += `\n\nExtracted values from question: ${JSON.stringify(extractedValues)}`;
+    prompt += `\n\nValues: ${Object.entries(extractedValues)
+      .map(([k, v]) => `${k}=${v}`)
+      .join(', ')}`;
   }
 
-  prompt += `\n\nTeaching level: ${level.toUpperCase()}
-Teaching guide: ${teachingContent.explanation}
+  prompt += `\n\n---
+Level: ${level.toUpperCase()}
+${levelInstructions[level]}
 
-Remember:
-- Apply the trick to THIS specific question with THESE numbers
-- ${level === 'deep' ? 'Explain the concept thoroughly, why the trick works' : ''}
-- ${level === 'shortcut' ? 'Be quick and focused, just show the trick application' : ''}
-- ${level === 'instant' ? 'Ultra brief - just the trick application in 2-3 lines' : ''}
-- Use Hinglish naturally`;
+Reference explanation: ${teachingContent.explanation}`;
 
-  if (pattern.common_mistakes && pattern.common_mistakes.length > 0) {
-    prompt += `\n\nCommon mistakes to warn about:
-${pattern.common_mistakes.map((m) => `- ${m.mistake}: "${m.wrong}" (wrong) vs "${m.right}" (right)`).join('\n')}`;
+  if (pattern.common_mistakes && pattern.common_mistakes.length > 0 && level !== 'instant') {
+    const mistake = pattern.common_mistakes[0];
+    prompt += `\n\nCommon galti: ${mistake.mistake} - "${mistake.wrong}" nahi, "${mistake.right}" hona chahiye.`;
   }
 
   return prompt;
