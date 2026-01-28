@@ -1,0 +1,30 @@
+{
+  "id": "pc-019-q-002",
+  "pattern_id": "pc-019",
+  "topic_id": "percentage",
+  "text": {
+    "en": "There are two numbers, when first number is increased to 160%, the obtained no. is 86. If first number is increased to 110% then the obtained number is 50% less than the second number. Find sum of two numbers?"
+  },
+  "difficulty": 3,
+  "is_pyq": false,
+  "is_variation": true,
+  "embedding": null,
+  "extracted_values": {
+    "first_number_increase_percent": 160,
+    "obtained_number_1": 86,
+    "first_number_increase_percent_2": 110,
+    "second_number_less_percent": 50
+  },
+  "solution": {
+    "trick_application": [
+      "Let the first number be x.",
+      "160% of x = 86, so x = 86 / 1.6 = 53.75.",
+      "110% of x = 1.1 * 53.75 = 59.125.",
+      "Let the second number be y.",
+      "59.125 is 50% less than y, so y = 59.125 / 0.5 = 118.25.",
+      "Sum of two numbers = 53.75 + 118.25 = 172."
+    ],
+    "answer": 172,
+    "answer_display": "172"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "id": "pc-009-q-002",
+  "pattern_id": "pc-009",
+  "topic_id": "percentage",
+  "text": {
+    "en": "A candidate scoring x% marks fails by a marks while another candidate scores y% marks and gets b marks more than passing. What is maximum marks for examination?"
+  },
+  "difficulty": 3,
+  "is_pyq": false,
+  "is_formula_template": true,
+  "embedding": null,
+  "extracted_values": {
+    "student1_percent": "x%",
+    "student1_failed_by": "a",
+    "student2_percent": "y%",
+    "student2_passed_by": "b"
+  },
+  "solution": {
+    "trick_application": [
+      "Pass marks = x% of T + a = y% of T - b",
+      "(y - x)% of T = a + b",
+      "T = (a + b) × 100 / (y - x)"
+    ],
+    "answer": "(a + b) × 100 / (y - x)",
+    "answer_display": "Total = (a+b) × 100 / (y-x)"
+  }
+}

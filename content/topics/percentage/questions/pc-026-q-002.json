@@ -1,0 +1,27 @@
+{
+  "id": "pc-026-q-002",
+  "pattern_id": "pc-026",
+  "topic_id": "percentage",
+  "text": {
+    "en": "When price of commodity increased by 23%, the family reduced its consumption in such a way that expenditure only increased 5%. By which consumption was reduced."
+  },
+  "difficulty": 3,
+  "is_pyq": false,
+  "is_variation": true,
+  "embedding": null,
+  "extracted_values": {
+    "price_increase_percent": 23,
+    "expenditure_increase_percent": 5
+  },
+  "solution": {
+    "trick_application": [
+      "Price multiplier = 1.23",
+      "Expenditure multiplier = 1.05",
+      "Consumption multiplier = Expenditure / Price = 1.05 / 1.23 = 0.854",
+      "Consumption change = (0.854 - 1) × 100 = -14.6%",
+      "Consumption reduced by 14.6%"
+    ],
+    "answer": 14.6,
+    "answer_display": "14.6%"
+  }
+}

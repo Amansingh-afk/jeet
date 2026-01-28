@@ -1,0 +1,29 @@
+{
+  "id": "pc-010-q-001",
+  "pattern_id": "pc-010",
+  "topic_id": "percentage",
+  "text": {
+    "en": "In a test, min marks for girls & boys are 35% & 40%. A boy scored 483 marks and failed by 117 marks. What is minimum marks to pass for girls?"
+  },
+  "difficulty": 2,
+  "is_pyq": false,
+  "embedding": null,
+  "extracted_values": {
+    "boy_score": 483,
+    "boy_failed_by": 117,
+    "boy_min_percentage": 40,
+    "girl_min_percentage": 35,
+    "total_marks": 600,
+    "girl_min_marks": 525
+  },
+  "solution": {
+    "trick_application": [
+      "Boy scored 483 marks and failed by 117.",
+      "Total marks = 483 + 117 = 600.",
+      "40% of total marks = 600 * 40 / 100 = 240.",
+      "35% for girls = 35 * 15 = 525."
+    ],
+    "answer": 525,
+    "answer_display": "525"
+  }
+}

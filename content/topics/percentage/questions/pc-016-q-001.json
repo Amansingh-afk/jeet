@@ -1,0 +1,31 @@
+{
+  "id": "pc-016-q-001",
+  "pattern_id": "pc-016",
+  "topic_id": "percentage",
+  "text": {
+    "en": "The sum of two numbers is 520. If biggest number is decreased by 4% & smaller number is increased by 112%, then numbers obtained are equal. The smaller number is:"
+  },
+  "difficulty": 3,
+  "is_pyq": false,
+  "embedding": null,
+  "extracted_values": {
+    "sum_of_numbers": 520,
+    "biggest_number_decrease_percent": 4,
+    "smaller_number_increase_percent": 112
+  },
+  "solution": {
+    "trick_application": [
+      "Let the biggest number be B and the smaller number be C.",
+      "B + C = 520",
+      "B decreased by 4%: B * 96/100",
+      "C increased by 11.2%: C * 112/100",
+      "B * 96/100 = C * 112/100",
+      "B/C = 112/96 = 7/6",
+      "Sum of numbers is 520: (7 + 6) = 13 parts",
+      "520/13 = 40 times",
+      "Smaller number = 6 * 40 = 240"
+    ],
+    "answer": 240,
+    "answer_display": "240"
+  }
+}

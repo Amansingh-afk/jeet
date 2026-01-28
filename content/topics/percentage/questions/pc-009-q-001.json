@@ -1,0 +1,30 @@
+{
+  "id": "pc-009-q-001",
+  "pattern_id": "pc-009",
+  "topic_id": "percentage",
+  "text": {
+    "en": "A student scored 30% marks and failed by 30 marks while another student who scored 42% passed by 58 marks more than required min. marks. What is pass marks for the exam?"
+  },
+  "difficulty": 3,
+  "is_pyq": false,
+  "embedding": null,
+  "extracted_values": {
+    "student1_score_percent": 30,
+    "student1_failed_by": 30,
+    "student2_score_percent": 42,
+    "student2_passed_by": 58
+  },
+  "solution": {
+    "trick_application": [
+      "Let the total marks be x.",
+      "Pass marks = (42% of x) - 58",
+      "Fail marks = (30% of x) + 30",
+      "Equating pass and fail marks: (42% of x) - 58 = (30% of x) + 30",
+      "12% of x = 88",
+      "x = 88 / 0.12 = 733.33",
+      "Pass marks = (42% of 733.33) - 58 = 320"
+    ],
+    "answer": 320,
+    "answer_display": "320"
+  }
+}

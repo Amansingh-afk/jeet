@@ -1,0 +1,109 @@
+{
+  "id": "pc-011",
+  "topic_id": "percentage",
+  "name": "Score Increase - Passing Percentage Calculation",
+  "name_hi": "अंक वृद्धि - उत्तीर्ण प्रतिशत गणना",
+  "slug": "score-increase-passing-percentage-calculation",
+  "signature": {
+    "embedding_text": "When a student scores X percent marks he failed by X marks. But when he scores X percent, he passes. Find passing percent.",
+    "variables": [
+      "score_1_percent",
+      "failed_by_marks",
+      "score_2_percent"
+    ]
+  },
+  "trick": {
+    "name": "Quick Passing Percentage Trick",
+    "name_hi": "जल्दी उत्तीर्ण प्रतिशत ट्रिक",
+    "one_liner": "Jab score X% se fail aur X% se pass, toh passing % jaldi se nikaalo!",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Calculate the difference in percentage",
+        "action_hi": "Percentage ka antar nikaalo",
+        "example": "(41 - 28)% = 13%",
+        "example_hi": "(41 - 28)% = 13%"
+      },
+      {
+        "step": 2,
+        "action": "Find marks per percent",
+        "action_hi": "Har percent ke liye marks nikaalo",
+        "example": "13% = 52 marks, so 1% = 4 marks",
+        "example_hi": "13% = 52 marks, toh 1% = 4 marks"
+      },
+      {
+        "step": 3,
+        "action": "Calculate passing marks",
+        "action_hi": "Passing marks nikaalo",
+        "example": "Passing = (28% + 58) = 170 marks",
+        "example_hi": "Passing = (28% + 58) = 170 marks"
+      },
+      {
+        "step": 4,
+        "action": "Find passing percentage",
+        "action_hi": "Passing percentage nikaalo",
+        "example": "From 40% = 170 marks, Passing % = 42.5%",
+        "example_hi": "40% = 170 marks, toh Passing % = 42.5%"
+      }
+    ],
+    "formula": null,
+    "memory_hook": "28% fail, 41% pass, 42.5% se clear ho jaayega class!",
+    "alternatives": []
+  },
+  "common_mistakes": [
+    {
+      "mistake": "Confusing percentage difference with marks difference",
+      "wrong": "Using marks difference directly as percentage",
+      "right": "Calculate percentage difference separately",
+      "why": "Students often mix up percentage and marks calculations"
+    }
+  ],
+  "teaching": {
+    "deep": {
+      "explanation": "Yeh trick percentage ke questions ko jaldi solve karne ke liye hai. Pehle percentage ka antar nikaalo, phir har percent ke liye marks ka calculation karo. Isse passing marks aur percentage jaldi mil jaayega. Yeh samajhna zaroori hai ki percentage aur marks alag cheezein hain, aur unka calculation alag tareeke se hota hai. Is trick se aap common mistakes avoid kar sakte ho aur exam mein time bacha sakte ho.",
+      "duration_seconds": 120,
+      "includes": [
+        "concept",
+        "why_it_works",
+        "formula",
+        "common_mistakes"
+      ]
+    },
+    "shortcut": {
+      "explanation": "Jaldi se percentage aur marks ka antar nikaalo, aur passing percentage ka calculation karo. Yeh trick se aap jaldi answer nikaal sakte ho bina galti kiye.",
+      "duration_seconds": 60,
+      "includes": [
+        "trick_steps"
+      ]
+    },
+    "instant": {
+      "explanation": "Jab score X% se fail aur X% se pass, toh passing % jaldi se nikaalo!",
+      "duration_seconds": 10,
+      "includes": [
+        "one_liner"
+      ]
+    }
+  },
+  "visual": {
+    "has_diagram": false,
+    "template_id": null,
+    "description": "",
+    "when_to_show": "on_request"
+  },
+  "prerequisites": {
+    "patterns": [],
+    "concepts": []
+  },
+  "metadata": {
+    "difficulty": 3,
+    "frequency": "medium",
+    "years_appeared": [],
+    "avg_time_target_seconds": 45,
+    "related_patterns": [],
+    "tags": [
+      "percentage",
+      "calculation",
+      "ssc-trick"
+    ]
+  }
+}

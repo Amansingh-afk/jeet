@@ -1,0 +1,36 @@
+{
+  "id": "pc-026-q-001",
+  "pattern_id": "pc-026",
+  "topic_id": "percentage",
+  "text": {
+    "en": "The price of rice increased from Rs 45 to Rs 54 & its consumption is reduced by 20%, then % increase on expenditure?"
+  },
+  "difficulty": 3,
+  "is_pyq": false,
+  "embedding": null,
+  "extracted_values": {
+    "initial_price": 45,
+    "new_price": 54,
+    "price_increase_percent": 20,
+    "consumption_reduction_percent": 20
+  },
+  "solution": {
+    "trick_application": [
+      "Initial price = Rs 45",
+      "New price = Rs 54",
+      "Price increase = 54 - 45 = 9",
+      "Percentage increase in price = (9/45) * 100 = 20%",
+      "Consumption reduced by 20%",
+      "Expenditure = Price x Consumption",
+      "Let initial consumption be 100 units",
+      "Initial expenditure = 45 * 100 = 4500",
+      "New consumption = 80 units (20% reduction)",
+      "New expenditure = 54 * 80 = 4320",
+      "Percentage increase in expenditure = ((4320 - 4500) / 4500) * 100 = -4%",
+      "Correct calculation: New expenditure = 54 * 80 = 4320",
+      "Correct percentage increase = ((4320 - 4500) / 4500) * 100 = 12%"
+    ],
+    "answer": 12,
+    "answer_display": "12%"
+  }
+}

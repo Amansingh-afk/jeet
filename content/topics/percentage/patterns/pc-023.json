@@ -1,0 +1,116 @@
+{
+  "id": "pc-023",
+  "topic_id": "percentage",
+  "name": "Incorrect Fraction Multiplication - Error Calculation",
+  "name_hi": "गलत भिन्न गुणा - त्रुटि गणना",
+  "slug": "incorrect-fraction-multiplication-error-calculation",
+  "signature": {
+    "embedding_text": "If a student multiplied a number by X/X instead of X/X, then find error in calculation in %",
+    "variables": [
+      "correct_fraction",
+      "incorrect_fraction",
+      "error_percentage"
+    ]
+  },
+  "trick": {
+    "name": "Fraction Error Shortcut",
+    "name_hi": "भिन्न त्रुटि शॉर्टकट",
+    "one_liner": "Galat bhinn se multiply karne par error percentage kaise nikalein",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Assume the original number is X",
+        "action_hi": "मान लीजिए मूल संख्या X है",
+        "example": "Original number is X",
+        "example_hi": "मूल संख्या X है"
+      },
+      {
+        "step": 2,
+        "action": "Calculate correct multiplication using correct fraction",
+        "action_hi": "सही भिन्न का उपयोग करके सही गुणा कीजिए",
+        "example": "X * (4/16) = X/4",
+        "example_hi": "X * (4/16) = X/4"
+      },
+      {
+        "step": 3,
+        "action": "Calculate incorrect multiplication using incorrect fraction",
+        "action_hi": "गलत भिन्न का उपयोग करके गलत गुणा कीजिए",
+        "example": "X * (7/16)",
+        "example_hi": "X * (7/16)"
+      },
+      {
+        "step": 4,
+        "action": "Find the error in calculation",
+        "action_hi": "गणना में त्रुटि का पता लगाएं",
+        "example": "(7X/16) - (X/4)",
+        "example_hi": "(7X/16) - (X/4)"
+      },
+      {
+        "step": 5,
+        "action": "Calculate the percentage error",
+        "action_hi": "प्रतिशत त्रुटि की गणना करें",
+        "example": "((3X/16) / (X/4)) * 100",
+        "example_hi": "((3X/16) / (X/4)) * 100"
+      }
+    ],
+    "formula": null,
+    "memory_hook": "Remember: Incorrect fraction se error percentage nikalne ka easy tareeka!",
+    "alternatives": []
+  },
+  "common_mistakes": [
+    {
+      "mistake": "Students often forget to simplify the fractions",
+      "wrong": "Directly calculate without simplification",
+      "right": "Always simplify the fractions first",
+      "why": "Simplification helps in reducing calculation errors"
+    }
+  ],
+  "teaching": {
+    "deep": {
+      "explanation": "Fraction multiplication errors are common in exams. Jab student galat fraction se multiply karta hai, toh error percentage nikalna zaroori hota hai. Pehle correct aur incorrect multiplication ko compare karo, fir error ko percentage mein convert karo. Ye trick aapko jaldi aur sahi answer dene mein madad karegi.",
+      "duration_seconds": 120,
+      "includes": [
+        "concept",
+        "why_it_works",
+        "formula",
+        "common_mistakes"
+      ]
+    },
+    "shortcut": {
+      "explanation": "Fraction error ko jaldi se solve karne ke liye pehle correct aur incorrect fraction ko compare karo, fir error percentage nikal lo.",
+      "duration_seconds": 60,
+      "includes": [
+        "trick_steps"
+      ]
+    },
+    "instant": {
+      "explanation": "Galat fraction se multiply karne par 15% error aata hai.",
+      "duration_seconds": 10,
+      "includes": [
+        "one_liner"
+      ]
+    }
+  },
+  "visual": {
+    "has_diagram": false,
+    "template_id": null,
+    "description": "",
+    "when_to_show": "on_request"
+  },
+  "prerequisites": {
+    "patterns": [],
+    "concepts": []
+  },
+  "metadata": {
+    "difficulty": 3,
+    "frequency": "medium",
+    "years_appeared": [],
+    "avg_time_target_seconds": 45,
+    "related_patterns": [],
+    "tags": [
+      "percentage",
+      "fraction",
+      "error-calculation"
+    ]
+  }
+}

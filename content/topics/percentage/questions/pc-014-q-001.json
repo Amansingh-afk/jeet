@@ -1,0 +1,31 @@
+{
+  "id": "pc-014-q-001",
+  "pattern_id": "pc-014",
+  "topic_id": "percentage",
+  "text": {
+    "en": "To pass an exam 40% marks are essential, A obtains 10% marks less than pass marks & B obtains 11.11% marks less than A. What % less than sum of A & B marks should C obtain to pass the exam?"
+  },
+  "difficulty": 3,
+  "is_pyq": false,
+  "embedding": null,
+  "extracted_values": {
+    "passing_marks_percent": 40,
+    "A_less_percent": 10,
+    "B_less_percent": "11(1/9)",
+    "A_marks": 36,
+    "B_marks": 32,
+    "total_A_B_marks": 68,
+    "C_less_percent": 41.2
+  },
+  "solution": {
+    "trick_application": [
+      "Let passing marks be 40.",
+      "A obtains 10% less than 40, so A = 36 marks.",
+      "B obtains 11(1/9)% less than A, so B = 32 marks.",
+      "Total marks of A & B = 36 + 32 = 68.",
+      "C needs (68 - 40) / 68 * 100 = 41.2% less than A & B."
+    ],
+    "answer": 41.2,
+    "answer_display": "41.2%"
+  }
+}

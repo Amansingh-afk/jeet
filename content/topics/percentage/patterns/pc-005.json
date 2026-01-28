@@ -1,122 +1,176 @@
 {
   "id": "pc-005",
   "topic_id": "percentage",
-  "name": "Price Decrease - Consumption Increase",
-  "name_hi": "कीमत कमी - उपभोग वृद्धि",
-  "slug": "price-decrease-consumption-increase",
+  "name": "Inverse Proportion - Constant Product",
+  "name_hi": "व्युत्क्रम अनुपात - स्थिर गुणनफल",
+  "slug": "inverse-proportion-constant-product",
 
   "signature": {
-    "embedding_text": "If price of an item decreases by X percent, by what percentage should consumption be increased to keep the expenditure same",
-    "variables": ["decrease_percent"]
+    "embedding_text": "If price of an item increases by X%, by what percentage should consumption be decreased to keep expenditure same. If price decreases by X%, by what percent must consumption increase to maintain same expenditure. If speed increases by X%, by what percentage should time be reduced to cover same distance. If one quantity changes by X%, find percentage change in other quantity to keep product constant.",
+    "keywords": ["price", "consumption", "expenditure same", "speed", "time", "distance same", "increase", "decrease", "constant product"],
+    "structure": "A × B = constant. A changes by X%, find % change in B",
+    "variables": ["change_percent", "direction"]
   },
 
   "trick": {
-    "name": "Sign Flip Fraction Trick",
-    "name_hi": "चिन्ह फ्लिप भिन्न ट्रिक",
-    "one_liner": "decrease → –X/Y ⇒ increase → +X/(Y–X)",
+    "name": "Reciprocal Formula Method",
+    "name_hi": "व्युत्क्रम सूत्र विधि",
+    "one_liner": "Decrease -X/Y → Increase +X/(Y-X) | Increase +X/Y → Decrease -X/(Y+X)",
+
     "steps": [
       {
         "step": 1,
-        "action": "Convert percentage decrease into fraction (negative sign )",
-        "action_hi": "Percentage decrease ko fraction mein convert karo (negative sign)",
-        "example": "20% decrease = -1/5",
-        "example_hi": "20% कमी = -1/5"
+        "action": "Convert percentage to fraction with sign (+ve for increase, -ve for decrease)",
+        "action_hi": "Percentage ko fraction mein badlo (+ for increase, - for decrease)",
+        "example": "20% increase = +1/5, 20% decrease = -1/5",
+        "example_hi": "20% वृद्धि = +1/5, 20% कमी = -1/5"
       },
       {
         "step": 2,
-        "action": "Flip the sign of numerator, Change denominator to (Y–X) to get increase fraction",
-        "action_hi": "Decrease fraction ke numerator ko positive kar do, and denominator ko (Y-X) kar do to get increase fraction",
-        "example": "Price -1/5 → consumption =+1/(5-1) = +1/4 → increase = 25%",
-        "example_hi": "कीमत -1/5 → उपभोग =+1/(5-1) = +1/4 → वृद्धि = 25%"
+        "action": "Flip the sign, change denominator: decrease → (Y-X), increase → (Y+X)",
+        "action_hi": "Sign ulta karo, denominator badlo: decrease → (Y-X), increase → (Y+X)",
+        "example": "-1/5 → +1/(5-1) = +1/4 | +1/5 → -1/(5+1) = -1/6",
+        "example_hi": "-1/5 → +1/(5-1) = +1/4 | +1/5 → -1/(5+1) = -1/6"
+      },
+      {
+        "step": 3,
+        "action": "Convert fraction back to percentage",
+        "action_hi": "Fraction ko percentage mein badlo",
+        "example": "+1/4 = 25% increase | -1/6 = 16.67% decrease",
+        "example_hi": "+1/4 = 25% वृद्धि | -1/6 = 16.67% कमी"
       }
     ],
-    "memory_hook": "Decrease fraction ke numerator ko positive kar do, and denominator ko (Y-X) kar do to get increase fraction",
-    "quick_fractions": {
-      "10%": "1/9 = 11.11%",
-      "20%": "1/4 = 25%",
-      "25%": "1/3 = 33.33%",
-      "30%": "3/7 = 42.86%",
-      "40%": "2/3 = 66.67%",
-      "50%": "1/2 = 100%"
+    "memory_hook": "Kam hua toh zyada karo (Y-X), zyada hua toh kam karo (Y+X). Sign always ulta!",
+
+    "quick_values": {
+      "decrease": {
+        "10%": "10/90 = 11.11%",
+        "20%": "20/80 = 25%",
+        "25%": "25/75 = 33.33%",
+        "30%": "30/70 = 42.86%",
+        "40%": "40/60 = 66.67%",
+        "50%": "50/50 = 100%"
+      },
+      "increase": {
+        "10%": "10/110 = 9.09%",
+        "20%": "20/120 = 16.67%",
+        "25%": "25/125 = 20%",
+        "30%": "30/130 = 23.08%",
+        "40%": "40/140 = 28.57%",
+        "50%": "50/150 = 33.33%"
+      }
     },
+
     "alternatives": [
       {
-        "name": "Reciprocal Fraction Method",
-        "name_hi": "व्युत्क्रम भिन्न विधि",
-        "one_liner": "X/(100-X) × 100",
-        "formula": "X / (100 - X) * 100",
-        "formula_latex": "\\frac{X}{100-X} \\times 100",
+        "name": "Percentage Formula Method",
+        "name_hi": "प्रतिशत सूत्र विधि",
+        "one_liner": "Decrease X% → increase X/(100-X)% | Increase X% → decrease X/(100+X)%",
+
         "steps": [
           {
             "step": 1,
-            "action": "Convert percentage decrease to remaining price fraction",
-            "action_hi": "Percentage decrease ko remaining price fraction mein convert karo",
-            "example": "20% decrease → price becomes 80% = 4/5",
-            "example_hi": "20% कमी → कीमत 80% = 4/5 हो जाती है"
+            "action": "Identify which quantity changed and direction",
+            "action_hi": "Dekho kaun sa quantity badha/kam hua",
+            "example": "Price 20% increase / 20% decrease",
+            "example_hi": "कीमत 20% बढ़ी / 20% घटी"
           },
           {
             "step": 2,
-            "action": "Take reciprocal for consumption fraction, then find increase percentage",
-            "action_hi": "Consumption fraction ke liye reciprocal lo, phir increase percentage nikalo",
-            "example": "Price 4/5 → consumption 5/4 → increase = 5/4 - 1 = 1/4 = 25%",
-            "example_hi": "कीमत 4/5 → उपभोग 5/4 → वृद्धि = 5/4 - 1 = 1/4 = 25%"
+            "action": "Apply formula based on direction",
+            "action_hi": "Direction ke hisaab se formula lagao",
+            "example": "Decrease → X/(100-X) | Increase → X/(100+X)",
+            "example_hi": "कमी → X/(100-X) | वृद्धि → X/(100+X)"
+          },
+          {
+            "step": 3,
+            "action": "Calculate and flip direction",
+            "action_hi": "Calculate karo aur direction ulta karo",
+            "example": "20% decrease → 20/80 = 25% increase | 20% increase → 20/120 = 16.67% decrease",
+            "example_hi": "20% कमी → 20/80 = 25% वृद्धि | 20% वृद्धि → 20/120 = 16.67% कमी"
           }
-        ]
+        ],
+        "formulas": {
+          "decrease_to_increase": {
+            "formula": "X/(100-X) × 100",
+            "formula_latex": "\\frac{X}{100-X} \\times 100",
+            "description": "A decreases X% → B increases by this %"
+          },
+          "increase_to_decrease": {
+            "formula": "X/(100+X) × 100",
+            "formula_latex": "\\frac{X}{100+X} \\times 100",
+            "description": "A increases X% → B decreases by this %"
+          }
+        }
       }
-   ]
+    ]
   },
 
-    "common_mistakes": [
+  "common_mistakes": [
     {
-      "mistake": "Reciprocal nahi lete, direct percentage use kar lete hain",
-      "wrong": "20% decrease → 20% increase",
-      "right": "20% decrease → price 4/5 → consumption 5/4 → 25% increase",
-      "why": "Expenditure same rakhne ke liye reciprocal lena padta hai, direct percentage same nahi hota"
+      "mistake": "Same percentage assume karna",
+      "wrong": "20% increase → 20% decrease",
+      "right": "20% increase → 16.67% decrease",
+      "why": "Base change hota hai - bade number par percentage chota lagta hai"
     },
     {
-      "mistake": "Same percentage assume kar lete hain",
-      "wrong": "20% decrease → 20% increase",
-      "right": "20% decrease → 25% increase",
-      "why": "Base change hota hai, isliye percentage alag aata hai"
+      "mistake": "Formula confuse karna",
+      "wrong": "Increase mein bhi (Y-X) use karna",
+      "right": "Increase → (Y+X), Decrease → (Y-X)",
+      "why": "Direction dhyan se dekho - ulta formula hai dono ka"
+    },
+    {
+      "mistake": "Direction bhool jana",
+      "wrong": "Formula answer nikaal liya, but increase/decrease nahi bataya",
+      "right": "Always opposite direction - price up → consumption down",
+      "why": "Product constant rakhna hai, toh opposite direction hi hoga"
     }
   ],
 
   "teaching": {
     "deep": {
-      "explanation": "Concept simple hai: Expenditure = Price × Consumption.\n\nAgar price X% kam hoti hai, to wo (100–X)% reh jaati hai.\nExample: 20% decrease → price = 80% = 4/5\n\nSame paisa kharch karna hai, isliye consumption ko price ke reciprocal ke barabar karna padega.\nPrice = 4/5 → Consumption = 5/4\n\nIncrease = 5/4 – 1 = 1/4 = 25%\n\nRule yaad rakho:\n• Price fraction aur consumption fraction reciprocal hote hain\n• Base change hota hai, isliye same % apply nahi hota\n\nDirect Formula:\nX/(100–X) × 100",
-      "duration_seconds": 120,
-      "includes": ["concept", "why_it_works", "formula", "common_mistakes"]
+      "explanation": "**Core Concept: A × B = Constant**\n\nJab ek quantity change hoti hai, toh dusri ko bhi change karna padta hai taaki product same rahe.\n\n**Case 1: A decreases X%**\nPrice 20% kam = -1/5\nExpenditure same rakhna hai: P × C = constant\nToh C = +1/(5-1) = +1/4\nIncrease = 1/4 = 25%\n\n**Case 2: A increases X%**\nPrice 20% zyada = +1/5\nExpenditure same: P × C = constant\nC = -1/(5+1) = -1/6\nDecrease = 1/6 = 16.67%\n\n**Why different formulas?**\n- Decrease: Base chota hota hai, toh (Y-X)\n- Increase: Base bada hota hai, toh (Y+X)\n\n**Pattern Recognition:**\nPrice ↓ → Consumption ↑ (kam daam, zyada cheezein)\nPrice ↑ → Consumption ↓ (zyada daam, kam cheezein)",
+      "duration_seconds": 180,
+      "includes": ["concept", "why_it_works", "both_formulas", "derivation", "common_mistakes"]
     },
+
     "shortcut": {
-      "explanation": "Quick trick:\n1. 20% decrease = -1/5(-ve sign to show decrease)\n2. Consumption = +1/(5-1) = +1/4(positive sign to show increase)\n3. Increase% = 1/4 * 100 = 25%\n\nYaad rakhna: decrease fraction ke numerator ko negative kar do, and denominator ko (Y-X) kar do to get increase fraction",
+      "explanation": "**Two formulas, yaad rakho:**\n\n1. **Decrease → Increase**\n   -X/Y → +X/(Y-X)\n   Example: -1/5 → +1/4 = 25% increase\n\n2. **Increase → Decrease**\n   +X/Y → -X/(Y+X)\n   Example: +1/5 → -1/6 = 16.67% decrease\n\n**Trick:** Sign ulta karo, Denominator mein:\n- Kam hua? (Y-X)\n- Zyada hua? (Y+X)",
       "duration_seconds": 60,
-      "includes": ["trick_steps"]
+      "includes": ["both_formulas", "quick_examples"]
     },
+
     "instant": {
-      "explanation": "20% decrease → -1/5 → +1/4 → 25% increase",
+      "explanation": "↓ -X/Y → ↑ +X/(Y-X) | ↑ +X/Y → ↓ -X/(Y+X)",
       "duration_seconds": 10,
-      "includes": ["one_liner"]
+      "includes": ["formula_pair"]
     }
   },
 
   "visual": {
     "has_diagram": true,
-    "template_id": "flow-percentage-decrease-consumption",
-    "description": "Flow diagram showing fraction flip method for price-consumption relationship",
+    "template_id": "inverse-percentage-fraction",
+    "description": "Shows both directions: price-consumption with formulas for increase and decrease",
     "when_to_show": "always"
   },
 
   "prerequisites": {
-    "patterns": ["pc-001"],
-    "concepts": ["percentage-to-fraction-conversion"]
+    "patterns": ["pc-001", "pc-002"],
+    "concepts": ["percentage-to-fraction", "reciprocal-relationship", "constant-product"]
   },
 
   "metadata": {
     "difficulty": 2,
-    "frequency": "high",
-    "years_appeared": [2019, 2020, 2021, 2022, 2023],
+    "frequency": "very-high",
+    "years_appeared": [2018, 2019, 2020, 2021, 2022, 2023, 2024],
     "avg_time_target_seconds": 30,
-    "related_patterns": ["pc-006"],
-    "tags": ["price", "consumption", "expenditure", "fraction-method"]
+    "related_patterns": ["pc-006", "td-012", "tw-008"],
+    "tags": ["price", "consumption", "expenditure", "speed", "time", "distance", "inverse", "reciprocal", "bidirectional"],
+    "question_variations": [
+      "Price increases X%, consumption decreases Y%",
+      "Price decreases X%, consumption increases Y%",
+      "Speed increases X%, time decreases Y%",
+      "Length decreases X%, width increases Y%"
+    ]
   }
 }

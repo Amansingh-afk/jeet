@@ -1,0 +1,102 @@
+{
+  "id": "pc-009",
+  "topic_id": "percentage",
+  "name": "Find Total/Pass Marks - Two Person Comparison",
+  "name_hi": "दो व्यक्तियों की तुलना से कुल/पास अंक निकालें",
+  "slug": "find-total-pass-marks-two-person-comparison",
+  "signature": {
+    "embedding_text": "A student scored X% marks and failed by X marks while another student who scored X% passed by X marks more than required. Find pass marks or total marks. A candidate scoring X% fails by X marks while another scores Y% and gets X marks more than passing. What is maximum marks for examination.",
+    "keywords": ["two students", "failed by", "passed by", "pass marks", "total marks", "maximum marks", "comparison"],
+    "structure": "Two people with different % scores, one fails by X, other passes by Y. Find total or pass marks.",
+    "variables": ["student1_percent", "student1_failed_by", "student2_percent", "student2_passed_by"]
+  },
+  "trick": {
+    "name": "Equation Equate Method",
+    "name_hi": "समीकरण बराबर विधि",
+    "one_liner": "x% + fail_marks = y% - pass_marks = Pass marks. Solve for total.",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Let total marks = T",
+        "action_hi": "Total marks ko T maano",
+        "example": "Let T = total marks",
+        "example_hi": "Maano T = total marks"
+      },
+      {
+        "step": 2,
+        "action": "Write pass marks from both data points",
+        "action_hi": "Dono data se pass marks likho",
+        "example": "Pass = (30% of T) + 30 = (42% of T) - 58",
+        "example_hi": "Pass = (30% of T) + 30 = (42% of T) - 58"
+      },
+      {
+        "step": 3,
+        "action": "Equate and solve for T",
+        "action_hi": "Barabar karke T nikalo",
+        "example": "12% of T = 88, so T = 733.33",
+        "example_hi": "12% of T = 88, toh T = 733.33"
+      },
+      {
+        "step": 4,
+        "action": "Calculate pass marks",
+        "action_hi": "Pass marks nikalo",
+        "example": "Pass = (42% of 733.33) - 58 = 250",
+        "example_hi": "Pass = (42% of 733.33) - 58 = 250"
+      }
+    ],
+    "formula": {
+      "total_marks": "T = (fail_marks + pass_marks) / (y% - x%) × 100",
+      "pass_marks": "Pass = (x% of T) + fail_marks"
+    },
+    "memory_hook": "Fail wala + karo, Pass wala - karo, dono equal = Pass marks!"
+  },
+  "common_mistakes": [
+    {
+      "mistake": "Signs confuse karna",
+      "wrong": "Fail wale se minus, pass wale se plus",
+      "right": "Fail wale se plus (score + fail_by), Pass wale se minus (score - pass_by)",
+      "why": "Fail means below pass marks, Pass by X means X marks above pass marks"
+    },
+    {
+      "mistake": "Percentage aur marks mix karna",
+      "wrong": "Directly 30 + 58 = 88 marks",
+      "right": "12% = 88 marks, toh 100% = 733.33",
+      "why": "Percentage difference gives marks difference"
+    }
+  ],
+  "teaching": {
+    "deep": {
+      "explanation": "**Core Concept: Both expressions equal Pass Marks**\n\nStudent 1: Scored x%, failed by F marks\n→ Pass marks = (x% of T) + F\n\nStudent 2: Scored y%, passed by P marks\n→ Pass marks = (y% of T) - P\n\n**Since both equal pass marks:**\n(x% of T) + F = (y% of T) - P\n(y - x)% of T = F + P\nT = (F + P) × 100 / (y - x)\n\n**Example:**\n30% fail by 30, 42% pass by 58\n(42-30)% of T = 30 + 58 = 88\n12% of T = 88\nT = 733.33\nPass marks = 30% of 733.33 + 30 = 250",
+      "duration_seconds": 120,
+      "includes": ["concept", "derivation", "formula", "example"]
+    },
+    "shortcut": {
+      "explanation": "**Quick Method:**\n1. Marks difference = fail_by + pass_by\n2. % difference = y% - x%\n3. Total = marks_diff × 100 / %_diff\n4. Pass = lower% of Total + fail_by\n\n**Example:** 30% fail by 30, 42% pass by 58\nTotal = 88 × 100 / 12 = 733.33\nPass = 220 + 30 = 250",
+      "duration_seconds": 60,
+      "includes": ["formula", "example"]
+    },
+    "instant": {
+      "explanation": "Total = (fail + pass) × 100 / (%diff) | Pass = lower% × T + fail",
+      "duration_seconds": 10,
+      "includes": ["formula"]
+    }
+  },
+  "visual": {
+    "has_diagram": true,
+    "template_id": "find-total-pass-marks-two-person-comparison",
+    "description": "",
+    "when_to_show": "always"
+  },
+  "prerequisites": {
+    "patterns": ["pc-008"],
+    "concepts": ["percentage-calculation", "linear-equations"]
+  },
+  "metadata": {
+    "difficulty": 3,
+    "frequency": "high",
+    "years_appeared": [],
+    "avg_time_target_seconds": 60,
+    "related_patterns": ["pc-008", "pc-010"],
+    "tags": ["percentage", "two-person", "pass-fail", "comparison", "total-marks", "maximum-marks"]
+  }
+}

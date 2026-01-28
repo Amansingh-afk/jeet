@@ -1,0 +1,29 @@
+{
+  "id": "pc-007-q-001",
+  "pattern_id": "pc-007",
+  "topic_id": "percentage",
+  "text": {
+    "en": "When income tax is 8 paise in a rupee, a person's net income is ₹309580. What will be his net income if the income tax is raised to 12 paise?"
+  },
+  "difficulty": 3,
+  "is_pyq": false,
+  "embedding": null,
+  "extracted_values": {
+    "initial_tax_percent": 8,
+    "initial_net_income": 309580,
+    "new_tax_percent": 12
+  },
+  "solution": {
+    "trick_application": [
+      "Let income = x",
+      "8 paise/Rs = 8%",
+      "Net income = 92% of x = 309580",
+      "x = 309580 / 0.92",
+      "Now, 12% = 88%",
+      "88% of x = 309580 / 92 * 88",
+      "Net income = 286610"
+    ],
+    "answer": 286610,
+    "answer_display": "286610"
+  }
+}

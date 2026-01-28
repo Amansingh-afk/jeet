@@ -1,0 +1,35 @@
+{
+  "id": "pc-011-q-001",
+  "pattern_id": "pc-011",
+  "topic_id": "percentage",
+  "text": {
+    "en": "When a student scores 28% marks he failed by 58 marks. But when he scores 41%, he passes. Find passing percentage."
+  },
+  "difficulty": 3,
+  "is_pyq": false,
+  "embedding": null,
+  "extracted_values": {
+    "score_1_percent": 28,
+    "failed_by_marks": 58,
+    "score_2_percent": 41,
+    "difference_percent": 13,
+    "difference_marks": 52,
+    "marks_per_percent": 4,
+    "passing_marks": 170,
+    "passing_percent": 42.5
+  },
+  "solution": {
+    "trick_application": [
+      "(41 - 28)% = 13%",
+      "13% = 52",
+      "1% = 4",
+      "Passing = (28% + 58)",
+      "= 112 + 58",
+      "= 170 marks",
+      "From 40% = 170 marks",
+      "Passing % = 42.5%"
+    ],
+    "answer": 42.5,
+    "answer_display": "42.5%"
+  }
+}

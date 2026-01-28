@@ -1,0 +1,103 @@
+{
+  "id": "pc-026",
+  "topic_id": "percentage",
+  "name": "Net Effect of Price-Consumption Changes",
+  "name_hi": "मूल्य-खपत परिवर्तनों का शुद्ध प्रभाव",
+  "slug": "net-effect-price-consumption-changes",
+  "signature": {
+    "embedding_text": "Price increase from X to X and consumption reduced by X percent, then percentage increase or decrease on expenditure. When price of commodity increased by X percent, the family reduced its consumption in such a way that expenditure only increased Y percent, by how much percent was consumption reduced. If price increases by X% and consumption decreases by Y%, find net change in expenditure. Given price change and expenditure change, find consumption change.",
+    "keywords": ["price", "consumption", "expenditure", "net effect", "multiple changes", "combined effect"],
+    "structure": "Expenditure = Price × Consumption. Given two of the three % changes, find the third.",
+    "variables": ["price_change_percent", "consumption_change_percent", "expenditure_change_percent"]
+  },
+  "trick": {
+    "name": "Multiplier Method",
+    "name_hi": "गुणक विधि",
+    "one_liner": "Expenditure multiplier = Price multiplier × Consumption multiplier",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Convert each % change to multiplier: +X% → (1 + X/100), -X% → (1 - X/100)",
+        "action_hi": "Har % change ko multiplier mein badlo: +X% → (1 + X/100), -X% → (1 - X/100)",
+        "example": "Price +20% → 1.20, Consumption -20% → 0.80",
+        "example_hi": "Price +20% → 1.20, Consumption -20% → 0.80"
+      },
+      {
+        "step": 2,
+        "action": "Apply formula: Expenditure multiplier = Price multiplier × Consumption multiplier",
+        "action_hi": "Formula lagao: Expenditure multiplier = Price multiplier × Consumption multiplier",
+        "example": "Expenditure = 1.20 × 0.80 = 0.96",
+        "example_hi": "Expenditure = 1.20 × 0.80 = 0.96"
+      },
+      {
+        "step": 3,
+        "action": "Convert back to % change: (multiplier - 1) × 100",
+        "action_hi": "Wapas % mein badlo: (multiplier - 1) × 100",
+        "example": "(0.96 - 1) × 100 = -4% (expenditure decreased)",
+        "example_hi": "(0.96 - 1) × 100 = -4% (expenditure kam hua)"
+      }
+    ],
+    "formula": {
+      "find_expenditure": "Exp% = [(1 + P%/100) × (1 + C%/100) - 1] × 100",
+      "find_consumption": "C multiplier = Exp multiplier / Price multiplier",
+      "find_price": "P multiplier = Exp multiplier / Consumption multiplier"
+    },
+    "memory_hook": "Multipliers multiply karo, phir % mein wapas karo!",
+    "alternatives": []
+  },
+  "common_mistakes": [
+    {
+      "mistake": "Directly adding/subtracting percentages",
+      "wrong": "Price +20%, Consumption -20% → Net effect = 0%",
+      "right": "1.20 × 0.80 = 0.96 → Net effect = -4%",
+      "why": "Percentages don't add linearly when multiplied together"
+    },
+    {
+      "mistake": "Forgetting to convert back from multiplier",
+      "wrong": "Answer = 0.96",
+      "right": "Answer = (0.96 - 1) × 100 = -4%",
+      "why": "Final answer should be percentage, not multiplier"
+    },
+    {
+      "mistake": "Wrong sign for decrease",
+      "wrong": "Consumption -20% → multiplier = 1.20",
+      "right": "Consumption -20% → multiplier = 0.80",
+      "why": "Decrease means subtract from 1, not add"
+    }
+  ],
+  "teaching": {
+    "deep": {
+      "explanation": "**Core Concept: Expenditure = Price × Quantity**\n\nJab price aur consumption dono change hote hain, toh expenditure ka net effect nikalna hai.\n\n**Method: Use Multipliers**\n\n1. Convert % to multiplier:\n   - +X% → multiply by (1 + X/100)\n   - -X% → multiply by (1 - X/100)\n\n2. Apply the relationship:\n   Exp_new/Exp_old = (P_new/P_old) × (C_new/C_old)\n   \n3. Solve for unknown:\n   - Given P% and C%, find E%: E = P × C\n   - Given P% and E%, find C%: C = E / P\n   - Given C% and E%, find P%: P = E / C\n\n**Example 1: Find Expenditure Change**\nPrice +20%, Consumption -20%\nE = 1.20 × 0.80 = 0.96 → -4% expenditure\n\n**Example 2: Find Consumption Change**\nPrice +23%, Expenditure +5%\nC = 1.05 / 1.23 = 0.854 → -14.6% consumption",
+      "duration_seconds": 150,
+      "includes": ["concept", "method", "formula", "both_examples", "common_mistakes"]
+    },
+    "shortcut": {
+      "explanation": "**Quick Method:**\n1. % → Multiplier: +X% = 1+X/100, -X% = 1-X/100\n2. E = P × C (use multipliers)\n3. Multiplier → %: (M - 1) × 100\n\n**Examples:**\n- P=1.20, C=0.80 → E=0.96 → -4%\n- P=1.23, E=1.05 → C=0.854 → -14.6%",
+      "duration_seconds": 60,
+      "includes": ["formula", "examples"]
+    },
+    "instant": {
+      "explanation": "E = P × C (multipliers). +20% × -20% = 1.20 × 0.80 = 0.96 = -4%",
+      "duration_seconds": 10,
+      "includes": ["formula"]
+    }
+  },
+  "visual": {
+    "has_diagram": false,
+    "template_id": null,
+    "description": "",
+    "when_to_show": "on_request"
+  },
+  "prerequisites": {
+    "patterns": ["pc-005"],
+    "concepts": ["percentage-change", "multipliers"]
+  },
+  "metadata": {
+    "difficulty": 3,
+    "frequency": "high",
+    "years_appeared": [],
+    "avg_time_target_seconds": 45,
+    "related_patterns": ["pc-005"],
+    "tags": ["percentage", "price", "consumption", "expenditure", "net-effect", "multiplier"]
+  }
+}

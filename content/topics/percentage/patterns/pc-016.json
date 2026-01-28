@@ -1,0 +1,109 @@
+{
+  "id": "pc-016",
+  "topic_id": "percentage",
+  "name": "Biggest Number Decrease - Smaller Number Increase - Numbers Equal",
+  "name_hi": "सबसे बड़ी संख्या घटाएं - छोटी संख्या बढ़ाएं - संख्याएँ बराबर",
+  "slug": "biggest-number-decrease-smaller-number-increase-numbers-equal",
+  "signature": {
+    "embedding_text": "The sum of two numbers is X. If biggest number is decreased by X% & smaller number is increased by X%, then numbers obtained are equal.",
+    "variables": [
+      "sum_of_numbers",
+      "biggest_number_decrease_percent",
+      "smaller_number_increase_percent"
+    ]
+  },
+  "trick": {
+    "name": "Equalize Trick",
+    "name_hi": "बराबरी ट्रिक",
+    "one_liner": "B ko 4% ghatake aur C ko 11.2% badhake, dono equal ho jaate hain.",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Let the biggest number be B and the smaller number be C.",
+        "action_hi": "B ko sabse bada aur C ko chhota number maan lo.",
+        "example": "B + C = 520",
+        "example_hi": "B + C = 520"
+      },
+      {
+        "step": 2,
+        "action": "Decrease B by 4% and increase C by 11.2%.",
+        "action_hi": "B ko 4% ghataye aur C ko 11.2% badhaye.",
+        "example": "B * 96/100 = C * 112/100",
+        "example_hi": "B * 96/100 = C * 112/100"
+      },
+      {
+        "step": 3,
+        "action": "Find the ratio B/C = 112/96 = 7/6.",
+        "action_hi": "B/C ka ratio nikale 112/96 = 7/6.",
+        "example": "B/C = 7/6",
+        "example_hi": "B/C = 7/6"
+      },
+      {
+        "step": 4,
+        "action": "Calculate parts and find smaller number.",
+        "action_hi": "Parts calculate karke chhota number nikale.",
+        "example": "520/13 = 40, Smaller number = 6 * 40 = 240",
+        "example_hi": "520/13 = 40, Chhota number = 6 * 40 = 240"
+      }
+    ],
+    "formula": null,
+    "memory_hook": "B ko ghataye, C ko badhaye, equal banaye!",
+    "alternatives": []
+  },
+  "common_mistakes": [
+    {
+      "mistake": "Confusing percentage increase and decrease.",
+      "wrong": "Applying wrong percentage to wrong number.",
+      "right": "Correctly apply 4% decrease to B and 11.2% increase to C.",
+      "why": "Percentage changes are often mixed up."
+    }
+  ],
+  "teaching": {
+    "deep": {
+      "explanation": "Yeh pattern tab kaam aata hai jab do numbers ka sum diya hota hai aur unko adjust karke equal banana hota hai. Pehle B aur C ko identify karo. B ko 4% ghatake aur C ko 11.2% badhake, unka ratio 7/6 ban jaata hai. Is ratio ko use karke, total parts ko divide karke, smaller number nikalte hain. Isme common mistake hoti hai percentage ko galat number pe apply karna. Formula aur steps ko yaad rakhne se yeh trick jaldi solve hoti hai.",
+      "duration_seconds": 120,
+      "includes": [
+        "concept",
+        "why_it_works",
+        "formula",
+        "common_mistakes"
+      ]
+    },
+    "shortcut": {
+      "explanation": "B ko 4% ghataye, C ko 11.2% badhaye, ratio 7/6 banaye aur parts se solve kare.",
+      "duration_seconds": 60,
+      "includes": [
+        "trick_steps"
+      ]
+    },
+    "instant": {
+      "explanation": "B ko 4% ghatake aur C ko 11.2% badhake, dono equal ho jaate hain.",
+      "duration_seconds": 10,
+      "includes": [
+        "one_liner"
+      ]
+    }
+  },
+  "visual": {
+    "has_diagram": false,
+    "template_id": null,
+    "description": "",
+    "when_to_show": "on_request"
+  },
+  "prerequisites": {
+    "patterns": [],
+    "concepts": []
+  },
+  "metadata": {
+    "difficulty": 3,
+    "frequency": "medium",
+    "years_appeared": [],
+    "avg_time_target_seconds": 45,
+    "related_patterns": [],
+    "tags": [
+      "percentage",
+      "ratio",
+      "number-equality"
+    ]
+  }
+}

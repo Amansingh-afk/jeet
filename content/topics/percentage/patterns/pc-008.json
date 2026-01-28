@@ -1,0 +1,95 @@
+{
+  "id": "pc-008",
+  "topic_id": "percentage",
+  "name": "Calculate Total Marks from Percentage and Marks Obtained",
+  "name_hi": "प्रतिशत और प्राप्त अंकों से कुल अंक निकालें",
+  "slug": "calculate-total-marks-from-percentage-and-marks-obtained",
+  "signature": {
+    "embedding_text": "Calculate total marks when X percent is needed to pass and X marks are obtained",
+    "variables": [
+      "pass_percentage",
+      "marks_obtained",
+      "marks_failed_by"
+    ]
+  },
+  "trick": {
+    "name": "Total Marks Calculation Trick",
+    "name_hi": "कुल अंक गणना ट्रिक",
+    "one_liner": "Marks aur percentage se total marks nikaalo jaldi se",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Add marks obtained and marks failed by",
+        "action_hi": "प्राप्त अंक और असफलता के अंक जोड़ें",
+        "example": "157 + 23 = 180",
+        "example_hi": "157 + 23 = 180"
+      },
+      {
+        "step": 2,
+        "action": "Divide the result by pass percentage in decimal",
+        "action_hi": "परिणाम को दशमलव में पास प्रतिशत से विभाजित करें",
+        "example": "180 / 0.45 = 400",
+        "example_hi": "180 / 0.45 = 400"
+      }
+    ],
+    "formula": null,
+    "memory_hook": "Marks add karo, percentage se divide karo, total marks pao!",
+    "alternatives": []
+  },
+  "common_mistakes": [
+    {
+      "mistake": "Students often forget to convert percentage to decimal",
+      "wrong": "180 / 45",
+      "right": "180 / 0.45",
+      "why": "Percentage should be converted to decimal for division"
+    }
+  ],
+  "teaching": {
+    "deep": {
+      "explanation": "Yeh trick aapko jaldi se total marks nikalne mein madad karegi. Pehle aapko milte hue marks aur jitne marks se fail hue unhe jodna hai. Phir is sum ko pass percentage ke decimal form se divide karna hai. Isse aapko total marks mil jayenge. Yeh isliye kaam karta hai kyunki aap pehle total marks ka woh part nikalte hain jo pass hone ke liye chahiye, aur phir usse percentage ke according adjust karte hain. Students aksar percentage ko decimal mein convert karna bhool jaate hain, jo galti hoti hai.",
+      "duration_seconds": 120,
+      "includes": [
+        "concept",
+        "why_it_works",
+        "formula",
+        "common_mistakes"
+      ]
+    },
+    "shortcut": {
+      "explanation": "Jaldi se total marks nikaalne ke liye, pehle marks ko add karo aur phir percentage se divide karo.",
+      "duration_seconds": 60,
+      "includes": [
+        "trick_steps"
+      ]
+    },
+    "instant": {
+      "explanation": "Marks add karo aur percentage se divide karo: 157 + 23 = 180, phir 180 / 0.45 = 400",
+      "duration_seconds": 10,
+      "includes": [
+        "one_liner"
+      ]
+    }
+  },
+  "visual": {
+    "has_diagram": false,
+    "template_id": null,
+    "description": "",
+    "when_to_show": "on_request"
+  },
+  "prerequisites": {
+    "patterns": [],
+    "concepts": []
+  },
+  "metadata": {
+    "difficulty": 2,
+    "frequency": "medium",
+    "years_appeared": [],
+    "avg_time_target_seconds": 45,
+    "related_patterns": [],
+    "tags": [
+      "percentage",
+      "calculation",
+      "marks"
+    ]
+  }
+}

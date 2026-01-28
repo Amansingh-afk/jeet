@@ -1,46 +1,82 @@
-j{
-  "id": "flow-percentage-decrease-consumption",
-  "name": "Percentage Decrease - Consumption Increase",
+{
+  "id": "inverse-percentage-fraction",
+  "name": "Inverse Percentage - Fraction Transformation",
   "category": "flow",
-  "description": "Shows fraction transformation: price decrease → consumption increase via reciprocal. Use for price-consumption-expenditure problems.",
+  "description": "Shows fraction transformation for inverse percentage relationships: when A decreases by X%, B increases by reciprocal fraction method. Generic template for any inverse relationship.",
+  
   "params": [
     {
-      "name": "numerator_left",
+      "name": "decrease_numerator",
       "type": "text",
       "element_id": "cmQVqB0KCFjXHIXKdk9Bd",
-      "default": "-1"
+      "default": "-1",
+      "description": "Negative sign shows decrease"
     },
     {
-      "name": "denominator_left",
+      "name": "decrease_denominator",
       "type": "text",
       "element_id": "qFg6YYAwedUlSYqE9nefu",
-      "default": "5"
+      "default": "5",
+      "description": "Denominator of decrease fraction"
     },
     {
-      "name": "numerator_right",
+      "name": "increase_numerator",
       "type": "text",
       "element_id": "zVaM_exK5oC4XTsHlY6HA",
-      "default": "+1"
+      "default": "+1",
+      "description": "Positive sign shows increase"
     },
     {
-      "name": "denominator_right",
+      "name": "increase_denominator",
       "type": "text",
       "element_id": "YhL_60_QaKrXYXJL82CMI",
-      "default": "4"
+      "default": "4",
+      "description": "Denominator becomes (Y-X)"
     },
     {
-      "name": "calculation",
+      "name": "denominator_calculation",
       "type": "text",
       "element_id": "4IGu4TsbE7NxDyBHULrC3",
-      "default": "-1+5"
+      "default": "5-1=4",
+      "description": "Shows (Y-X) calculation"
+    },
+    {
+      "name": "quantity_a_label",
+      "type": "text",
+      "element_id": "PWowLgJKy2jpzXk6dllFP",
+      "default": "A",
+      "description": "First quantity (price/speed/marks/length)"
+    },
+    {
+      "name": "quantity_b_label",
+      "type": "text",
+      "element_id": "lnk7JMxyzUclkrin0Cs0U",
+      "default": "B",
+      "description": "Second quantity (consumption/time/comparison/width)"
+    },
+    {
+      "name": "quantity_a_change",
+      "type": "text",
+      "element_id": "8mwS8AGTHeZdlLuqG19hp",
+      "default": "-20%",
+      "description": "Percentage decrease in A"
+    },
+    {
+      "name": "quantity_b_change",
+      "type": "text",
+      "element_id": "Klb2r3Su9I_sL37ffI6CF",
+      "default": "+25%",
+      "description": "Percentage increase in B"
     },
     {
       "name": "sign_change_label",
       "type": "text",
       "element_id": "Q_bJi6eN7QjzjcAM5kUHF",
-      "default": "Sign change"
+      "default": "Sign flip",
+      "description": "Label showing sign change from - to +"
     }
   ],
+
   "base_elements": [
     {
       "id": "PWowLgJKy2jpzXk6dllFP",
@@ -60,13 +96,13 @@ j{
       "groupIds": [],
       "frameId": null,
       "roundness": null,
-      "text": "P",
+      "text": "A",
       "fontSize": 18.395153363156716,
       "fontFamily": 5,
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "P",
+      "originalText": "A",
       "autoResize": true,
       "lineHeight": 1.25
     },
@@ -88,13 +124,13 @@ j{
       "groupIds": [],
       "frameId": null,
       "roundness": null,
-      "text": "C",
+      "text": "B",
       "fontSize": 18.945885102690777,
       "fontFamily": 5,
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "C",
+      "originalText": "B",
       "autoResize": true,
       "lineHeight": 1.25
     },
@@ -575,13 +611,13 @@ j{
       "groupIds": [],
       "frameId": null,
       "roundness": null,
-      "text": "Sign change",
+      "text": "Sign flip",
       "fontSize": 12.49338125712283,
       "fontFamily": 5,
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "Sign change",
+      "originalText": "Sign flip",
       "autoResize": true,
       "lineHeight": 1.25
     },
@@ -590,7 +626,7 @@ j{
       "type": "text",
       "x": -924.2163859513732,
       "y": -922.9748976196677,
-      "width": 24.671974637366418,
+      "width": 40,
       "height": 15.6072712244362,
       "angle": 0,
       "strokeColor": "#fa5252",
@@ -603,13 +639,13 @@ j{
       "groupIds": [],
       "frameId": null,
       "roundness": null,
-      "text": "-1+5",
+      "text": "5-1=4",
       "fontSize": 12.485816979548957,
       "fontFamily": 5,
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "-1+5",
+      "originalText": "5-1=4",
       "autoResize": true,
       "lineHeight": 1.25
     },
@@ -684,10 +720,74 @@ j{
       "elbowed": false
     }
   ],
-  "use_cases": [
-    "Price decrease - consumption increase (pc-005)",
-    "Percentage to fraction conversion",
-    "Reciprocal fraction method"
+
+  "usage_examples": [
+    {
+      "context": "Price-Consumption (pc-005, pc-007)",
+      "param_values": {
+        "quantity_a_label": "P",
+        "quantity_b_label": "C",
+        "quantity_a_change": "-20%",
+        "quantity_b_change": "+25%",
+        "decrease_numerator": "-1",
+        "decrease_denominator": "5",
+        "increase_numerator": "+1",
+        "increase_denominator": "4",
+        "denominator_calculation": "5-1=4"
+      }
+    },
+    {
+      "context": "Speed-Time (time & distance)",
+      "param_values": {
+        "quantity_a_label": "S",
+        "quantity_b_label": "T",
+        "quantity_a_change": "-25%",
+        "quantity_b_change": "+33.33%",
+        "decrease_numerator": "-1",
+        "decrease_denominator": "4",
+        "increase_numerator": "+1",
+        "increase_denominator": "3",
+        "denominator_calculation": "4-1=3"
+      }
+    },
+    {
+      "context": "Marks Comparison",
+      "param_values": {
+        "quantity_a_label": "R",
+        "quantity_b_label": "P",
+        "quantity_a_change": "-36%",
+        "quantity_b_change": "+56.25%",
+        "decrease_numerator": "-9",
+        "decrease_denominator": "25",
+        "increase_numerator": "+9",
+        "increase_denominator": "16",
+        "denominator_calculation": "25-9=16"
+      }
+    },
+    {
+      "context": "Length-Width (Area constant)",
+      "param_values": {
+        "quantity_a_label": "L",
+        "quantity_b_label": "W",
+        "quantity_a_change": "-40%",
+        "quantity_b_change": "+66.67%",
+        "decrease_numerator": "-2",
+        "decrease_denominator": "5",
+        "increase_numerator": "+2",
+        "increase_denominator": "3",
+        "denominator_calculation": "5-2=3"
+      }
+    }
   ],
-  "preview_url": "/templates/previews/flow-percentage-decrease-consumption.png"
+
+  "use_cases": [
+    "Inverse percentage relationship (pc-007)",
+    "Price decrease - consumption increase (pc-005)",
+    "Speed decrease - time increase (time & distance)",
+    "A less than B - B more than A (comparison)",
+    "Length-width with constant area (mensuration)",
+    "Any A×B=constant inverse relationship"
+  ],
+
+  "preview_url": "/templates/previews/inverse-percentage-fraction.png"
 }

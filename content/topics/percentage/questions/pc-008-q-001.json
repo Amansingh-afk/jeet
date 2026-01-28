@@ -1,0 +1,25 @@
+{
+  "id": "pc-008-q-001",
+  "pattern_id": "pc-008",
+  "topic_id": "percentage",
+  "text": {
+    "en": "An engineering student has to secure 45% marks to pass. He gets 157 marks and fails by 23 marks. The maximum mark is:"
+  },
+  "difficulty": 2,
+  "is_pyq": false,
+  "embedding": null,
+  "extracted_values": {
+    "pass_percentage": 45,
+    "marks_obtained": 157,
+    "marks_failed_by": 23,
+    "total_marks": 400
+  },
+  "solution": {
+    "trick_application": [
+      "157 + 23 = 180",
+      "180 / 45% = 400"
+    ],
+    "answer": 400,
+    "answer_display": "400"
+  }
+}

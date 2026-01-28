@@ -1,0 +1,105 @@
+{
+  "id": "pc-021",
+  "topic_id": "percentage",
+  "name": "Decrease and Increase with Percentage Comparison",
+  "name_hi": "प्रतिशत तुलना के साथ कमी और वृद्धि",
+  "slug": "decrease-and-increase-with-percentage-comparison",
+  "signature": {
+    "embedding_text": "If decreasing X by x% gives same result as increasing by x% then x% of X is what % more than (x-X)% of X?",
+    "variables": [
+      "initial_value",
+      "x_percent",
+      "comparison_value",
+      "comparison_percent",
+      "reduced_percent",
+      "second_value"
+    ]
+  },
+  "trick": {
+    "name": "Percentage Comparison Trick",
+    "name_hi": "प्रतिशत तुलना ट्रिक",
+    "one_liner": "Jab decrease aur increase same ho, toh x% nikalne ka shortcut",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Assume decrease and increase are equal",
+        "action_hi": "Maano ki kami aur badhoti barabar hai",
+        "example": "110(1-x/100) = 50(1+x/100)",
+        "example_hi": "110(1-x/100) = 50(1+x/100)"
+      },
+      {
+        "step": 2,
+        "action": "Solve for x",
+        "action_hi": "x ke liye solve karo",
+        "example": "x = 3/8 = 37.5%",
+        "example_hi": "x = 3/8 = 37.5%"
+      },
+      {
+        "step": 3,
+        "action": "Calculate (x-10)% and compare",
+        "action_hi": "(x-10)% nikaalo aur compare karo",
+        "example": "27.5% = 11/40, 13.62% ≈ 14%",
+        "example_hi": "27.5% = 11/40, 13.62% ≈ 14%"
+      }
+    ],
+    "formula": null,
+    "memory_hook": "Decrease aur increase ko equal samjho, x% nikaalne ka shortcut yaad rakho!",
+    "alternatives": []
+  },
+  "common_mistakes": [
+    {
+      "mistake": "Confusing decrease and increase percentages",
+      "wrong": "Using same percentage for both decrease and increase",
+      "right": "Calculate x% separately for decrease and increase",
+      "why": "Students often assume decrease and increase are directly proportional"
+    }
+  ],
+  "teaching": {
+    "deep": {
+      "explanation": "Yeh pattern percentage comparison ke liye hai jab decrease aur increase same result dete hain. Pehle, assume karo ki dono barabar hain aur x% ke liye solve karo. Phir, (x-10)% nikaalo aur compare karo. Isse aapko percentage difference samajhne mein madad milegi. Yeh trick aapko exam mein time bachane mein help karegi, kyunki aap directly x% nikaal sakte ho bina complex calculations ke. Common mistakes avoid karo jaise ki directly percentages ko equate karna bina solve kiye.",
+      "duration_seconds": 120,
+      "includes": [
+        "concept",
+        "why_it_works",
+        "formula",
+        "common_mistakes"
+      ]
+    },
+    "shortcut": {
+      "explanation": "Quickly assume equal decrease and increase, solve for x, then calculate (x-10)%",
+      "duration_seconds": 60,
+      "includes": [
+        "trick_steps"
+      ]
+    },
+    "instant": {
+      "explanation": "Jab decrease aur increase equal ho, x% nikaalne ka shortcut use karo",
+      "duration_seconds": 10,
+      "includes": [
+        "one_liner"
+      ]
+    }
+  },
+  "visual": {
+    "has_diagram": false,
+    "template_id": null,
+    "description": "",
+    "when_to_show": "on_request"
+  },
+  "prerequisites": {
+    "patterns": [],
+    "concepts": []
+  },
+  "metadata": {
+    "difficulty": 3,
+    "frequency": "medium",
+    "years_appeared": [],
+    "avg_time_target_seconds": 45,
+    "related_patterns": [],
+    "tags": [
+      "percentage",
+      "comparison",
+      "shortcut"
+    ]
+  }
+}

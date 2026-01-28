@@ -1,0 +1,102 @@
+{
+  "id": "pc-028",
+  "topic_id": "percentage",
+  "name": "Price Decrease - Consumption Increase",
+  "name_hi": "मूल्य घटने पर खपत बढ़ना",
+  "slug": "price-decrease-consumption-increase",
+  "signature": {
+    "embedding_text": "A reduction of X percent in price enables a purchaser to obtain X kg more for ₹X.",
+    "variables": [
+      "price_reduction_percent",
+      "additional_quantity_kg",
+      "total_expenditure"
+    ]
+  },
+  "trick": {
+    "name": "Price-Quantity Swap Trick",
+    "name_hi": "मूल्य-खपत स्वैप ट्रिक",
+    "one_liner": "Jab price X% ghat jaaye, toh X kg zyada milta hai ₹X mein.",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Assume original price per kg as ₹x.",
+        "action_hi": "मूल्य प्रति किलो ₹x मान लो।",
+        "example": "Let original price be ₹x.",
+        "example_hi": "मूल्य ₹x मान लो।"
+      },
+      {
+        "step": 2,
+        "action": "Calculate new price after reduction: 0.85x.",
+        "action_hi": "नया मूल्य निकालो: 0.85x।",
+        "example": "New price = 0.85x.",
+        "example_hi": "नया मूल्य = 0.85x।"
+      },
+      {
+        "step": 3,
+        "action": "Use equation to find x using additional quantity and expenditure.",
+        "action_hi": "अतिरिक्त मात्रा और खर्च से x निकालो।",
+        "example": "Solve 127.5 / 0.85x - 127.5 / x = 5.",
+        "example_hi": "127.5 / 0.85x - 127.5 / x = 5 हल करो।"
+      }
+    ],
+    "formula": null,
+    "memory_hook": "Price ghatne se zyada milta hai, yaad rakho!",
+    "alternatives": []
+  },
+  "common_mistakes": [
+    {
+      "mistake": "Ignoring the reduction percentage in calculations.",
+      "wrong": "Using original price directly without reduction.",
+      "right": "Calculate reduced price first.",
+      "why": "Students forget to adjust price for reduction."
+    }
+  ],
+  "teaching": {
+    "deep": {
+      "explanation": "Jab kisi vastu ka price ghat jaata hai, toh uski khapat kaise badhti hai, yeh samjhaana zaroori hai. Pehle original price assume karo, phir reduction percentage se naya price nikalo. Phir additional quantity aur total expenditure se equation banao aur solve karo. Isse concept clear hoga aur galtiyan kam hongi.",
+      "duration_seconds": 120,
+      "includes": [
+        "concept",
+        "why_it_works",
+        "formula",
+        "common_mistakes"
+      ]
+    },
+    "shortcut": {
+      "explanation": "Price reduction aur additional quantity ko use karke jaldi se equation banao aur solve karo.",
+      "duration_seconds": 60,
+      "includes": [
+        "trick_steps"
+      ]
+    },
+    "instant": {
+      "explanation": "Price X% ghatne par X kg zyada milta hai ₹X mein.",
+      "duration_seconds": 10,
+      "includes": [
+        "one_liner"
+      ]
+    }
+  },
+  "visual": {
+    "has_diagram": false,
+    "template_id": null,
+    "description": "",
+    "when_to_show": "on_request"
+  },
+  "prerequisites": {
+    "patterns": [],
+    "concepts": []
+  },
+  "metadata": {
+    "difficulty": 3,
+    "frequency": "medium",
+    "years_appeared": [],
+    "avg_time_target_seconds": 45,
+    "related_patterns": [],
+    "tags": [
+      "percentage",
+      "price",
+      "consumption"
+    ]
+  }
+}

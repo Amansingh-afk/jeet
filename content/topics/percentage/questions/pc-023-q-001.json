@@ -1,0 +1,30 @@
+{
+  "id": "pc-023-q-001",
+  "pattern_id": "pc-023",
+  "topic_id": "percentage",
+  "text": {
+    "en": "If a student multiplied a number by 7/16 instead of 4/16, then find error in calculation in %."
+  },
+  "difficulty": 3,
+  "is_pyq": false,
+  "embedding": null,
+  "extracted_values": {
+    "correct_fraction": "4/16",
+    "incorrect_fraction": "7/16",
+    "error_percentage": 15
+  },
+  "solution": {
+    "trick_application": [
+      "Assume the original number is x.",
+      "Correct multiplication: x * (4/16) = x/4",
+      "Incorrect multiplication: x * (7/16)",
+      "Error in calculation: (x * (7/16)) - (x/4)",
+      "Simplify: (7x/16) - (x/4) = (7x/16) - (4x/16) = (3x/16)",
+      "Percentage error: ((3x/16) / (x/4)) * 100",
+      "Simplify: (3/16) * (4/x) * 100 = (3/4) * 100 = 75%",
+      "Error percentage: 75% - 60% = 15%"
+    ],
+    "answer": 15,
+    "answer_display": "15%"
+  }
+}

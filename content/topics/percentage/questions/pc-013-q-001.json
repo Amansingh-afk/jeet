@@ -1,0 +1,35 @@
+{
+  "id": "pc-013-q-001",
+  "pattern_id": "pc-013",
+  "topic_id": "percentage",
+  "text": {
+    "en": "In an examination B obtained 20% more marks than those of C. D obtained 10% less than C. By what % one obtained by D more than those of A?"
+  },
+  "difficulty": 3,
+  "is_pyq": false,
+  "embedding": null,
+  "options": {
+    "a": "A",
+    "b": "B",
+    "c": "C",
+    "d": "D"
+  },
+  "correct": "a",
+  "extracted_values": {
+    "B_more_than_C_percent": 20,
+    "D_less_than_C_percent": 10,
+    "C_marks": 100,
+    "B_marks": 120,
+    "D_marks": 90
+  },
+  "solution": {
+    "trick_application": [
+      "Assume C = 100 marks.",
+      "B obtained 20% more than C: B = 100 + 20% of 100 = 120.",
+      "D obtained 10% less than C: D = 100 - 10% of 100 = 90.",
+      "Now, (30/90) x 100 = 33.33%."
+    ],
+    "answer": 33.33,
+    "answer_display": "33.33%"
+  }
+}

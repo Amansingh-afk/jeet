@@ -1,0 +1,103 @@
+{
+  "id": "pc-019",
+  "topic_id": "percentage",
+  "name": "Chain Value/Income Comparison",
+  "name_hi": "श्रृंखला मूल्य/आय तुलना",
+  "slug": "chain-value-income-comparison",
+  "signature": {
+    "embedding_text": "If A's income is X percent of B's income and B's income is X percent more than C's income, then by what percentage C's income is more than A. There are two numbers, when first number is increased to X percent, the obtained number is X. If first number is increased to X percent then the obtained number is X percent less than the second number, find sum. The income of X is Y percent less than sum of income of Z and income of A is B percent more that of Z and income of A is C percent less than sum of income of X and Z, by what percent is income of A less than X. The income of A is X percent more than B and income of C is X percent less than sum of B and D, find income. Chain percentage comparison between multiple values or incomes.",
+    "keywords": ["income comparison", "chain calculation", "percentage of", "more than", "less than", "sum of incomes", "multiple values"],
+    "structure": "Multiple values/incomes related by percentages. Assume one value = 100, chain calculate others, find comparison.",
+    "variables": ["base_value", "percent_relationships", "target_comparison"]
+  },
+  "trick": {
+    "name": "Assume 100, Chain Calculate",
+    "name_hi": "100 मानो, श्रृंखला गणना करो",
+    "one_liner": "Ek value ko 100 maano, baaki sab chain mein calculate karo, phir compare karo",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Identify the base value (usually the one others are compared to)",
+        "action_hi": "Base value identify karo (jisse baaki compare ho rahe hain)",
+        "example": "B's income is the reference, so B = 100",
+        "example_hi": "B ki income reference hai, toh B = 100"
+      },
+      {
+        "step": 2,
+        "action": "Calculate other values using given percentage relationships",
+        "action_hi": "Given percentages se baaki values calculate karo",
+        "example": "A = 40% of B = 40. C's income: B is 24% more than C, so C = 100/1.24 = 80.65",
+        "example_hi": "A = 40% of B = 40. C ki income: B, C se 24% zyada hai, toh C = 100/1.24 = 80.65"
+      },
+      {
+        "step": 3,
+        "action": "Find the required comparison (% more/less)",
+        "action_hi": "Required comparison nikalo (% zyada/kam)",
+        "example": "C is how much % more than A? = (80.65 - 40)/40 × 100 = 101.6%",
+        "example_hi": "C, A se kitna % zyada? = (80.65 - 40)/40 × 100 = 101.6%"
+      }
+    ],
+    "formula": {
+      "percent_more": "(Bigger - Smaller) / Smaller × 100",
+      "percent_less": "(Bigger - Smaller) / Bigger × 100",
+      "percent_of": "A is X% of B means A = B × X/100"
+    },
+    "memory_hook": "Base = 100, chain karo, compare karo!",
+    "alternatives": []
+  },
+  "common_mistakes": [
+    {
+      "mistake": "Wrong base for percentage comparison",
+      "wrong": "C is 40% more than A = (C-A)/C × 100",
+      "right": "C is 40% more than A = (C-A)/A × 100",
+      "why": "'X% more than A' means A is the base (denominator)"
+    },
+    {
+      "mistake": "Confusing 'X% of' with 'X% more than'",
+      "wrong": "A is 40% of B means A = B + 40% of B",
+      "right": "A is 40% of B means A = B × 40/100 = 0.4B",
+      "why": "'of' means multiply, 'more than' means add"
+    },
+    {
+      "mistake": "Calculating 'X% more' backwards",
+      "wrong": "B is 24% more than C, so C = B × 1.24",
+      "right": "B is 24% more than C, so B = C × 1.24, therefore C = B/1.24",
+      "why": "The larger value (B) equals smaller × (1 + %)"
+    }
+  ],
+  "teaching": {
+    "deep": {
+      "explanation": "**Core Concept: Chain Percentage Relationships**\n\nJab multiple values/incomes percentage relationships mein diye hon, toh:\n\n**Step 1: Find the anchor**\nWoh value dhundho jisse zyada references hain. Usually middle value best anchor hai.\n\n**Step 2: Assume anchor = 100**\nIsse calculations easy ho jaate hain.\n\n**Step 3: Chain calculate**\n- 'A is X% of B' → A = B × X/100\n- 'A is X% more than B' → A = B × (100+X)/100\n- 'A is X% less than B' → A = B × (100-X)/100\n- 'B is X% more than A' → A = B / (1 + X/100)\n\n**Step 4: Compare as asked**\n- '% more than' → (Diff/Smaller) × 100\n- '% less than' → (Diff/Bigger) × 100\n\n**Example:**\nA = 40% of B, B is 24% more than C, find C is how much % more than A?\n\nB = 100 (anchor)\nA = 40% of 100 = 40\nC = 100/1.24 = 80.65\n\nC more than A by = (80.65 - 40)/40 × 100 = 101.6%",
+      "duration_seconds": 150,
+      "includes": ["concept", "formulas", "chain_rules", "example", "common_mistakes"]
+    },
+    "shortcut": {
+      "explanation": "**Quick Method:**\n1. Pick base value = 100\n2. Chain calculate using:\n   - 'X% of' → multiply by X/100\n   - 'X% more than' → multiply by (100+X)/100\n   - 'X% less than' → multiply by (100-X)/100\n3. Compare: (Diff/Base) × 100\n\n**Example:** B=100, A=40, C=80.65\nC more than A = 40.65/40 × 100 = 101.6%",
+      "duration_seconds": 60,
+      "includes": ["steps", "formulas", "example"]
+    },
+    "instant": {
+      "explanation": "Base = 100, chain calculate, then (Diff/Base) × 100",
+      "duration_seconds": 10,
+      "includes": ["formula"]
+    }
+  },
+  "visual": {
+    "has_diagram": false,
+    "template_id": null,
+    "description": "",
+    "when_to_show": "on_request"
+  },
+  "prerequisites": {
+    "patterns": ["pc-001"],
+    "concepts": ["percentage-calculation", "percentage-increase-decrease"]
+  },
+  "metadata": {
+    "difficulty": 3,
+    "frequency": "high",
+    "years_appeared": [],
+    "avg_time_target_seconds": 60,
+    "related_patterns": ["pc-012", "pc-013"],
+    "tags": ["percentage", "income", "comparison", "chain-calculation", "multiple-values"]
+  }
+}

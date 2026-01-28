@@ -1,0 +1,28 @@
+{
+  "id": "pc-012-q-001",
+  "pattern_id": "pc-012",
+  "topic_id": "percentage",
+  "text": {
+    "en": "In final exam, Bishnu scored 52%. The marks obtained by Bishnu is 23 less than that of Aisha, who scored 64%. The marks obtained by Aisha is 34 more than Geeta, who scored 84%."
+  },
+  "difficulty": 3,
+  "is_pyq": false,
+  "embedding": null,
+  "extracted_values": {
+    "bishnu_score_percent": 52,
+    "bishnu_less_than_aisha": 23,
+    "aisha_score_percent": 64,
+    "aisha_more_than_geeta": 34,
+    "geeta_score_percent": 84
+  },
+  "solution": {
+    "trick_application": [
+      "(64 - 52) = 12%",
+      "12% = 57",
+      "1% = 57 / 12",
+      "Geeta, 84% = (57 / 12) x 84 = 399"
+    ],
+    "answer": 309,
+    "answer_display": "309"
+  }
+}

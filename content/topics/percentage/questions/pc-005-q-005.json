@@ -1,0 +1,28 @@
+{
+  "id": "pc-005-q-005",
+  "pattern_id": "pc-005",
+  "topic_id": "percentage",
+  "text": {
+    "en": "Rice is now being sold at 29 per kg. Previously it was 25 per kg. By how much percentage should a family reduce its consumption so as to keep expenditure the same?"
+  },
+  "difficulty": 2,
+  "is_pyq": false,
+  "is_variation": true,
+  "embedding": null,
+  "extracted_values": {
+    "current_price_per_kg": 29,
+    "previous_price_per_kg": 25,
+    "price_increase": 4,
+    "percentage_reduction": 13.79
+  },
+  "solution": {
+    "trick_application": [
+      "Price increased from 25 to 29, increase = 4",
+      "Price increase % = (4/25) × 100 = 16%",
+      "Using pc-005 formula: Increase X% → Decrease X/(100+X)%",
+      "Decrease = 16/116 × 100 = 13.79%"
+    ],
+    "answer": 13.79,
+    "answer_display": "13.79%"
+  }
+}

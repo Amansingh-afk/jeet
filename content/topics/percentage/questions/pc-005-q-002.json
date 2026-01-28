@@ -1,59 +1,9 @@
 {
-    "id": "pc-005-q-002",
-    "pattern_id": "pc-005",
-    "topic_id": "percentage",
-  
-    "text": {
-      "en": "The price of rice falls by 35%. How much extra quantity of rice can be bought with money that was sufficient to buy 104kg of rice previously?",
-      "hi": "यदि नमक की कीमत 20% घट जाती है, तो उपभोग को कितने प्रतिशत बढ़ाना होगा ताकि खर्च समान रहे?"
-    },
-  
-    "options": {
-      "a": "48 kg",
-      "b": "56 kg",
-      "c": "70 kg",
-      "d": "72 kg"
-    },
-    "correct": "b",
-  
-    "extracted_values": {
-      "percentage_decrease": 35,
-      "unit": "percentage",
-      "chain_length": 0
-    },
-  
-    "solution": {
-      "trick_application": [
-        "35% decrease = -7/20, -ve for decrease",
-        "Price =  20 -> 13 (7 unit kam hua), then consumption is reverse 13 -> 20. ( 7 unit badha becuase expenditure same hai, yehi 7 unit ki value nikalni hai)",
-        "so, consumption ke 13 unit ki value is 104 kg, 8 times then extra quantity rice is 7 unit  x 8 = 56 Kg"
-      ],
-      "answer": 56,
-      "answer_display": "56 kg"
-    },
-  
-    "source": {
-      "book": "CGL Practice king by Gagan Pratap",
-      "edition": "2023",
-      "chapter": 1,
-      "chapter_name": "Percentage",
-      "question_number": 1,
-      "page": 1
-    },
-  
-    "exam_history": [
-      {
-        "exam": "SSC CGL",
-        "tier": 1,
-        "year": 2022,
-        "date": "2022-08-12",
-        "shift": 2
-      }
-    ],
-  
-    "difficulty": 1,
-    "is_pyq": false,
-  
-    "embedding": null
-  }
-  
+  "id": "pc-005-q-002",
+  "pattern_id": "pc-005",
+  "topic_id": "percentage",
+  "text": {
+    "en": "If the speed of a train decreases by 20%, by what percentage should time be increased to cover the same distance?"
+  },
+  "is_variation": true
+}

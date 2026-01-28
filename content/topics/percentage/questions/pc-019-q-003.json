@@ -1,0 +1,31 @@
+{
+  "id": "pc-019-q-003",
+  "pattern_id": "pc-019",
+  "topic_id": "percentage",
+  "text": {
+    "en": "The income of x is 45% less than sum of income of y and income of z is 42% more that of y and income of z is 45% less than sum of income of x & y, by what % is income of z less than x? (approx)."
+  },
+  "difficulty": 3,
+  "is_pyq": false,
+  "is_variation": true,
+  "embedding": null,
+  "extracted_values": {
+    "income_y": 100,
+    "income_z": 142,
+    "sum_income_x_y": 242,
+    "income_x": 133.1,
+    "percentage_difference": 6.3
+  },
+  "solution": {
+    "trick_application": [
+      "Let income of y = 100",
+      "Income of z = 142 (42% more than y)",
+      "Sum of income of x and y = 242",
+      "Income of x = 242 x 55% = 133.1 (45% less than sum of x and y)",
+      "Income of z is 133.1 - 142 = -8.9 less than x",
+      "Percentage difference = (8.9 / 142) x 100 = 6.3%"
+    ],
+    "answer": 6.3,
+    "answer_display": "6.3%"
+  }
+}

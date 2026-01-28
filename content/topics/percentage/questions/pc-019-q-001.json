@@ -1,0 +1,29 @@
+{
+  "id": "pc-019-q-001",
+  "pattern_id": "pc-019",
+  "topic_id": "percentage",
+  "text": {
+    "en": "If A's income is 40% of B's income and B's income is 24% more than C's income, then by what percentage C's income is more than A?"
+  },
+  "difficulty": 3,
+  "is_pyq": false,
+  "embedding": null,
+  "extracted_values": {
+    "A_income_percent_of_B": 40,
+    "B_income_more_than_C_percent": 24
+  },
+  "solution": {
+    "trick_application": [
+      "Let B's income be 100.",
+      "A's income = 40% of B's income = 40.",
+      "B's income is 24% more than C's income.",
+      "Let C's income be x.",
+      "100 = x + 24% of x = 1.24x.",
+      "x = 100 / 1.24 = 80.645 (approx).",
+      "C's income is 80.645.",
+      "Percentage by which C's income is more than A's income = ((80.645 - 40) / 40) * 100 = 102% (approx)."
+    ],
+    "answer": 102,
+    "answer_display": "102%"
+  }
+}

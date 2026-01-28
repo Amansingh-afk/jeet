@@ -1,0 +1,108 @@
+{
+  "id": "pc-013",
+  "topic_id": "percentage",
+  "name": "Comparison of Percentage Increase and Decrease in Marks",
+  "name_hi": "अंक प्रतिशत वृद्धि और कमी की तुलना",
+  "slug": "comparison-of-percentage-increase-decrease-marks",
+  "signature": {
+    "embedding_text": "In an examination B obtained X percent more marks than those of C. D obtained X percent less than C. By what percent one obtained by D more than those of A?",
+    "variables": [
+      "B_more_than_C_percent",
+      "D_less_than_C_percent"
+    ]
+  },
+  "trick": {
+    "name": "Percentage Comparison Trick",
+    "name_hi": "प्रतिशत तुलना ट्रिक",
+    "one_liner": "C ko 100 assume karo, B aur D ke marks nikaalo aur compare karo",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Assume C = 100 marks.",
+        "action_hi": "C ko 100 marks maano.",
+        "example": "C = 100",
+        "example_hi": "C = 100"
+      },
+      {
+        "step": 2,
+        "action": "Calculate B's marks as C + X% of C.",
+        "action_hi": "B ke marks nikaalo: C + X% of C.",
+        "example": "B = 100 + 20% of 100 = 120",
+        "example_hi": "B = 100 + 20% of 100 = 120"
+      },
+      {
+        "step": 3,
+        "action": "Calculate D's marks as C - X% of C.",
+        "action_hi": "D ke marks nikaalo: C - X% of C.",
+        "example": "D = 100 - 10% of 100 = 90",
+        "example_hi": "D = 100 - 10% of 100 = 90"
+      },
+      {
+        "step": 4,
+        "action": "Find percentage difference between D and A.",
+        "action_hi": "D aur A ke beech ka percentage difference nikaalo.",
+        "example": "(30/90) x 100 = 33.33%",
+        "example_hi": "(30/90) x 100 = 33.33%"
+      }
+    ],
+    "formula": null,
+    "memory_hook": "C ko 100 maano, B aur D ko compare karo!",
+    "alternatives": []
+  },
+  "common_mistakes": [
+    {
+      "mistake": "Ignoring the base value of C when calculating percentage differences.",
+      "wrong": "Directly subtracting percentages.",
+      "right": "Use C as base to calculate B and D's marks first.",
+      "why": "Students often forget to apply percentage on the base value."
+    }
+  ],
+  "teaching": {
+    "deep": {
+      "explanation": "Yeh trick percentage comparison ke liye bahut useful hai. Pehle C ko 100 assume karte hain, phir B aur D ke marks calculate karte hain using given percentages. Fir, D aur A ke beech ka percentage difference nikalte hain. Yeh approach jaldi aur sahi answer dene mein madad karta hai. Isme common mistake yeh hoti hai ki students base value ko ignore kar dete hain, jo ki galat hai. Hamesha base value pe percentage apply karo.",
+      "duration_seconds": 120,
+      "includes": [
+        "concept",
+        "why_it_works",
+        "formula",
+        "common_mistakes"
+      ]
+    },
+    "shortcut": {
+      "explanation": "C ko 100 maano, B aur D ke marks nikaalo aur compare karo.",
+      "duration_seconds": 60,
+      "includes": [
+        "trick_steps"
+      ]
+    },
+    "instant": {
+      "explanation": "C = 100, B = 120, D = 90, Difference = 33.33%",
+      "duration_seconds": 10,
+      "includes": [
+        "one_liner"
+      ]
+    }
+  },
+  "visual": {
+    "has_diagram": false,
+    "template_id": null,
+    "description": "",
+    "when_to_show": "on_request"
+  },
+  "prerequisites": {
+    "patterns": [],
+    "concepts": []
+  },
+  "metadata": {
+    "difficulty": 3,
+    "frequency": "medium",
+    "years_appeared": [],
+    "avg_time_target_seconds": 45,
+    "related_patterns": [],
+    "tags": [
+      "percentage",
+      "comparison",
+      "marks"
+    ]
+  }
+}

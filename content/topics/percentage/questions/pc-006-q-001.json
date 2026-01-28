@@ -1,59 +1,46 @@
 {
-    "id": "pc-006-q-001",
-    "pattern_id": "pc-006",
-    "topic_id": "percentage",
-  
-    "text": {
-      "en": "If price of salt increases by 20%, then by how much percentage should the consumption be decreased to keep the expenditure same?",
-      "hi": "यदि नमक की कीमत 20% बढ़ जाती है, तो उपभोग को कितने प्रतिशत कम करना होगा ताकि खर्च समान रहे?"
-    },
-  
-    "options": {
-      "a": "20%",
-      "b": "16.67%",
-      "c": "25%",
-      "d": "35%"
-    },
-    "correct": "b",
-  
-    "extracted_values": {
-      "percentage_increase": 20,
-      "unit": "percentage",
-      "chain_length": 0
-    },
-  
-    "solution": {
-      "trick_application": [
-        "20% increase -> +1/5, +ve for increase",
-        "Consumption = 1/(5+1) = 1/6, -ve for decrease",
-        "In percentage, 1/6 = 16.67%"
-      ],
-      "answer": 16.67,
-      "answer_display": "16.67%"
-    },
-  
-    "source": {
-      "book": "CGL Practice king by Gagan Pratap",
-      "edition": "2023",
-      "chapter": 1,
-      "chapter_name": "Percentage",
-      "question_number": 1,
-      "page": 1
-    },
-  
-    "exam_history": [
-      {
-        "exam": "SSC CGL",
-        "tier": 1,
-        "year": 2022,
-        "date": "2022-08-12",
-        "shift": 2
-      }
+  "id": "pc-006-q-001",
+  "pattern_id": "pc-006",
+  "topic_id": "percentage",
+
+  "text": {
+    "en": "If income tax is increased by 22% the net income is reduced by 3%. The rate of income tax is?",
+    "hi": "यदि आयकर में 22% की वृद्धि होती है तो शुद्ध आय में 3% की कमी हो जाती है। आयकर की दर क्या है?"
+  },
+
+  "options": {
+    "a": "10%",
+    "b": "12%",
+    "c": "14%",
+    "d": "15%"
+  },
+  "correct": "b",
+
+  "extracted_values": {
+    "change_A": 22,
+    "change_B": 3,
+    "unit": "percentage"
+  },
+
+  "solution": {
+    "trick_application": [
+      "Income = Tax + Net Income (constant sum)",
+      "Tax ↑ 22%, Net Income ↓ 3%",
+      "Absolute changes equal: Tax × 22% = Net Income × 3%",
+      "Tax : Net Income = 3 : 22",
+      "Tax Rate = Tax/Income = 3/(3+22) = 3/25 = 12%"
     ],
-  
-    "difficulty": 1,
-    "is_pyq": false,
-  
-    "embedding": null
-  }
-  
+    "answer": 12,
+    "answer_display": "12%"
+  },
+
+  "source": {
+    "book": "SSC CGL Previous Year",
+    "chapter_name": "Percentage"
+  },
+
+  "difficulty": 3,
+  "is_pyq": true,
+
+  "embedding": null
+}

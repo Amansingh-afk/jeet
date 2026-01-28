@@ -1,0 +1,28 @@
+{
+  "id": "pc-010-q-002",
+  "pattern_id": "pc-010",
+  "topic_id": "percentage",
+  "text": {
+    "en": "48% of total marks is required to pass and 80% for first class with distinction. A student scored 817 marks and failed by 47 marks. How much marks required for first class?"
+  },
+  "difficulty": 3,
+  "is_pyq": false,
+  "embedding": null,
+  "extracted_values": {
+    "given_percent": 48,
+    "target_percent": 80,
+    "score": 817,
+    "failed_by": 47,
+    "total_marks": 1800,
+    "target_marks": 1440
+  },
+  "solution": {
+    "trick_application": [
+      "Pass marks = 817 + 47 = 864 = 48% of Total",
+      "Total = 864 × 100 / 48 = 1800",
+      "First class = 80% of 1800 = 1440"
+    ],
+    "answer": 1440,
+    "answer_display": "1440"
+  }
+}

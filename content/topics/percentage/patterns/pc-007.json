@@ -1,0 +1,109 @@
+{
+  "id": "pc-007",
+  "topic_id": "percentage",
+  "name": "Tax Increase - Net Income Decrease",
+  "name_hi": "कर वृद्धि - शुद्ध आय में कमी",
+  "slug": "tax-increase-net-income-decrease",
+  "signature": {
+    "embedding_text": "When income tax is X paise in a rupee, a person's net income is ₹X. What will be his net income if the income tax is raised to X paise?",
+    "variables": [
+      "initial_tax_percent",
+      "initial_net_income",
+      "new_tax_percent"
+    ]
+  },
+  "trick": {
+    "name": "Quick Tax Adjustment",
+    "name_hi": "जल्दी कर समायोजन",
+    "one_liner": "Tax badhne par net income kaise nikalte hain, jaldi se dekhein!",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Assume total income as X.",
+        "action_hi": "Kul aay ko X maano.",
+        "example": "Let income = x",
+        "example_hi": "Aay = x maano"
+      },
+      {
+        "step": 2,
+        "action": "Calculate net income using initial tax percent.",
+        "action_hi": "Pehle kar pratishat se shuddh aay gyaat karo.",
+        "example": "Net income = 92% of x = 309580",
+        "example_hi": "Shuddh aay = 92% of x = 309580"
+      },
+      {
+        "step": 3,
+        "action": "Find total income using net income.",
+        "action_hi": "Shuddh aay se kul aay gyaat karo.",
+        "example": "x = 309580 / 0.92",
+        "example_hi": "x = 309580 / 0.92"
+      },
+      {
+        "step": 4,
+        "action": "Calculate new net income with new tax percent.",
+        "action_hi": "Naye kar pratishat se nayi shuddh aay gyaat karo.",
+        "example": "88% of x = 309580 / 92 * 88",
+        "example_hi": "88% of x = 309580 / 92 * 88"
+      }
+    ],
+    "formula": null,
+    "memory_hook": "8 paise se 12 paise, income kaise? 92 se 88, bas itna yaad rakho!",
+    "alternatives": []
+  },
+  "common_mistakes": [
+    {
+      "mistake": "Confusing the percentage decrease with tax increase.",
+      "wrong": "Using direct subtraction of percentages.",
+      "right": "Calculate net income percentage correctly.",
+      "why": "Students often mix up percentage decrease with tax increase."
+    }
+  ],
+  "teaching": {
+    "deep": {
+      "explanation": "Ye trick aapko income tax badhne par net income kaise calculate karte hain, ye sikhayegi. Pehle aapko kul aay ko X maankar shuddh aay calculate karni hogi. Phir naye tax rate se nayi shuddh aay nikalni hogi. Isme aapko percentage ka sahi istemal karna hoga. Ye trick aapko exam mein jaldi aur sahi jawab dene mein madad karegi.",
+      "duration_seconds": 120,
+      "includes": [
+        "concept",
+        "why_it_works",
+        "formula",
+        "common_mistakes"
+      ]
+    },
+    "shortcut": {
+      "explanation": "Jaldi se tax badhne par net income kaise nikalte hain, ye dekhein. Pehle kul aay ko X maano, phir pehle wale tax se shuddh aay nikal kar naye tax se nayi shuddh aay gyaat karo.",
+      "duration_seconds": 60,
+      "includes": [
+        "trick_steps"
+      ]
+    },
+    "instant": {
+      "explanation": "8% se 12% tax badhne par net income kaise nikalte hain, jaldi se dekhein: 92% se 88% ka calculation.",
+      "duration_seconds": 10,
+      "includes": [
+        "one_liner"
+      ]
+    }
+  },
+  "visual": {
+    "has_diagram": false,
+    "template_id": null,
+    "description": "",
+    "when_to_show": "on_request"
+  },
+  "prerequisites": {
+    "patterns": [],
+    "concepts": []
+  },
+  "metadata": {
+    "difficulty": 3,
+    "frequency": "medium",
+    "years_appeared": [],
+    "avg_time_target_seconds": 45,
+    "related_patterns": [],
+    "tags": [
+      "percentage",
+      "tax",
+      "income"
+    ]
+  }
+}

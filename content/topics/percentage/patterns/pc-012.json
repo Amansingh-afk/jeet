@@ -1,0 +1,104 @@
+{
+  "id": "pc-012",
+  "topic_id": "percentage",
+  "name": "Score Comparison with Percentage Differences",
+  "name_hi": "प्रतिशत अंतर के साथ स्कोर तुलना",
+  "slug": "score-comparison-percentage-difference",
+  "signature": {
+    "embedding_text": "In final exam, Bishnu scored X percent. The marks obtained by Bishnu is X less than that of Aisha, who scored X percent. The marks obtained by Aisha is X more than Geeta, who scored X percent.",
+    "variables": [
+      "bishnu_score_percent",
+      "bishnu_less_than_aisha",
+      "aisha_score_percent",
+      "aisha_more_than_geeta",
+      "geeta_score_percent"
+    ]
+  },
+  "trick": {
+    "name": "Percentage Difference Trick",
+    "name_hi": "प्रतिशत अंतर ट्रिक",
+    "one_liner": "Bishnu aur Aisha ke beech ka percentage difference nikaalo aur marks calculate karo.",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Calculate the percentage difference between Bishnu and Aisha.",
+        "action_hi": "Bishnu aur Aisha ke beech ka percentage antar nikaalo.",
+        "example": "(64 - 52) = 12%",
+        "example_hi": "(64 - 52) = 12%"
+      },
+      {
+        "step": 2,
+        "action": "Use the difference to find 1% value.",
+        "action_hi": "Antar ka istemal karke 1% ka maan nikaalo.",
+        "example": "11% = 57, so 1% = 57 / 12",
+        "example_hi": "11% = 57, toh 1% = 57 / 12"
+      },
+      {
+        "step": 3,
+        "action": "Calculate Geeta's marks using her percentage.",
+        "action_hi": "Geeta ke percentage ka istemal karke uske marks nikaalo.",
+        "example": "Geeta, 84% = (57 / 12) x 84 = 399",
+        "example_hi": "Geeta, 84% = (57 / 12) x 84 = 399"
+      }
+    ],
+    "formula": null,
+    "memory_hook": "Bishnu-Aisha-Geeta ka percentage difference yaad rakho!",
+    "alternatives": []
+  },
+  "common_mistakes": [
+    {
+      "mistake": "Ignoring the percentage difference calculation.",
+      "wrong": "Directly using the given marks difference.",
+      "right": "First calculate the percentage difference, then use it to find marks.",
+      "why": "Students often confuse direct marks difference with percentage difference."
+    }
+  ],
+  "teaching": {
+    "deep": {
+      "explanation": "Yeh trick percentage difference ka istemal karke marks calculate karne ki shortcut hai. Pehle Bishnu aur Aisha ke beech ka percentage difference nikaalo. Phir us difference ka istemal karke 1% ka maan pata karo. Iske baad Geeta ke percentage ka istemal karke uske marks nikaalo. Yeh approach jaldi aur sahi answer dene mein madad karta hai, aur common mistakes se bachata hai.",
+      "duration_seconds": 120,
+      "includes": [
+        "concept",
+        "why_it_works",
+        "formula",
+        "common_mistakes"
+      ]
+    },
+    "shortcut": {
+      "explanation": "Bishnu aur Aisha ke beech ka percentage difference nikaalo, phir 1% ka maan pata karo aur Geeta ke marks calculate karo.",
+      "duration_seconds": 60,
+      "includes": [
+        "trick_steps"
+      ]
+    },
+    "instant": {
+      "explanation": "Bishnu aur Aisha ke beech ka percentage difference nikaalo aur Geeta ke marks calculate karo.",
+      "duration_seconds": 10,
+      "includes": [
+        "one_liner"
+      ]
+    }
+  },
+  "visual": {
+    "has_diagram": false,
+    "template_id": null,
+    "description": "",
+    "when_to_show": "on_request"
+  },
+  "prerequisites": {
+    "patterns": [],
+    "concepts": []
+  },
+  "metadata": {
+    "difficulty": 3,
+    "frequency": "medium",
+    "years_appeared": [],
+    "avg_time_target_seconds": 45,
+    "related_patterns": [],
+    "tags": [
+      "percentage",
+      "comparison",
+      "difference"
+    ]
+  }
+}

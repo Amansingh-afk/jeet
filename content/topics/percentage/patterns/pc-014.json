@@ -1,0 +1,109 @@
+{
+  "id": "pc-014",
+  "topic_id": "percentage",
+  "name": "Chained Percentage Decrease - Find Required Percentage",
+  "name_hi": "श्रृंखलाबद्ध प्रतिशत कमी - आवश्यक प्रतिशत निकालें",
+  "slug": "chained-percentage-decrease-find-required-percentage",
+  "signature": {
+    "embedding_text": "To pass an exam X% marks are essential. A obtains X% less than pass marks. B obtains X% less than A. What percent less than sum of A and B marks should C obtain to pass the exam. Chained percentage decrease from a reference value then find percentage difference from sum.",
+    "keywords": ["chained decrease", "successive percentage", "less than", "sum", "pass marks", "percentage from reference"],
+    "structure": "Given: Pass marks %, A is X% less than pass, B is Y% less than A. Find: % less than (A+B) to equal pass marks",
+    "variables": ["pass_percent", "A_decrease_percent", "B_decrease_percent"]
+  },
+  "trick": {
+    "name": "Chain Calculate, Then Compare",
+    "name_hi": "श्रृंखला गणना, फिर तुलना",
+    "one_liner": "Step by step: Pass → A → B → Sum → % difference from pass",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Assume total marks = 100, so pass marks = given %",
+        "action_hi": "Total marks = 100 maano, toh pass marks = given %",
+        "example": "Pass = 40% of 100 = 40 marks",
+        "example_hi": "Pass = 40% of 100 = 40 marks"
+      },
+      {
+        "step": 2,
+        "action": "Calculate A: Pass - (X% of Pass)",
+        "action_hi": "A nikalo: Pass - (X% of Pass)",
+        "example": "A = 40 - 10% of 40 = 40 - 4 = 36",
+        "example_hi": "A = 40 - 10% of 40 = 40 - 4 = 36"
+      },
+      {
+        "step": 3,
+        "action": "Calculate B: A - (Y% of A)",
+        "action_hi": "B nikalo: A - (Y% of A)",
+        "example": "B = 36 - 11.11% of 36 = 36 - 1/9 x 36 = 36 - 4 = 32",
+        "example_hi": "B = 36 - 11.11% of 36 = 36 - 1/9 x 36 = 36 - 4 = 32"
+      },
+      {
+        "step": 4,
+        "action": "Find sum of A and B",
+        "action_hi": "A aur B ka sum nikalo",
+        "example": "A + B = 36 + 32 = 68",
+        "example_hi": "A + B = 36 + 32 = 68"
+      },
+      {
+        "step": 5,
+        "action": "Find % less: (Sum - Pass) / Sum × 100",
+        "action_hi": "% kam nikalo: (Sum - Pass) / Sum × 100",
+        "example": "(68 - 40) / 68 × 100 = 28/68 × 100 = 41.17%",
+        "example_hi": "(68 - 40) / 68 × 100 = 28/68 × 100 = 41.17%"
+      }
+    ],
+    "formula": {
+      "percentage_less": "(Sum - Target) / Sum × 100",
+      "percentage_more": "(Target - Sum) / Sum × 100"
+    },
+    "memory_hook": "Chain karo: Pass → A → B → Jodo → Compare karo!"
+  },
+  "common_mistakes": [
+    {
+      "mistake": "Percentage kam karte waqt galat base use karna",
+      "wrong": "B = Pass - Y% of Pass (galat base)",
+      "right": "B = A - Y% of A (A is the base for B)",
+      "why": "Har step mein previous value base hai, pass marks nahi"
+    },
+    {
+      "mistake": "% less calculate karte waqt wrong denominator",
+      "wrong": "(68 - 40) / 40 × 100 = 70%",
+      "right": "(68 - 40) / 68 × 100 = 41.17%",
+      "why": "% less than X means divide by X (the reference), not by target"
+    }
+  ],
+  "teaching": {
+    "deep": {
+      "explanation": "**Core Concept: Chained Percentage Calculations**\n\nIs type ke questions mein ek value se shuru karke successive percentage decreases apply karte hain.\n\n**Step-by-step approach:**\n\n1. **Start with a base:** Assume total = 100, so pass = 40\n\n2. **Chain the decreases:**\n   - A = Pass × (1 - 10/100) = 40 × 0.9 = 36\n   - B = A × (1 - 100/900) = 36 × 8/9 = 32\n   - Note: 11(1/9)% = 100/9% = 1/9 as multiplier\n\n3. **Find the comparison:**\n   - Sum = A + B = 68\n   - % less than 68 to get 40 = (68-40)/68 × 100 = 41.17%\n\n**Key insight:** \"X% less than Y\" means (Y-X)/Y × 100, where Y is the reference (denominator).",
+      "duration_seconds": 150,
+      "includes": ["concept", "step_by_step", "formula", "key_insight"]
+    },
+    "shortcut": {
+      "explanation": "**Quick Steps:**\n1. Pass = given % (assume total = 100)\n2. A = Pass - X% of Pass\n3. B = A - Y% of A\n4. Answer = (A+B - Pass) / (A+B) × 100\n\n**Example:** Pass=40, A=36, B=32, Sum=68\nAnswer = 28/68 × 100 = 41.17%",
+      "duration_seconds": 60,
+      "includes": ["steps", "example"]
+    },
+    "instant": {
+      "explanation": "Pass → A → B → Sum → (Sum - Pass)/Sum × 100",
+      "duration_seconds": 10,
+      "includes": ["formula_chain"]
+    }
+  },
+  "visual": {
+    "has_diagram": false,
+    "template_id": null,
+    "description": "",
+    "when_to_show": "on_request"
+  },
+  "prerequisites": {
+    "patterns": ["pc-001"],
+    "concepts": ["percentage-decrease", "successive-percentage"]
+  },
+  "metadata": {
+    "difficulty": 3,
+    "frequency": "low",
+    "years_appeared": [],
+    "avg_time_target_seconds": 90,
+    "related_patterns": ["pc-013"],
+    "tags": ["percentage", "chained-decrease", "successive", "comparison", "sum"]
+  }
+}

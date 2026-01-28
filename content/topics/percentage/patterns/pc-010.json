@@ -1,0 +1,95 @@
+{
+  "id": "pc-010",
+  "topic_id": "percentage",
+  "name": "Find Marks for Different Threshold",
+  "name_hi": "अलग threshold के लिए अंक निकालें",
+  "slug": "find-marks-for-different-threshold",
+  "signature": {
+    "embedding_text": "In a test minimum marks for girls and boys are X% and X%. A boy scored X marks and failed by X marks. What is minimum marks to pass for girls. X% of total marks is required to pass and X% for first class with distinction. A student scored X marks and failed by X marks. How much marks required for first class.",
+    "keywords": ["different threshold", "girls", "boys", "pass", "first class", "distinction", "minimum marks"],
+    "structure": "Given one person's data (score, fail_by, their threshold%), find marks needed for a different threshold%",
+    "variables": ["given_percent", "target_percent", "score", "failed_by"]
+  },
+  "trick": {
+    "name": "Find Total, Apply Target %",
+    "name_hi": "Total निकालो, Target % लगाओ",
+    "one_liner": "Total = (score + fail_by) / given%. Target marks = Total × target%",
+    "steps": [
+      {
+        "step": 1,
+        "action": "Find total marks from given data",
+        "action_hi": "Given data se total marks nikalo",
+        "example": "Boy: 483 + 117 = 600 marks = 40%",
+        "example_hi": "Boy: 483 + 117 = 600 marks = 40%"
+      },
+      {
+        "step": 2,
+        "action": "Calculate total marks",
+        "action_hi": "Total marks calculate karo",
+        "example": "Total = 600 / 0.40 = 1500",
+        "example_hi": "Total = 600 / 0.40 = 1500"
+      },
+      {
+        "step": 3,
+        "action": "Apply target percentage",
+        "action_hi": "Target percentage lagao",
+        "example": "Girls 35% = 1500 × 0.35 = 525",
+        "example_hi": "Girls 35% = 1500 × 0.35 = 525"
+      }
+    ],
+    "formula": {
+      "total_marks": "Total = (score + fail_by) × 100 / given%",
+      "target_marks": "Target = Total × target% / 100"
+    },
+    "memory_hook": "Pehle total nikalo, phir target % lagao!"
+  },
+  "common_mistakes": [
+    {
+      "mistake": "Failed marks add karna bhool jana",
+      "wrong": "Total = 483 / 40% = 1207.5",
+      "right": "Total = (483 + 117) / 40% = 1500",
+      "why": "Fail by 117 means 117 marks short of pass marks"
+    },
+    {
+      "mistake": "Wrong percentage use karna",
+      "wrong": "Girl marks = 1500 × 40% (boy's %)",
+      "right": "Girl marks = 1500 × 35% (girl's %)",
+      "why": "Target calculation needs target percentage, not given percentage"
+    }
+  ],
+  "teaching": {
+    "deep": {
+      "explanation": "**Core Concept: Two-Step Calculation**\n\n**Step 1: Find Total Marks**\nGiven: Someone scored S marks, failed by F, needed P%\nPass marks for them = S + F\nThis equals P% of Total\nSo: Total = (S + F) × 100 / P\n\n**Step 2: Find Target Marks**\nTarget marks = Total × Target% / 100\n\n**Example 1 (Different Groups):**\nBoy needs 40%, scored 483, failed by 117\nTotal = (483 + 117) × 100 / 40 = 1500\nGirls need 35% = 1500 × 35% = 525\n\n**Example 2 (Different Levels):**\n48% to pass, 80% for distinction\nScored 817, failed by 47\nTotal = (817 + 47) × 100 / 48 = 1800\nDistinction = 1800 × 80% = 1440",
+      "duration_seconds": 120,
+      "includes": ["concept", "formula", "multiple_examples"]
+    },
+    "shortcut": {
+      "explanation": "**Two Steps:**\n1. Total = (score + fail) × 100 / given%\n2. Target = Total × target%\n\n**Example:**\nBoy 40%: 483 + 117 = 600 → Total = 1500\nGirl 35%: 1500 × 0.35 = 525",
+      "duration_seconds": 60,
+      "includes": ["formula", "example"]
+    },
+    "instant": {
+      "explanation": "Total = (score + fail) / given% → Target = Total × target%",
+      "duration_seconds": 10,
+      "includes": ["formula"]
+    }
+  },
+  "visual": {
+    "has_diagram": false,
+    "template_id": null,
+    "description": "",
+    "when_to_show": "on_request"
+  },
+  "prerequisites": {
+    "patterns": ["pc-008"],
+    "concepts": ["percentage-calculation"]
+  },
+  "metadata": {
+    "difficulty": 2,
+    "frequency": "high",
+    "years_appeared": [],
+    "avg_time_target_seconds": 45,
+    "related_patterns": ["pc-008", "pc-009"],
+    "tags": ["percentage", "threshold", "pass", "distinction", "first-class", "boys-girls", "minimum-marks"]
+  }
+}

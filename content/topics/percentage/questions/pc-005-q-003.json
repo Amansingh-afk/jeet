@@ -1,0 +1,9 @@
+{
+  "id": "pc-005-q-003",
+  "pattern_id": "pc-005",
+  "topic_id": "percentage",
+  "text": {
+    "en": "If in an exam Rohan marks are 36% less than that of Pawan, then marks obtained by Pawan is how much percentage more than that of Rohan?"
+  },
+  "is_variation": true
+}

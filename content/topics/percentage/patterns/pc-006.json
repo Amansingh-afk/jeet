@@ -1,122 +1,132 @@
 {
   "id": "pc-006",
   "topic_id": "percentage",
-  "name": "Price Increase - Consumption Decrease",
-  "name_hi": "कीमत वृद्धि - उपभोग कमी",
-  "slug": "price-increase-consumption-decrease",
+  "name": "Finding Original Ratio from Compensating Changes",
+  "name_hi": "प्रतिपूरक परिवर्तनों से मूल अनुपात ज्ञात करना",
+  "slug": "original-ratio-from-compensating-changes",
 
   "signature": {
-    "embedding_text": "If price of an item increases by X percent, by what percentage should consumption be decreased to keep the expenditure same",
-    "variables": ["increase_percent"]
+    "embedding_text": "If A is increased by X% and B is decreased by Y% such that their sum remains constant, find the original ratio. If tax increased by X% and net income decreased by Y%, find rate of tax. If one part increases by X% and other decreases by Y% keeping total same, find original proportion.",
+    "keywords": ["ratio", "increased", "decreased", "constant sum", "tax", "net income", "proportion"],
+    "structure": "A + B = constant, A changes by X%, B changes by Y%, find original ratio A:B or A/(A+B)",
+    "variables": ["change_percent_A", "change_percent_B"]
   },
 
   "trick": {
-    "name": "Sign Flip Fraction Trick",
-    "name_hi": "चिन्ह फ्लिप भिन्न ट्रिक",
-    "one_liner": "increase → +X/Y ⇒ decrease → –X/(Y+X)",
+    "name": "Cross-Change Ratio Method",
+    "name_hi": "क्रॉस-चेंज अनुपात विधि",
+    "one_liner": "A ↑ x%, B ↓ y%, Sum constant → A:B = y:x → A/(A+B) = y/(x+y)",
+
     "steps": [
       {
         "step": 1,
-        "action": "Convert percentage increase into fraction (positive sign )",
-        "action_hi": "Percentage increase ko fraction mein convert karo (positive sign)",
-        "example": "20% increase = +1/5",
-        "example_hi": "20% वृद्धि = +1/5"
+        "action": "Identify the two parts and their percentage changes",
+        "action_hi": "Dono parts aur unke percentage changes identify karo",
+        "example": "Tax ↑ 22%, Net Income ↓ 3%",
+        "example_hi": "Tax ↑ 22%, Net Income ↓ 3%"
       },
       {
         "step": 2,
-        "action": "Flip the sign of numerator, Change denominator to (Y+X) to get decrease fraction",
-        "action_hi": "Increase fraction ke numerator ko negative kar do, and denominator ko (Y+X) kar do to get decrease fraction",
-        "example": "Price +1/5 → consumption =–1/(5+1) = –1/6 → decrease = 16.67%",
-        "example_hi": "कीमत +1/5 → उपभोग =–1/(5+1) = –1/6 → कमी = 16.67%"
+        "action": "Since sum is constant, absolute changes are equal: A × x% = B × y%",
+        "action_hi": "Sum constant hai, toh absolute change equal: A × x% = B × y%",
+        "example": "Tax × 22% = Net Income × 3%",
+        "example_hi": "Tax × 22% = Net Income × 3%"
+      },
+      {
+        "step": 3,
+        "action": "Cross-multiply to get ratio: A/B = y/x (changes swap)",
+        "action_hi": "Cross-multiply karke ratio nikalo: A/B = y/x (changes swap hote hain)",
+        "example": "Tax/Net Income = 3/22",
+        "example_hi": "Tax/Net Income = 3/22"
+      },
+      {
+        "step": 4,
+        "action": "For part/total ratio: A/(A+B) = y/(x+y)",
+        "action_hi": "Part/Total ratio ke liye: A/(A+B) = y/(x+y)",
+        "example": "Tax/Income = 3/(22+3) = 3/25 = 12%",
+        "example_hi": "Tax/Income = 3/(22+3) = 3/25 = 12%"
       }
     ],
-    "memory_hook": "Increase fraction ke numerator ko negative kar do, and denominator ko (Y+X) kar do to get decrease fraction",
-    "quick_fractions": {
-      "10%": "1/9 = 11.11%",
-      "20%": "1/4 = 25%",
-      "25%": "1/3 = 33.33%",
-      "30%": "3/7 = 42.86%",
-      "40%": "2/3 = 66.67%",
-      "50%": "1/2 = 100%"
-    },
-    "alternatives": [
-      {
-        "name": "Reciprocal Fraction Method",
-        "name_hi": "व्युत्क्रम भिन्न विधि",
-        "one_liner": "X/(100-X) × 100",
-        "formula": "X / (100 - X) * 100",
-        "formula_latex": "\\frac{X}{100-X} \\times 100",
-        "steps": [
-          {
-            "step": 1,
-            "action": "Convert percentage increase to remaining price fraction",
-            "action_hi": "Percentage increase ko remaining price fraction mein convert karo",
-            "example": "20% increase → price becomes 120% = 6/5",
-            "example_hi": "20% वृद्धि → कीमत 120% = 6/5 हो जाती है"
-          },
-          {
-            "step": 2,
-            "action": "Take reciprocal for consumption fraction, then find decrease percentage",
-            "action_hi": "Consumption fraction ke liye reciprocal lo, phir decrease percentage nikalo",
-            "example": "Price 6/5 → consumption 5/6 → decrease = 5/6 - 1 = 1/6 = 16.67%",
-            "example_hi": "कीमत 6/5 → उपभोग 5/6 → कमी = 5/6 - 1 = 1/6 = 16.67%"
-          }
-        ]
+    "memory_hook": "Changes swap hote hain! Jo zyada change hua uska share kam, jo kam change hua uska share zyada.",
+
+    "formulas": {
+      "ratio_of_parts": {
+        "formula": "A/B = y/x",
+        "formula_latex": "\\frac{A}{B} = \\frac{y}{x}",
+        "description": "If A changes by x% and B changes by y%, their ratio is y:x"
+      },
+      "part_to_total": {
+        "formula": "A/(A+B) = y/(x+y) × 100",
+        "formula_latex": "\\frac{A}{A+B} = \\frac{y}{x+y} \\times 100",
+        "description": "Part A as percentage of total"
       }
-   ]
+    }
   },
 
-    "common_mistakes": [
+  "common_mistakes": [
     {
-      "mistake": "Reciprocal nahi lete, direct percentage use kar lete hain",
-      "wrong": "20% increase → 20% decrease",
-      "right": "20% increase → price 6/5 → consumption 5/6 → 16.67% decrease",
-      "why": "Expenditure same rakhne ke liye reciprocal lena padta hai, direct percentage same nahi hota"
+      "mistake": "Ratio mein changes ko same side rakhna",
+      "wrong": "Tax/Net Income = 22/3 (galat!)",
+      "right": "Tax/Net Income = 3/22 (changes swap!)",
+      "why": "Jiska change zyada, uska original share kam hota hai"
     },
     {
-      "mistake": "Same percentage assume kar lete hain",
-      "wrong": "20% increase → 20% decrease",
-      "right": "20% increase → 16.67% decrease",
-      "why": "Base change hota hai, isliye percentage alag aata hai"
+      "mistake": "Part/Total nikalna bhool jana",
+      "wrong": "Tax rate = 3/22",
+      "right": "Tax rate = 3/(22+3) = 3/25 = 12%",
+      "why": "Rate means part/total, not part/part"
+    },
+    {
+      "mistake": "Constant sum relationship na samajhna",
+      "wrong": "Product constant samajh lena",
+      "right": "Income = Tax + Net Income (sum constant)",
+      "why": "Yahan sum constant hai, product nahi"
     }
   ],
 
   "teaching": {
     "deep": {
-      "explanation": "Concept simple hai: Expenditure = Price × Consumption.\n\nAgar price X% kam hoti hai, to wo (100–X)% reh jaati hai.\nExample: 20% decrease → price = 80% = 4/5\n\nSame paisa kharch karna hai, isliye consumption ko price ke reciprocal ke barabar karna padega.\nPrice = 4/5 → Consumption = 5/4\n\nIncrease = 5/4 – 1 = 1/4 = 25%\n\nRule yaad rakho:\n• Price fraction aur consumption fraction reciprocal hote hain\n• Base change hota hai, isliye same % apply nahi hota\n\nDirect Formula:\nX/(100–X) × 100",
-      "duration_seconds": 120,
-      "includes": ["concept", "why_it_works", "formula", "common_mistakes"]
+      "explanation": "**Core Concept: Constant Sum with Compensating Changes**\n\nJab do quantities ka sum constant ho aur ek badhti hai toh dusri kam hoti hai.\n\n**Mathematical Derivation:**\nLet Income = Tax + Net Income = constant\n\nIf Tax increases by x%, Net Income decreases by y%\n\nSince Income is constant:\nΔ(Tax) = -Δ(Net Income)\nTax × (x/100) = Net Income × (y/100)\n\nTherefore:\nTax/Net Income = y/x\n\n**Finding Rate (Part/Total):**\nTax/Income = Tax/(Tax + Net Income)\n= y/(y + x) [dividing by Net Income]\n\n**Example:**\nTax ↑ 22%, Net Income ↓ 3%\nTax : Net Income = 3 : 22\nTax Rate = 3/25 = 12%\n\n**Why Changes Swap?**\nThe part with larger % change must be smaller in absolute size to maintain equal absolute changes.",
+      "duration_seconds": 180,
+      "includes": ["concept", "derivation", "why_changes_swap", "formula"]
     },
+
     "shortcut": {
-      "explanation": "Quick trick:\n1. 20% decrease = -1/5(-ve sign to show decrease)\n2. Consumption = +1/(5-1) = +1/4(positive sign to show increase)\n3. Increase% = 1/4 * 100 = 25%\n\nYaad rakhna: decrease fraction ke numerator ko negative kar do, and denominator ko (Y-X) kar do to get increase fraction",
+      "explanation": "**Simple Rule:**\n\nA ↑ x%, B ↓ y%, Sum same\n\n1️⃣ **Ratio:** A : B = y : x (changes swap!)\n2️⃣ **Rate:** A/(A+B) = y/(x+y)\n\n**Example:** Tax ↑ 22%, Net Income ↓ 3%\n- Tax : Net Income = 3 : 22\n- Tax Rate = 3/25 = 12%\n\n**Trick:** Jo zyada % change hua, uska share kam!",
       "duration_seconds": 60,
-      "includes": ["trick_steps"]
+      "includes": ["formula", "example", "memory_trick"]
     },
+
     "instant": {
-      "explanation": "20% decrease → -1/5 → +1/4 → 25% increase",
+      "explanation": "A ↑ x%, B ↓ y% → A:B = y:x → A/(A+B) = y/(x+y)",
       "duration_seconds": 10,
-      "includes": ["one_liner"]
+      "includes": ["formula"]
     }
   },
 
   "visual": {
     "has_diagram": true,
-    "template_id": "flow-percentage-decrease-consumption",
-    "description": "Flow diagram showing fraction flip method for price-consumption relationship",
+    "template_id": "constant-sum-ratio",
+    "description": "Shows two parts of a whole with percentage changes and resulting ratio",
     "when_to_show": "always"
   },
 
   "prerequisites": {
-    "patterns": ["pc-001"],
-    "concepts": ["percentage-to-fraction-conversion"]
+    "patterns": ["pc-001", "pc-002"],
+    "concepts": ["percentage-change", "ratio-proportion", "constant-sum"]
   },
 
   "metadata": {
-    "difficulty": 2,
-    "frequency": "high",
+    "difficulty": 3,
+    "frequency": "medium",
     "years_appeared": [2019, 2020, 2021, 2022, 2023],
-    "avg_time_target_seconds": 30,
-    "related_patterns": ["pc-006"],
-    "tags": ["price", "consumption", "expenditure", "fraction-method"]
+    "avg_time_target_seconds": 45,
+    "related_patterns": ["pc-005", "ratio-001"],
+    "tags": ["ratio", "tax", "net income", "constant sum", "compensating changes"],
+    "question_variations": [
+      "Tax increased X%, net income decreased Y%, find tax rate",
+      "Salary increased X%, savings decreased Y%, find savings rate",
+      "One part increased X%, other decreased Y%, find original ratio"
+    ]
   }
 }

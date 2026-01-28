@@ -1,0 +1,30 @@
+{
+  "id": "pc-021-q-001",
+  "pattern_id": "pc-021",
+  "topic_id": "percentage",
+  "text": {
+    "en": "If decreasing 110 by x% gives same result as increasing by x% then x% of 650 is what % more than (x-10)% of 780? (Approx)"
+  },
+  "difficulty": 3,
+  "is_pyq": false,
+  "embedding": null,
+  "extracted_values": {
+    "initial_value": 110,
+    "comparison_value": 650,
+    "reduced_percent": 10,
+    "second_value": 780
+  },
+  "solution": {
+    "trick_application": [
+      "Let 110(1-x/100) = 50(1+x/100)",
+      "Solve for x: 6 = 16x",
+      "x = 3/8 = 37.5%",
+      "(x-10)% = 37.5 - 10 = 27.5%",
+      "27.5% = 11/40",
+      "22/5 = 4.54% x 3",
+      "13.62% ≈ 14% (Approx)"
+    ],
+    "answer": 14,
+    "answer_display": "14%"
+  }
+}
